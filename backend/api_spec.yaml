@@ -1,0 +1,141 @@
+openapi: "3.0.2"
+info:
+  title: "waterprobing"
+  description: "API for waterprobing"
+  version: "2.5"
+  termsOfService: "https://openweathermap.org/terms"
+  contact:
+    name: "OpenWeatherMap API"
+    url: "google.dk"
+    email: "sw708e19@gmail.com"
+  license:
+    name: "CC Attribution-ShareAlike 4.0 (CC BY-SA 4.0)"
+    url: "https://openweathermap.org/price"
+
+servers:
+#These should be changed once we have servers, consider having production and ...
+  - url: https://api.openweathermap.org/data/2.5/
+    description: Production server
+  - url: http://beta.api.openweathermap.org/data/2.5/
+    description: Beta server
+  - url: http://some-other.api.openweathermap.org/data/2.5/
+    description: Some other server
+
+paths:
+  /Thing:
+    post:
+      tags:
+       - Thing
+      description: "Creates new thing"
+      operationId: "NewThing"
+      responses:
+        201:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                title: Sample
+                type: object
+                properties:
+                  placeholder:
+                    type: string
+                    description: Placeholder description
+        404:
+          description: Not created response
+          content:
+            text/plain:
+              schema:
+                title: Thing not cretead
+                type: string
+                example: 
+        
+      #deprecated:
+      #security:
+      #servers:
+      requestBody:
+        description: Optional properties represented as json for the Thing
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/thing'
+              
+    get:
+      tags: 
+      - Thing
+      summary: "sum"
+      description: "desc"
+      operationId: getThing
+      parameters:
+       - $ref: '#/components/parameters/thingname'
+      responses:
+        200:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                title: Sample
+                type: object
+                properties:
+                  placeholder:
+                    type: string
+                    description: Placeholder description
+        404:
+          description: Not found response
+          content:
+            text/plain:
+              schema:
+                title: Thing not found
+                type: string
+                example:
+    delete:
+      tags: 
+      - Thing
+      summary: "sum"
+      description: "desc"
+      operationId: deleteThing
+      parameters:
+       - $ref: '#/components/parameters/thingname'
+        
+      responses:
+        200:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                title: Sample
+                type: object
+                properties:
+                  placeholder:
+                    type: string
+                    description: Placeholder description
+        404:
+          description: Not found response
+          content:
+            text/plain:
+              schema:
+                title: Thing not found
+                type: string
+                example:
+  
+components:
+
+  parameters:
+    thingname: 
+      name: thingname
+      in: query
+      description: "Unique thingName"
+      schema:
+        type: string
+    
+
+  schemas:
+    thing:
+      type: object
+      properties:
+        name:
+          type: string
+        description: 
+          type: string
+        properties:
+          type: object
