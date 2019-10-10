@@ -26,6 +26,7 @@ paths:
     post:
       tags:
        - Thing
+      summary: "Creates a new probe"
       description: "Creates new thing"
       operationId: "NewThing"
       responses:
@@ -63,7 +64,7 @@ paths:
     get:
       tags: 
       - Thing
-      summary: "sum"
+      summary: "Get an existing probe"
       description: "desc"
       operationId: getThing
       parameters:
@@ -91,7 +92,7 @@ paths:
     delete:
       tags: 
       - Thing
-      summary: "sum"
+      summary: "Delete an existing probe"
       description: "desc"
       operationId: deleteThing
       parameters:
@@ -118,6 +119,41 @@ paths:
                 type: string
                 example:
   
+  /Observation:
+    post:
+      tags:
+      - Observation
+      summary: "Call to write observation to database"
+      operationId: postObservation
+      responses:
+        201:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                title: Sample
+                type: object
+                properties:
+                  placeholder:
+                    type: string
+                    description: Placeholder description
+        404:
+          description: Not created response
+          content:
+            text/plain:
+              schema:
+                title: Thing not cretead
+                type: string
+                example:
+      
+      requestBody:
+        description: Optional properties represented as json for the Thing
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/observation'
+         
 components:
 
   parameters:
@@ -130,6 +166,32 @@ components:
     
 
   schemas:
+  
+    tmObject:
+      type: object
+      properties:
+        time:
+          type: string 
+          
+    
+    dqElement:
+      type: object
+      
+    
+    tmInstant:
+      type: object
+      properties:
+        time:
+          type: string
+          
+    tmPeriod:
+      type: object
+      
+    
+    namedValue:
+      type: object
+  
+  
     thing:
       type: object
       properties:
@@ -138,4 +200,29 @@ components:
         description: 
           type: string
         properties:
-          type: object
+          type: array
+          items:
+            type: object
+          
+          
+    observation:
+      type: object
+      properties:
+        phenomenonTime:
+          $ref: '#/components/schemas/tmObject'
+        resultTime:
+          $ref: '#/components/schemas/tmInstant'
+        result:
+          type: number
+        resultQuality:
+          type: array
+          items: 
+            $ref: '#/components/schemas/dqElement'
+        validTime:
+          type: array
+          items:
+            $ref: '#/components/schemas/tmPeriod'
+        parameters:
+          type: array
+          items:
+            $ref: '#/components/schemas/namedValue'
