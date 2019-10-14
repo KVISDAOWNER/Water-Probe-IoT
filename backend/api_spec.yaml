@@ -23,6 +23,19 @@ servers:
 
 paths:
   /Thing:
+    get:
+      tags: 
+      - Thing
+      summary: "Get an existing probe"
+      description: "desc"
+      operationId: getThing
+      parameters:
+       - $ref: '#/components/parameters/thingname'
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+        404:
+          $ref: '#/components/responses/404'
     post:
       tags:
        - Thing
@@ -31,24 +44,9 @@ paths:
       operationId: "NewThing"
       responses:
         201:
-          description: Successful response
-          content:
-            application/json:
-              schema:
-                title: Sample
-                type: object
-                properties:
-                  placeholder:
-                    type: string
-                    description: Placeholder description
+          $ref: '#/components/responses/201'
         404:
-          description: Not created response
-          content:
-            text/plain:
-              schema:
-                title: Thing not cretead
-                type: string
-                example: 
+          $ref: '#/components/responses/404'
         
       #deprecated:
       #security:
@@ -61,34 +59,6 @@ paths:
             schema:
               $ref: '#/components/schemas/thing'
               
-    get:
-      tags: 
-      - Thing
-      summary: "Get an existing probe"
-      description: "desc"
-      operationId: getThing
-      parameters:
-       - $ref: '#/components/parameters/thingname'
-      responses:
-        200:
-          description: Successful response
-          content:
-            application/json:
-              schema:
-                title: Sample
-                type: object
-                properties:
-                  placeholder:
-                    type: string
-                    description: Placeholder description
-        404:
-          description: Not found response
-          content:
-            text/plain:
-              schema:
-                title: Thing not found
-                type: string
-                example:
     delete:
       tags: 
       - Thing
@@ -100,26 +70,24 @@ paths:
         
       responses:
         200:
-          description: Successful response
-          content:
-            application/json:
-              schema:
-                title: Sample
-                type: object
-                properties:
-                  placeholder:
-                    type: string
-                    description: Placeholder description
+          $ref: '#/components/responses/200'
         404:
-          description: Not found response
-          content:
-            text/plain:
-              schema:
-                title: Thing not found
-                type: string
-                example:
+          $ref: '#/components/responses/404'
   
   /Observation:
+    get:
+      tags:
+      - Observation
+      summary: "Call to write observation to database"
+      operationId: getObservation
+      responses:
+        201:
+          $ref: '#/components/responses/201'
+        404:
+          $ref: '#/components/responses/404'
+      
+      parameters: 
+       - $ref: '#/components/parameters/observation'
     post:
       tags:
       - Observation
@@ -127,24 +95,9 @@ paths:
       operationId: postObservation
       responses:
         201:
-          description: Successful response
-          content:
-            application/json:
-              schema:
-                title: Sample
-                type: object
-                properties:
-                  placeholder:
-                    type: string
-                    description: Placeholder description
+          $ref: '#/components/responses/201'
         404:
-          description: Not created response
-          content:
-            text/plain:
-              schema:
-                title: Thing not cretead
-                type: string
-                example:
+          $ref: '#/components/responses/404'
       
       requestBody:
         description: Optional properties represented as json for the Thing
@@ -153,20 +106,253 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/observation'
-         
-components:
+              
 
+              
+              
+  /dataStream:
+    get:
+      tags: 
+      - Datastream
+      summary: "Gets a datastream"
+      operationId: getDatastream
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+        404:
+          $ref: '#/components/responses/404'
+                
+      parameters: 
+        - $ref: '#/components/parameters/dataStream'
+        
+    put:
+      tags: 
+      - Datastream
+      summary: "put to a datastream"
+      operationId: putDatastream
+      responses:
+        201:
+          $ref: '#/components/responses/201'
+        404:
+          $ref: '#/components/responses/404'
+                
+      parameters: 
+        - $ref: '#/components/parameters/dataStream'
+        
+      requestBody:
+        description: Optional properties represented as json for the dataStream
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dataStream'
+    
+    post:
+      tags: 
+      - Datastream
+      summary: "posts a datastream"
+      operationId: postDatastream
+      responses:
+        201:
+          $ref: '#/components/responses/201'
+        404:
+          $ref: '#/components/responses/404'
+                
+      requestBody:
+        description: Optional properties represented as json for the dataStream
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dataStream'
+    
+    delete:
+      tags: 
+      - Datastream
+      summary: "deletes a datastream"
+      operationId: deleteDatastream
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+        404:
+          $ref: '#/components/responses/404'
+                
+      parameters: 
+        - $ref: '#/components/parameters/dataStream'
+    
+    
+  /sensor:
+    get:
+      tags: 
+      - Sensor
+      summary: "gets a sensor"
+      operationId: getSensor
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+        404:
+         $ref: '#/components/responses/404'
+                
+      parameters: 
+        - $ref: '#/components/parameters/sensor'
+        
+    
+    put:
+      tags: 
+      - Sensor
+      summary: "puts a sensor"
+      operationId: putSensor
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+        404:
+          $ref: '#/components/responses/404'
+                
+      parameters: 
+        - $ref: '#/components/parameters/sensor'
+      
+      requestBody:
+        description: Optional properties represented as json for the dataStream
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sensor'
+        
+    post:
+      tags: 
+      - Sensor
+      summary: "post a sensor"
+      operationId: postSensor
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+        404:
+          $ref: '#/components/responses/404'
+                
+      requestBody:
+        description: Optional properties represented as json for the dataStream
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sensor'
+        
+    
+    delete:
+      tags: 
+      - Sensor
+      summary: "deletes a sensor"
+      operationId: deleteSensor
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+        404:
+          $ref: '#/components/responses/404'
+                
+      parameters: 
+        - $ref: '#/components/parameters/sensor'
+    
+      
+  /Location:
+    get:
+      tags:
+       - location
+      summary: "gets a location"
+      operationId: getLocation
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+        404:
+          $ref: '#/components/responses/404'
+                
+    parameters:
+      - $ref: '#/components/parameters/location'
+    
+    post:
+      tags:
+       - location
+      summary: "posting a new location"
+      operationId: postlocation
+      responses:
+        201:
+          $ref: '#/components/responses/201'
+        404:
+          $ref: '#/components/responses/404'
+
+components:
+  responses:
+    200:
+            description: Successful response
+            content:
+              application/json:
+                schema:
+                  title: Sample
+                  type: object
+                  properties:
+                    placeholder:
+                      type: string
+                      description: Placeholder description
+    201:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                title: Sample
+                type: object
+                properties:
+                  placeholder:
+                    type: string
+                    description: Placeholder description
+    
+    404:
+          description: Not created response
+          content:
+            text/plain:
+              schema:
+                title: Thing not cretead
+                type: string
+                example:
+    
   parameters:
+    observation: 
+      name: observationName
+      in: query
+      description: "Unique observationName"
+      required: false
+      schema:
+        type: string
+      
+    dataStream: 
+      name: dataStreamName
+      in: query
+      description: "Unique dataStreamName"
+      schema:
+        type: string
+        
+    sensor: 
+      name: sensorName
+      in: query
+      description: "Unique sensorName"
+      schema:
+        type: string
+        
     thingname: 
       name: thingname
       in: query
       description: "Unique thingName"
       schema:
         type: string
+        
+    location:
+      name: locationName
+      in: query
+      description: "Unique locationName"
+      schema:
+        type: string
     
 
   schemas:
-  
     tmObject:
       type: object
       properties:
@@ -190,10 +376,20 @@ components:
     
     namedValue:
       type: object
+      
+    valueCode:
+      type: object
+      
   
+    gm_envelope:
+      type: object
   
     thing:
       type: object
+      required:
+        - name
+        - description
+        
       properties:
         name:
           type: string
@@ -207,6 +403,11 @@ components:
           
     observation:
       type: object
+      required:
+        - phenomenonTime 
+        - resultTime
+        - result
+        
       properties:
         phenomenonTime:
           $ref: '#/components/schemas/tmObject'
@@ -226,3 +427,45 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/namedValue'
+            
+      
+    dataStream:
+      type: object
+      required:
+       - name
+       - description
+       - observationType
+       - unitOfMeasurement
+       
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        observationType:
+          $ref: '#/components/schemas/valueCode'
+        observedArea:
+          $ref: '#/components/schemas/gm_envelope'
+        phenomenonTime:
+          $ref: '#/components/schemas/tmPeriod'
+        resultTime:
+          $ref: '#/components/schemas/tmPeriod'
+          
+    
+    sensor:
+      type: object
+      required:
+       - name
+       - description
+       - encodingType
+       - metaData
+      
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        encodingType:
+          $ref: '#/components/schemas/valueCode'
+        metaData:
+          type: object         
