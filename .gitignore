@@ -1,2 +1,3 @@
 #gitignore
 backend\rest_api\.vs
+.vs
