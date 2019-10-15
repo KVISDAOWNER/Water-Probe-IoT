@@ -2,11 +2,10 @@ openapi: "3.0.2"
 info:
   title: "waterprobing"
   description: "API for waterprobing"
-  version: "2.5"
+  version: "1"
   termsOfService: "https://openweathermap.org/terms"
   contact:
     name: "OpenWeatherMap API"
-    url: "google.dk"
     email: "sw708e19@gmail.com"
   license:
     name: "CC Attribution-ShareAlike 4.0 (CC BY-SA 4.0)"
@@ -283,36 +282,36 @@ paths:
 components:
   responses:
     200:
-            description: Successful response
-            content:
-              application/json:
-                schema:
-                  title: Sample
-                  type: object
-                  properties:
-                    placeholder:
-                      type: string
-                      description: Placeholder description
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            title: Sample
+            type: object
+            properties:
+              placeholder:
+                type: string
+                description: Placeholder description
     201:
-          description: Successful response
-          content:
-            application/json:
-              schema:
-                title: Sample
-                type: object
-                properties:
-                  placeholder:
-                    type: string
-                    description: Placeholder description
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            title: Sample
+            type: object
+            properties:
+              placeholder:
+                type: string
+                description: Placeholder description
     
     404:
-          description: Not created response
-          content:
-            text/plain:
-              schema:
-                title: Thing not cretead
-                type: string
-                example:
+      description: Not created response
+      content:
+        text/plain:
+          schema:
+            title: Thing not cretead
+            type: string
+            example:
     
   parameters:
     observation: 
