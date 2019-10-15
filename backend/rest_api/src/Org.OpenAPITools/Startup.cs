@@ -23,6 +23,9 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 using Org.OpenAPITools.Filters;
 using Org.OpenAPITools.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Org.OpenAPITools.Models;
+using Microsoft.Extensions.Options;
+using Org.OpenAPITools.Services;
 
 namespace Org.OpenAPITools
 {
@@ -53,6 +56,15 @@ namespace Org.OpenAPITools
         {
 
             // Add framework services.
+            // requires using Microsoft.Extensions.Options
+            services.Configure<ThingDatabaseSettings>(
+                Configuration.GetSection(nameof(ThingDatabaseSettings)));
+
+            services.AddSingleton<IThingDatabaseSettings>(sp =>
+                sp.GetRequiredService<IOptions<ThingDatabaseSettings>>().Value);
+
+            services.AddSingleton<ThingService>();
+
             services
                 .AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)

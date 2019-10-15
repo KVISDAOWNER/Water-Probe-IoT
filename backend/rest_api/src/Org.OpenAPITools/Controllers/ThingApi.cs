@@ -18,6 +18,7 @@ using System.ComponentModel.DataAnnotations;
 using Org.OpenAPITools.Attributes;
 using Microsoft.AspNetCore.Authorization;
 using Org.OpenAPITools.Models;
+using Org.OpenAPITools.Services;
 
 namespace Org.OpenAPITools.Controllers
 { 
@@ -26,7 +27,15 @@ namespace Org.OpenAPITools.Controllers
     /// </summary>
     [ApiController]
     public class ThingApiController : ControllerBase
-    { 
+    {
+        public ThingApiController (ThingService thingService)
+        {
+            this._thingService = thingService;
+        }
+
+        private readonly ThingService _thingService;
+
+
         /// <summary>
         /// Delete an existing probe
         /// </summary>
@@ -71,20 +80,24 @@ namespace Org.OpenAPITools.Controllers
         [SwaggerResponse(statusCode: 200, type: typeof(Sample), description: "Successful response")]
         [SwaggerResponse(statusCode: 404, type: typeof(string), description: "Not created response")]
         public virtual IActionResult GetThing([FromQuery]string thingname)
-        { 
+        {
+            try
+            {
+                //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+                // return StatusCode(200, default(Sample));
+                //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+                // return StatusCode(404, default(string));
+                string exampleJson = _thingService.Get(thingname).ToJson();
 
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(Sample));
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(string));
-            string exampleJson = null;
-            exampleJson = "{\r\n  \"placeholder\" : \"placeholder\"\r\n}";
+                //TODO: Change the data returned
+                return new ObjectResult(exampleJson);
+            }
+            catch (Exception)
+            {
+
+                return StatusCode(404, default(string));
+            }
             
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<Sample>(exampleJson)
-            : default(Sample);
-            //TODO: Change the data returned
-            return new ObjectResult(example);
         }
 
         /// <summary>
@@ -101,20 +114,22 @@ namespace Org.OpenAPITools.Controllers
         [SwaggerResponse(statusCode: 201, type: typeof(Sample), description: "Successful response")]
         [SwaggerResponse(statusCode: 404, type: typeof(string), description: "Not created response")]
         public virtual IActionResult NewThing([FromBody]Thing thing)
-        { 
+        {
+            try
+            {
+                _thingService.Create(thing);
 
+                return StatusCode(201, default(Sample));
+
+            }
+            catch (Exception e)
+            {
+
+                return StatusCode(404, default(string));
+            }
             //TODO: Uncomment the next line to return response 201 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(201, default(Sample));
+
             //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(string));
-            string exampleJson = null;
-            exampleJson = "{\r\n  \"placeholder\" : \"placeholder\"\r\n}";
-            
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<Sample>(exampleJson)
-            : default(Sample);
-            //TODO: Change the data returned
-            return new ObjectResult(example);
         }
     }
 }
