@@ -8,8 +8,8 @@
 - Add info or conext to something
 
 # Pull Request Checklist
-- [] Tests
-- [] Documentation
+- [ ] Tests
+- [ ] Documentation
 
 
 # For code reviewers
