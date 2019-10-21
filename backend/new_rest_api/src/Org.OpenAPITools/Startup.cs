@@ -23,6 +23,9 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 using Org.OpenAPITools.Filters;
 using Org.OpenAPITools.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Org.OpenAPITools.Models;
+using Microsoft.Extensions.Options;
+using Org.OpenAPITools.Services;
 
 namespace Org.OpenAPITools
 {
@@ -51,6 +54,17 @@ namespace Org.OpenAPITools
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
+
+            
+
+            // requires using Microsoft.Extensions.Options
+            services.Configure<WaterProbeDatabaseSettings>(
+                Configuration.GetSection(nameof(WaterProbeDatabaseSettings)));
+
+            services.AddSingleton<WaterProbeDatabaseSettings>(sp =>
+                sp.GetRequiredService<IOptions<WaterProbeDatabaseSettings>>().Value);
+
+            services.AddSingleton<DatastreamService>();
 
             // Add framework services.
             services
