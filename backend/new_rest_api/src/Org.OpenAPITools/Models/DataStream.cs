@@ -48,6 +48,13 @@ namespace Org.OpenAPITools.Models
         public Object ObservationType { get; set; }
 
         /// <summary>
+        /// Gets or Sets UnitOfMeasurement
+        /// </summary>
+        [Required]
+        [DataMember(Name="unitOfMeasurement", EmitDefaultValue=false)]
+        public List<Object> UnitOfMeasurement { get; set; }
+
+        /// <summary>
         /// Gets or Sets ObservedArea
         /// </summary>
         [DataMember(Name="observedArea", EmitDefaultValue=false)]
@@ -97,6 +104,7 @@ namespace Org.OpenAPITools.Models
             sb.Append("  Name: ").Append(Name).Append("\n");
             sb.Append("  Description: ").Append(Description).Append("\n");
             sb.Append("  ObservationType: ").Append(ObservationType).Append("\n");
+            sb.Append("  UnitOfMeasurement: ").Append(UnitOfMeasurement).Append("\n");
             sb.Append("  ObservedArea: ").Append(ObservedArea).Append("\n");
             sb.Append("  PhenomenonTime: ").Append(PhenomenonTime).Append("\n");
             sb.Append("  ResultTime: ").Append(ResultTime).Append("\n");
@@ -155,6 +163,12 @@ namespace Org.OpenAPITools.Models
                     ObservationType.Equals(other.ObservationType)
                 ) && 
                 (
+                    UnitOfMeasurement == other.UnitOfMeasurement ||
+                    UnitOfMeasurement != null &&
+                    other.UnitOfMeasurement != null &&
+                    UnitOfMeasurement.SequenceEqual(other.UnitOfMeasurement)
+                ) && 
+                (
                     ObservedArea == other.ObservedArea ||
                     ObservedArea != null &&
                     ObservedArea.Equals(other.ObservedArea)
@@ -202,6 +216,8 @@ namespace Org.OpenAPITools.Models
                     hashCode = hashCode * 59 + Description.GetHashCode();
                     if (ObservationType != null)
                     hashCode = hashCode * 59 + ObservationType.GetHashCode();
+                    if (UnitOfMeasurement != null)
+                    hashCode = hashCode * 59 + UnitOfMeasurement.GetHashCode();
                     if (ObservedArea != null)
                     hashCode = hashCode * 59 + ObservedArea.GetHashCode();
                     if (PhenomenonTime != null)

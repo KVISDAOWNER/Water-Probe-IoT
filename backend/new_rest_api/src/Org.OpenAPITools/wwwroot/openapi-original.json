@@ -1296,6 +1296,12 @@
           "observationType" : {
             "type" : "object"
           },
+          "unitOfMeasurement" : {
+            "items" : {
+              "type" : "object"
+            },
+            "type" : "array"
+          },
           "observedArea" : {
             "type" : "object"
           },
