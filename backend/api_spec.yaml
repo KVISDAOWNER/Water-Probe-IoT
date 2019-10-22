@@ -1,4 +1,3 @@
-#Tutorial used https://idratherbewriting.com/learnapidoc/pubapis_openapi_step1_openapi_object.html
 openapi: "3.0.2"
 info:
   title: "WaterProbe API"
@@ -25,9 +24,6 @@ paths:
       summary: "Creates a new probe"
       description: "Creates new thing"
       operationId: "NewThing"
-      security:
-        - oauth2:
-          - modifyData
       responses:
         201:
           $ref: '#/components/responses/201'
@@ -46,9 +42,6 @@ paths:
       - Thing
       summary: "Delete an existing probe"
       operationId: deleteThing
-      security:
-        - oauth2:
-          - modifyData
       parameters:
        - $ref: '#/components/parameters/thingname'
         
@@ -77,9 +70,6 @@ paths:
       - Observation
       summary: "Call to write observation to database"
       operationId: postObservation
-      security:
-        - oauth2:
-          - modifyData
       responses:
         201:
           $ref: '#/components/responses/201'
@@ -93,8 +83,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/observation'
-              
-
               
               
   /dataStream:
@@ -117,9 +105,6 @@ paths:
       - Datastream
       summary: "put to a datastream"
       operationId: putDatastream
-      security:
-        - oauth2:
-          - modifyData
       responses:
         201:
           $ref: '#/components/responses/201'
@@ -142,9 +127,6 @@ paths:
       - Datastream
       summary: "posts a datastream"
       operationId: postDatastream
-      security:
-        - oauth2:
-          - modifyData
       responses:
         201:
           $ref: '#/components/responses/201'
@@ -164,9 +146,6 @@ paths:
       - Datastream
       summary: "deletes a datastream"
       operationId: deleteDatastream
-      security:
-        - oauth2:
-          - modifyData
       responses:
         200:
           $ref: '#/components/responses/200'
@@ -198,9 +177,6 @@ paths:
       - Sensor
       summary: "puts a sensor"
       operationId: putSensor
-      security:
-        - oauth2:
-          - modifyData
       responses:
         200:
           $ref: '#/components/responses/200'
@@ -222,9 +198,6 @@ paths:
       - Sensor
       summary: "post a sensor"
       operationId: postSensor
-      security:
-        - oauth2:
-          - modifyData
       responses:
         200:
           $ref: '#/components/responses/200'
@@ -244,9 +217,6 @@ paths:
       - Sensor
       summary: "deletes a sensor"
       operationId: deleteSensor
-      security:
-        - oauth2:
-          - modifyData
       responses:
         200:
           $ref: '#/components/responses/200'
@@ -274,9 +244,6 @@ paths:
       - Location
       summary: "updates a location"
       operationId: putLocation
-      security:
-        - oauth2:
-          - modifyData
       responses:
         200:
           $ref: '#/components/responses/200'
@@ -295,9 +262,6 @@ paths:
        - Location
       summary: "posting a new location"
       operationId: postlocation
-      security:
-        - oauth2:
-          - modifyData
       responses:
         201:
           $ref: '#/components/responses/201'
@@ -315,9 +279,6 @@ paths:
       - Location
       summary: "deletes a sensor"
       operationId: deleteLocation
-      security:
-        - oauth2:
-          - modifyData
       responses:
         200:
           $ref: '#/components/responses/200'
@@ -346,9 +307,6 @@ paths:
       - FeatureOfInterest
       summary: "updates a FeatureOfInterest"
       operationId: putFeatureOfInterest
-      security:
-        - oauth2:
-          - modifyData
       responses:
         200:
           $ref: '#/components/responses/200'
@@ -366,9 +324,6 @@ paths:
        - FeatureOfInterest
       summary: "posting a new FeatureOfInterest"
       operationId: postFeatureOfInterest
-      security:
-        - oauth2:
-          - modifyData
       responses:
         201:
           $ref: '#/components/responses/201'
@@ -386,9 +341,6 @@ paths:
       - FeatureOfInterest
       summary: "deletes a FeatureOfInterest"
       operationId: deleteFeatureOfInterest
-      security:
-        - oauth2:
-          - modifyData
       responses:
         200:
           $ref: '#/components/responses/200'
@@ -416,9 +368,6 @@ paths:
       - ObservedProperty
       summary: "updates an ObservedProperty"
       operationId: putObservedProperty
-      security:
-        - oauth2:
-          - modifyData
       responses:
         200:
           $ref: '#/components/responses/200'
@@ -435,9 +384,6 @@ paths:
       - ObservedProperty
       summary: "Creates a new ObservedProperty"
       operationId: postObservedProperty
-      security:
-        - oauth2:
-          - modifyData
       responses:
         201:
           $ref: '#/components/responses/201'
@@ -454,9 +400,6 @@ paths:
       - ObservedProperty
       summary: "Deletes an ObservedProperty"
       operationId: deleteObservedProperty
-      security:
-        - oauth2:
-          - modifyData
       responses:
         200:
           $ref: '#/components/responses/200'
@@ -551,7 +494,7 @@ components:
       description: "Unique ObservedProperty name"
       schema:
         type: string
-        
+    
 
   schemas:
     location:
@@ -667,10 +610,6 @@ components:
           type: string
         observationType:
           $ref: '#/components/schemas/valueCode'
-        unitOfMeasurement:
-          type: array
-          items:
-            type: object
         observedArea:
           $ref: '#/components/schemas/gm_envelope'
         phenomenonTime:
@@ -732,13 +671,3 @@ components:
           type: string
         description:
           type: string
-  securitySchemes:
-    oAuthModify:
-      type: oauth2
-      description: This API uses OAuth 2 with the implicit grant flow.
-      flows:
-        password:
-          tokenUrl: /oauth2/token
-          scopes:
-            modifyData: modify all data
-    
