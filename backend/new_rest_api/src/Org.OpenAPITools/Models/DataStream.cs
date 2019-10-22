@@ -44,53 +44,53 @@ namespace Org.OpenAPITools.Models
         /// Gets or Sets ObservationType
         /// </summary>
         [Required]
-        [DataMember(Name="observationType", EmitDefaultValue=false)]
+        [DataMember(Name="observationtype", EmitDefaultValue=false)]
         public Object ObservationType { get; set; }
 
         /// <summary>
         /// Gets or Sets UnitOfMeasurement
         /// </summary>
         [Required]
-        [DataMember(Name="unitOfMeasurement", EmitDefaultValue=false)]
+        [DataMember(Name="unitofMeasurement", EmitDefaultValue=false)]
         public List<Object> UnitOfMeasurement { get; set; }
 
         /// <summary>
         /// Gets or Sets ObservedArea
         /// </summary>
-        [DataMember(Name="observedArea", EmitDefaultValue=false)]
+        [DataMember(Name="observedarea", EmitDefaultValue=false)]
         public Object ObservedArea { get; set; }
 
         /// <summary>
         /// Gets or Sets PhenomenonTime
         /// </summary>
-        [DataMember(Name="phenomenonTime", EmitDefaultValue=false)]
+        [DataMember(Name="phenomenontime", EmitDefaultValue=false)]
         public Object PhenomenonTime { get; set; }
 
         /// <summary>
         /// Gets or Sets ResultTime
         /// </summary>
-        [DataMember(Name="resultTime", EmitDefaultValue=false)]
+        [DataMember(Name="resulttime", EmitDefaultValue=false)]
         public Object ResultTime { get; set; }
 
         /// <summary>
         /// Gets or Sets ThingRef
         /// </summary>
         [Required]
-        [DataMember(Name="thingRef", EmitDefaultValue=false)]
+        [DataMember(Name="thingref", EmitDefaultValue=false)]
         public string ThingRef { get; set; }
 
         /// <summary>
         /// Gets or Sets SensorRef
         /// </summary>
         [Required]
-        [DataMember(Name="sensorRef", EmitDefaultValue=false)]
+        [DataMember(Name="sensorref", EmitDefaultValue=false)]
         public string SensorRef { get; set; }
 
         /// <summary>
         /// Gets or Sets ObservedPropertyRef
         /// </summary>
         [Required]
-        [DataMember(Name="observedPropertyRef", EmitDefaultValue=false)]
+        [DataMember(Name="observedpropertyref", EmitDefaultValue=false)]
         public string ObservedPropertyRef { get; set; }
 
         /// <summary>

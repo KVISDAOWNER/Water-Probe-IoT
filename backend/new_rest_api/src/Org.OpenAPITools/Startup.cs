@@ -61,7 +61,7 @@ namespace Org.OpenAPITools
             services.Configure<WaterProbeDatabaseSettings>(
                 Configuration.GetSection(nameof(WaterProbeDatabaseSettings)));
 
-            services.AddSingleton<WaterProbeDatabaseSettings>(sp =>
+            services.AddSingleton<IWaterProbeDatabaseSettings>(sp =>
                 sp.GetRequiredService<IOptions<WaterProbeDatabaseSettings>>().Value);
 
             services.AddSingleton<DatastreamService>();
