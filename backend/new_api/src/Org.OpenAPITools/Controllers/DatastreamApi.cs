@@ -18,21 +18,22 @@ using System.ComponentModel.DataAnnotations;
 using Org.OpenAPITools.Attributes;
 using Microsoft.AspNetCore.Authorization;
 using Org.OpenAPITools.Models;
+using Org.OpenAPITools.Services;
 
 namespace Org.OpenAPITools.Controllers
 {
-    private readonly DatastreamService _dataStreamService;
-    public DatastreamApiController(DatastreamService dataStreamService)
-    {
-        _dataStreamService = dataStreamService;
-    }
-
     /// <summary>
     /// 
     /// </summary>
     [ApiController]
     public class DatastreamApiController : ControllerBase
-    { 
+    {
+        private readonly DatastreamService _dataStreamService;
+        public DatastreamApiController(DatastreamService dataStreamService)
+        {
+            _dataStreamService = dataStreamService;
+        }
+
         /// <summary>
         /// deletes a datastream
         /// </summary>
