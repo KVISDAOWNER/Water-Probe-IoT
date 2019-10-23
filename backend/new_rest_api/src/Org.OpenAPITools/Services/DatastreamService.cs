@@ -20,11 +20,12 @@ namespace Org.OpenAPITools.Services
         }
 
         public List<DataStream> Get() =>
-            _dataStreams.Find(book => true).ToList();
+            _dataStreams.Find(datastream => true).ToList();
 
-        public DataStream Get(string id) =>  
-            _dataStreams.Find(dataStream => dataStream.Name == id).FirstOrDefault();
-        
+        public DataStream Get(string id) =>
+            _dataStreams.Find<DataStream>(dataStream => dataStream.Name == id).FirstOrDefault();
+
+
         public DataStream Create(DataStream dataStream)
         {
             _dataStreams.InsertOne(dataStream);

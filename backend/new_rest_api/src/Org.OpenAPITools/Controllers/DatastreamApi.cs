@@ -83,18 +83,18 @@ namespace Org.OpenAPITools.Controllers
 
             try
             {
-                string exampleJson = _dataStreamService.Get(dataStreamName).ToJson();
+                var exampleJson = _dataStreamService.Get(dataStreamName).ToJson();
 
-                //TODO: Change the data returned
+
                 return new ObjectResult(exampleJson);
-                //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-                // return StatusCode(200, default(Sample));
+
                 //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
                 // return StatusCode(404, default(string));
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return StatusCode(404, default(string));
+                //TODO: Maybe change response message to default(string)
+                return StatusCode(404, e.Message);
             }
         }
 
