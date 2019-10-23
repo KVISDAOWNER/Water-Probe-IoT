@@ -24,13 +24,28 @@ namespace Org.OpenAPITools.Models
     /// 
     /// </summary>
     [DataContract]
-    public partial class TmObject : IEquatable<TmObject>
+    public partial class Location : IEquatable<Location>
     { 
         /// <summary>
-        /// Gets or Sets Time
+        /// Gets or Sets Description
         /// </summary>
-        [DataMember(Name="time", EmitDefaultValue=false)]
-        public string Time { get; set; }
+        [Required]
+        [DataMember(Name="description", EmitDefaultValue=false)]
+        public string Description { get; set; }
+
+        /// <summary>
+        /// Gets or Sets EncodingType
+        /// </summary>
+        [Required]
+        [DataMember(Name="encodingType", EmitDefaultValue=false)]
+        public Object EncodingType { get; set; }
+
+        /// <summary>
+        /// Gets or Sets _Location
+        /// </summary>
+        [Required]
+        [DataMember(Name="location", EmitDefaultValue=false)]
+        public Object _Location { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -39,8 +54,10 @@ namespace Org.OpenAPITools.Models
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class TmObject {\n");
-            sb.Append("  Time: ").Append(Time).Append("\n");
+            sb.Append("class Location {\n");
+            sb.Append("  Description: ").Append(Description).Append("\n");
+            sb.Append("  EncodingType: ").Append(EncodingType).Append("\n");
+            sb.Append("  _Location: ").Append(_Location).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -63,24 +80,34 @@ namespace Org.OpenAPITools.Models
         {
             if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((TmObject)obj);
+            return obj.GetType() == GetType() && Equals((Location)obj);
         }
 
         /// <summary>
-        /// Returns true if TmObject instances are equal
+        /// Returns true if Location instances are equal
         /// </summary>
-        /// <param name="other">Instance of TmObject to be compared</param>
+        /// <param name="other">Instance of Location to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(TmObject other)
+        public bool Equals(Location other)
         {
             if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
 
             return 
                 (
-                    Time == other.Time ||
-                    Time != null &&
-                    Time.Equals(other.Time)
+                    Description == other.Description ||
+                    Description != null &&
+                    Description.Equals(other.Description)
+                ) && 
+                (
+                    EncodingType == other.EncodingType ||
+                    EncodingType != null &&
+                    EncodingType.Equals(other.EncodingType)
+                ) && 
+                (
+                    _Location == other._Location ||
+                    _Location != null &&
+                    _Location.Equals(other._Location)
                 );
         }
 
@@ -94,8 +121,12 @@ namespace Org.OpenAPITools.Models
             {
                 var hashCode = 41;
                 // Suitable nullity checks etc, of course :)
-                    if (Time != null)
-                    hashCode = hashCode * 59 + Time.GetHashCode();
+                    if (Description != null)
+                    hashCode = hashCode * 59 + Description.GetHashCode();
+                    if (EncodingType != null)
+                    hashCode = hashCode * 59 + EncodingType.GetHashCode();
+                    if (_Location != null)
+                    hashCode = hashCode * 59 + _Location.GetHashCode();
                 return hashCode;
             }
         }
@@ -103,12 +134,12 @@ namespace Org.OpenAPITools.Models
         #region Operators
         #pragma warning disable 1591
 
-        public static bool operator ==(TmObject left, TmObject right)
+        public static bool operator ==(Location left, Location right)
         {
             return Equals(left, right);
         }
 
-        public static bool operator !=(TmObject left, TmObject right)
+        public static bool operator !=(Location left, Location right)
         {
             return !Equals(left, right);
         }

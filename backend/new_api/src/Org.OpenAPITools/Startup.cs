@@ -44,7 +44,7 @@ namespace Org.OpenAPITools
         }
 
         /// <summary>
-            /// The application configuration.
+        /// The application configuration.
         /// </summary>
         public IConfiguration Configuration { get; }
 
@@ -55,7 +55,7 @@ namespace Org.OpenAPITools
         public void ConfigureServices(IServiceCollection services)
         {
 
-            
+
 
             // requires using Microsoft.Extensions.Options
             services.Configure<WaterProbeDatabaseSettings>(
@@ -89,9 +89,9 @@ namespace Org.OpenAPITools
                         Description = "WaterProbe API (ASP.NET Core 2.0)",
                         Contact = new Contact()
                         {
-                           Name = "OpenAPI-Generator Contributors",
-                           Url = "https://github.com/openapitools/openapi-generator",
-                           Email = ""
+                            Name = "OpenAPI-Generator Contributors",
+                            Url = "https://github.com/openapitools/openapi-generator",
+                            Email = ""
                         },
                         TermsOfService = ""
                     });

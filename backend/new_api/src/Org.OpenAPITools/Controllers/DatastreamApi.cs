@@ -20,26 +20,32 @@ using Microsoft.AspNetCore.Authorization;
 using Org.OpenAPITools.Models;
 
 namespace Org.OpenAPITools.Controllers
-{ 
+{
+    private readonly DatastreamService _dataStreamService;
+    public DatastreamApiController(DatastreamService dataStreamService)
+    {
+        _dataStreamService = dataStreamService;
+    }
+
     /// <summary>
     /// 
     /// </summary>
     [ApiController]
-    public class ThingApiController : ControllerBase
+    public class DatastreamApiController : ControllerBase
     { 
         /// <summary>
-        /// Delete an existing probe
+        /// deletes a datastream
         /// </summary>
-        /// <param name="thingname">Unique thingName</param>
+        /// <param name="dataStreamName">Unique dataStreamName</param>
         /// <response code="200">Successful response</response>
         /// <response code="404">Not created response</response>
         [HttpDelete]
-        [Route("/Thing")]
+        [Route("/dataStream")]
         [ValidateModelState]
-        [SwaggerOperation("DeleteThing")]
+        [SwaggerOperation("DeleteDatastream")]
         [SwaggerResponse(statusCode: 200, type: typeof(Sample), description: "Successful response")]
         [SwaggerResponse(statusCode: 404, type: typeof(string), description: "Not created response")]
-        public virtual IActionResult DeleteThing([FromQuery]string thingname)
+        public virtual IActionResult DeleteDatastream([FromQuery]string dataStreamName)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
@@ -57,18 +63,51 @@ namespace Org.OpenAPITools.Controllers
         }
 
         /// <summary>
-        /// Get an existing probe
+        /// Gets a datastream
         /// </summary>
-        /// <param name="thingname">Unique thingName</param>
+        /// <param name="dataStreamName">Unique dataStreamName</param>
         /// <response code="200">Successful response</response>
         /// <response code="404">Not created response</response>
         [HttpGet]
-        [Route("/Thing")]
+        [Route("/dataStream")]
         [ValidateModelState]
-        [SwaggerOperation("GetThing")]
+        [SwaggerOperation("GetDatastream")]
         [SwaggerResponse(statusCode: 200, type: typeof(Sample), description: "Successful response")]
         [SwaggerResponse(statusCode: 404, type: typeof(string), description: "Not created response")]
-        public virtual IActionResult GetThing([FromQuery]string thingname)
+        public virtual IActionResult GetDatastream([FromQuery]string dataStreamName)
+        {
+
+            //Find the observations with the ref to this datastream and return them. 
+            try
+            {
+                var exampleJson = _dataStreamService.Get(dataStreamName).ToJson();
+
+
+                return new ObjectResult(exampleJson);
+
+                //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+                // return StatusCode(404, default(string));
+            }
+            catch (Exception e)
+            {
+                //TODO: Maybe change response message to default(string)
+                return StatusCode(404, e.Message);
+            }
+        }
+
+        /// <summary>
+        /// Get all datastreams from thing
+        /// </summary>
+        /// <param name="thingRef">Ref to unique thing</param>
+        /// <response code="200">Successful response</response>
+        /// <response code="404">Not created response</response>
+        [HttpGet]
+        [Route("/dataStreams")]
+        [ValidateModelState]
+        [SwaggerOperation("GetDatastreams")]
+        [SwaggerResponse(statusCode: 200, type: typeof(Sample), description: "Successful response")]
+        [SwaggerResponse(statusCode: 404, type: typeof(string), description: "Not created response")]
+        public virtual IActionResult GetDatastreams([FromQuery]string thingRef)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
@@ -86,19 +125,48 @@ namespace Org.OpenAPITools.Controllers
         }
 
         /// <summary>
-        /// Creates a new probe
+        /// posts a datastream
         /// </summary>
-        /// <remarks>Creates new thing</remarks>
-        /// <param name="thing">Optional properties represented as json for the Thing</param>
+        /// <param name="dataStream">Optional properties represented as json for the dataStream</param>
         /// <response code="201">Successful response</response>
         /// <response code="404">Not created response</response>
         [HttpPost]
-        [Route("/Thing")]
+        [Route("/dataStream")]
         [ValidateModelState]
-        [SwaggerOperation("NewThing")]
+        [SwaggerOperation("PostDatastream")]
         [SwaggerResponse(statusCode: 201, type: typeof(Sample), description: "Successful response")]
         [SwaggerResponse(statusCode: 404, type: typeof(string), description: "Not created response")]
-        public virtual IActionResult NewThing([FromBody]Thing thing)
+        public virtual IActionResult PostDatastream([FromBody]DataStream dataStream)
+        { 
+
+            //TODO: Uncomment the next line to return response 201 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(201, default(Sample));
+            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(404, default(string));
+            string exampleJson = null;
+            exampleJson = "{\r\n  \"placeholder\" : \"placeholder\"\r\n}";
+            
+            var example = exampleJson != null
+            ? JsonConvert.DeserializeObject<Sample>(exampleJson)
+            : default(Sample);
+            //TODO: Change the data returned
+            return new ObjectResult(example);
+        }
+
+        /// <summary>
+        /// put to a datastream
+        /// </summary>
+        /// <param name="dataStream">Optional properties represented as json for the dataStream</param>
+        /// <param name="dataStreamName">Unique dataStreamName</param>
+        /// <response code="201">Successful response</response>
+        /// <response code="404">Not created response</response>
+        [HttpPut]
+        [Route("/dataStream")]
+        [ValidateModelState]
+        [SwaggerOperation("PutDatastream")]
+        [SwaggerResponse(statusCode: 201, type: typeof(Sample), description: "Successful response")]
+        [SwaggerResponse(statusCode: 404, type: typeof(string), description: "Not created response")]
+        public virtual IActionResult PutDatastream([FromBody]DataStream dataStream, [FromQuery]string dataStreamName)
         { 
 
             //TODO: Uncomment the next line to return response 201 or use other options such as return this.NotFound(), return this.BadRequest(..), ...

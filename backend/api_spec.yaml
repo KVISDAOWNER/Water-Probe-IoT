@@ -5,6 +5,17 @@ info:
   version: "1"
 
 paths:
+  /Things:
+    get:
+      tags: 
+      - Thing
+      summary: "Gets all things (probes)"
+      operationId: getThings
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+        404:
+          $ref: '#/components/responses/404'
   /Thing:
     get:
       tags: 
@@ -51,11 +62,25 @@ paths:
         404:
           $ref: '#/components/responses/404'
   
+  /Observations:
+    get:
+      tags:
+      - Observation
+      summary: "Get all observations associated to datastream"
+      operationId: getObservations
+      responses:
+        201:
+          $ref: '#/components/responses/201'
+        404:
+          $ref: '#/components/responses/404'
+      
+      parameters: 
+       - $ref: '#/components/parameters/datastreamRef'
   /Observation:
     get:
       tags:
       - Observation
-      summary: "Call to write observation to database"
+      summary: "Call to get observation from database"
       operationId: getObservation
       responses:
         201:
@@ -85,6 +110,21 @@ paths:
               $ref: '#/components/schemas/observation'
               
               
+  /dataStreams:
+      get:
+        tags: 
+        - Datastream
+        summary: "Get all datastreams from thing"
+        operationId: getDatastreams
+        responses:
+          200:
+            $ref: '#/components/responses/200'
+          404:
+            $ref: '#/components/responses/404'
+                  
+        parameters: 
+          - $ref: '#/components/parameters/thingRef'
+        
   /dataStream:
     get:
       tags: 
@@ -494,7 +534,18 @@ components:
       description: "Unique ObservedProperty name"
       schema:
         type: string
-    
+    thingRef:
+      name: thingRef
+      in: query
+      description: "Ref to unique thing"
+      schema:
+        type: string
+    datastreamRef:
+      name: datastreamRef
+      in: query
+      description: "Ref to unique datastream"
+      schema:
+        type: string
 
   schemas:
     location:
@@ -610,9 +661,9 @@ components:
           type: string
         observationType:
           $ref: '#/components/schemas/valueCode'
-        unitOfMeasurement:	
+        unitOfMeasurement:
           type: array	
-          items:	
+          items:
             type: object
         observedArea:
           $ref: '#/components/schemas/gm_envelope'

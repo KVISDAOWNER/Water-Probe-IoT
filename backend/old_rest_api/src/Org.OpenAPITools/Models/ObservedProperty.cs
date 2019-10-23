@@ -24,13 +24,28 @@ namespace Org.OpenAPITools.Models
     /// 
     /// </summary>
     [DataContract]
-    public partial class TmObject : IEquatable<TmObject>
+    public partial class ObservedProperty : IEquatable<ObservedProperty>
     { 
         /// <summary>
-        /// Gets or Sets Time
+        /// Gets or Sets Name
         /// </summary>
-        [DataMember(Name="time", EmitDefaultValue=false)]
-        public string Time { get; set; }
+        [Required]
+        [DataMember(Name="name", EmitDefaultValue=false)]
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or Sets Definition
+        /// </summary>
+        [Required]
+        [DataMember(Name="definition", EmitDefaultValue=false)]
+        public string Definition { get; set; }
+
+        /// <summary>
+        /// Gets or Sets Description
+        /// </summary>
+        [Required]
+        [DataMember(Name="description", EmitDefaultValue=false)]
+        public string Description { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -39,8 +54,10 @@ namespace Org.OpenAPITools.Models
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class TmObject {\n");
-            sb.Append("  Time: ").Append(Time).Append("\n");
+            sb.Append("class ObservedProperty {\n");
+            sb.Append("  Name: ").Append(Name).Append("\n");
+            sb.Append("  Definition: ").Append(Definition).Append("\n");
+            sb.Append("  Description: ").Append(Description).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -63,24 +80,34 @@ namespace Org.OpenAPITools.Models
         {
             if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((TmObject)obj);
+            return obj.GetType() == GetType() && Equals((ObservedProperty)obj);
         }
 
         /// <summary>
-        /// Returns true if TmObject instances are equal
+        /// Returns true if ObservedProperty instances are equal
         /// </summary>
-        /// <param name="other">Instance of TmObject to be compared</param>
+        /// <param name="other">Instance of ObservedProperty to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(TmObject other)
+        public bool Equals(ObservedProperty other)
         {
             if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
 
             return 
                 (
-                    Time == other.Time ||
-                    Time != null &&
-                    Time.Equals(other.Time)
+                    Name == other.Name ||
+                    Name != null &&
+                    Name.Equals(other.Name)
+                ) && 
+                (
+                    Definition == other.Definition ||
+                    Definition != null &&
+                    Definition.Equals(other.Definition)
+                ) && 
+                (
+                    Description == other.Description ||
+                    Description != null &&
+                    Description.Equals(other.Description)
                 );
         }
 
@@ -94,8 +121,12 @@ namespace Org.OpenAPITools.Models
             {
                 var hashCode = 41;
                 // Suitable nullity checks etc, of course :)
-                    if (Time != null)
-                    hashCode = hashCode * 59 + Time.GetHashCode();
+                    if (Name != null)
+                    hashCode = hashCode * 59 + Name.GetHashCode();
+                    if (Definition != null)
+                    hashCode = hashCode * 59 + Definition.GetHashCode();
+                    if (Description != null)
+                    hashCode = hashCode * 59 + Description.GetHashCode();
                 return hashCode;
             }
         }
@@ -103,12 +134,12 @@ namespace Org.OpenAPITools.Models
         #region Operators
         #pragma warning disable 1591
 
-        public static bool operator ==(TmObject left, TmObject right)
+        public static bool operator ==(ObservedProperty left, ObservedProperty right)
         {
             return Equals(left, right);
         }
 
-        public static bool operator !=(TmObject left, TmObject right)
+        public static bool operator !=(ObservedProperty left, ObservedProperty right)
         {
             return !Equals(left, right);
         }

@@ -28,7 +28,7 @@ namespace Org.OpenAPITools.Controllers
     public class ObservationApiController : ControllerBase
     { 
         /// <summary>
-        /// Call to write observation to database
+        /// Call to get observation from database
         /// </summary>
         /// <param name="observationName">Unique observationName</param>
         /// <response code="201">Successful response</response>
@@ -40,6 +40,35 @@ namespace Org.OpenAPITools.Controllers
         [SwaggerResponse(statusCode: 201, type: typeof(Sample), description: "Successful response")]
         [SwaggerResponse(statusCode: 404, type: typeof(string), description: "Not created response")]
         public virtual IActionResult GetObservation([FromQuery]string observationName)
+        { 
+
+            //TODO: Uncomment the next line to return response 201 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(201, default(Sample));
+            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(404, default(string));
+            string exampleJson = null;
+            exampleJson = "{\r\n  \"placeholder\" : \"placeholder\"\r\n}";
+            
+            var example = exampleJson != null
+            ? JsonConvert.DeserializeObject<Sample>(exampleJson)
+            : default(Sample);
+            //TODO: Change the data returned
+            return new ObjectResult(example);
+        }
+
+        /// <summary>
+        /// Get all observations associated to datastream
+        /// </summary>
+        /// <param name="datastreamRef">Ref to unique datastream</param>
+        /// <response code="201">Successful response</response>
+        /// <response code="404">Not created response</response>
+        [HttpGet]
+        [Route("/Observations")]
+        [ValidateModelState]
+        [SwaggerOperation("GetObservations")]
+        [SwaggerResponse(statusCode: 201, type: typeof(Sample), description: "Successful response")]
+        [SwaggerResponse(statusCode: 404, type: typeof(string), description: "Not created response")]
+        public virtual IActionResult GetObservations([FromQuery]string datastreamRef)
         { 
 
             //TODO: Uncomment the next line to return response 201 or use other options such as return this.NotFound(), return this.BadRequest(..), ...

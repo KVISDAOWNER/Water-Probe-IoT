@@ -21,7 +21,7 @@ using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
 
 namespace Org.OpenAPITools.Models
-{ 
+{
     /// <summary>
     /// 
     /// </summary>
@@ -34,7 +34,7 @@ namespace Org.OpenAPITools.Models
         /// </summary>
         [BsonId]
         [Required]
-        [DataMember(Name="name", EmitDefaultValue=false)]
+        [DataMember(Name = "name", EmitDefaultValue = false)]
         public string Name { get; set; }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace Org.OpenAPITools.Models
         /// </summary>
         [BsonElement("description")]
         [Required]
-        [DataMember(Name="description", EmitDefaultValue=false)]
+        [DataMember(Name = "description", EmitDefaultValue = false)]
         public string Description { get; set; }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace Org.OpenAPITools.Models
         /// </summary>
         [BsonElement("observationType")]
         [Required]
-        [DataMember(Name="observationtype", EmitDefaultValue=false)]
+        [DataMember(Name = "observationtype", EmitDefaultValue = false)]
         public Object ObservationType { get; set; }
 
         /// <summary>
@@ -58,28 +58,28 @@ namespace Org.OpenAPITools.Models
         /// </summary>
         [BsonElement("unitOfMeasurement")]
         [Required]
-        [DataMember(Name="unitofMeasurement", EmitDefaultValue=false)]
+        [DataMember(Name = "unitofMeasurement", EmitDefaultValue = false)]
         public List<Object> UnitOfMeasurement { get; set; }
 
         /// <summary>
         /// Gets or Sets ObservedArea
         /// </summary>
         [BsonElement("observedArea")]
-        [DataMember(Name="observedarea", EmitDefaultValue=false)]
+        [DataMember(Name = "observedarea", EmitDefaultValue = false)]
         public Object ObservedArea { get; set; }
 
         /// <summary>
         /// Gets or Sets PhenomenonTime
         /// </summary>
         [BsonElement("phenomenonTime")]
-        [DataMember(Name="phenomenontime", EmitDefaultValue=false)]
+        [DataMember(Name = "phenomenontime", EmitDefaultValue = false)]
         public Object PhenomenonTime { get; set; }
 
         /// <summary>
         /// Gets or Sets ResultTime
         /// </summary>
         [BsonElement("resultTime")]
-        [DataMember(Name="resulttime", EmitDefaultValue=false)]
+        [DataMember(Name = "resulttime", EmitDefaultValue = false)]
         public Object ResultTime { get; set; }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace Org.OpenAPITools.Models
         /// </summary>
         [BsonElement("thingRef")]
         [Required]
-        [DataMember(Name="thingref", EmitDefaultValue=false)]
+        [DataMember(Name = "thingref", EmitDefaultValue = false)]
         public string ThingRef { get; set; }
 
         /// <summary>
@@ -95,7 +95,7 @@ namespace Org.OpenAPITools.Models
         /// </summary>
         [BsonElement("sensorRef")]
         [Required]
-        [DataMember(Name="sensorref", EmitDefaultValue=false)]
+        [DataMember(Name = "sensorref", EmitDefaultValue = false)]
         public string SensorRef { get; set; }
 
         /// <summary>
@@ -103,7 +103,7 @@ namespace Org.OpenAPITools.Models
         /// </summary>
         [BsonElement("observedPropertyRef")]
         [Required]
-        [DataMember(Name="observedpropertyref", EmitDefaultValue=false)]
+        [DataMember(Name = "observedpropertyref", EmitDefaultValue = false)]
         public string ObservedPropertyRef { get; set; }
 
         /// <summary>
@@ -159,53 +159,53 @@ namespace Org.OpenAPITools.Models
             if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
 
-            return 
+            return
                 (
                     Name == other.Name ||
                     Name != null &&
                     Name.Equals(other.Name)
-                ) && 
+                ) &&
                 (
                     Description == other.Description ||
                     Description != null &&
                     Description.Equals(other.Description)
-                ) && 
+                ) &&
                 (
                     ObservationType == other.ObservationType ||
                     ObservationType != null &&
                     ObservationType.Equals(other.ObservationType)
-                ) && 
+                ) &&
                 (
                     UnitOfMeasurement == other.UnitOfMeasurement ||
                     UnitOfMeasurement != null &&
                     other.UnitOfMeasurement != null &&
                     UnitOfMeasurement.SequenceEqual(other.UnitOfMeasurement)
-                ) && 
+                ) &&
                 (
                     ObservedArea == other.ObservedArea ||
                     ObservedArea != null &&
                     ObservedArea.Equals(other.ObservedArea)
-                ) && 
+                ) &&
                 (
                     PhenomenonTime == other.PhenomenonTime ||
                     PhenomenonTime != null &&
                     PhenomenonTime.Equals(other.PhenomenonTime)
-                ) && 
+                ) &&
                 (
                     ResultTime == other.ResultTime ||
                     ResultTime != null &&
                     ResultTime.Equals(other.ResultTime)
-                ) && 
+                ) &&
                 (
                     ThingRef == other.ThingRef ||
                     ThingRef != null &&
                     ThingRef.Equals(other.ThingRef)
-                ) && 
+                ) &&
                 (
                     SensorRef == other.SensorRef ||
                     SensorRef != null &&
                     SensorRef.Equals(other.SensorRef)
-                ) && 
+                ) &&
                 (
                     ObservedPropertyRef == other.ObservedPropertyRef ||
                     ObservedPropertyRef != null &&
@@ -223,31 +223,31 @@ namespace Org.OpenAPITools.Models
             {
                 var hashCode = 41;
                 // Suitable nullity checks etc, of course :)
-                    if (Name != null)
+                if (Name != null)
                     hashCode = hashCode * 59 + Name.GetHashCode();
-                    if (Description != null)
+                if (Description != null)
                     hashCode = hashCode * 59 + Description.GetHashCode();
-                    if (ObservationType != null)
+                if (ObservationType != null)
                     hashCode = hashCode * 59 + ObservationType.GetHashCode();
-                    if (UnitOfMeasurement != null)
+                if (UnitOfMeasurement != null)
                     hashCode = hashCode * 59 + UnitOfMeasurement.GetHashCode();
-                    if (ObservedArea != null)
+                if (ObservedArea != null)
                     hashCode = hashCode * 59 + ObservedArea.GetHashCode();
-                    if (PhenomenonTime != null)
+                if (PhenomenonTime != null)
                     hashCode = hashCode * 59 + PhenomenonTime.GetHashCode();
-                    if (ResultTime != null)
+                if (ResultTime != null)
                     hashCode = hashCode * 59 + ResultTime.GetHashCode();
-                    if (ThingRef != null)
+                if (ThingRef != null)
                     hashCode = hashCode * 59 + ThingRef.GetHashCode();
-                    if (SensorRef != null)
+                if (SensorRef != null)
                     hashCode = hashCode * 59 + SensorRef.GetHashCode();
-                    if (ObservedPropertyRef != null)
+                if (ObservedPropertyRef != null)
                     hashCode = hashCode * 59 + ObservedPropertyRef.GetHashCode();
                 return hashCode;
             }
         }
 
-         
+
 
         #region Operators
 #pragma warning disable 1591
@@ -262,7 +262,7 @@ namespace Org.OpenAPITools.Models
             return !Equals(left, right);
         }
 
-        #pragma warning restore 1591
+#pragma warning restore 1591
         #endregion Operators
     }
 }

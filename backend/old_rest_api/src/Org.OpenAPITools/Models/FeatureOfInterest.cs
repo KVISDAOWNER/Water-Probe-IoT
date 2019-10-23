@@ -24,7 +24,7 @@ namespace Org.OpenAPITools.Models
     /// 
     /// </summary>
     [DataContract]
-    public partial class Thing : IEquatable<Thing>
+    public partial class FeatureOfInterest : IEquatable<FeatureOfInterest>
     { 
         /// <summary>
         /// Gets or Sets Name
@@ -41,10 +41,18 @@ namespace Org.OpenAPITools.Models
         public string Description { get; set; }
 
         /// <summary>
-        /// Gets or Sets Properties
+        /// Gets or Sets Encoding
         /// </summary>
-        [DataMember(Name="properties", EmitDefaultValue=false)]
-        public List<Object> Properties { get; set; }
+        [Required]
+        [DataMember(Name="encoding", EmitDefaultValue=false)]
+        public Object Encoding { get; set; }
+
+        /// <summary>
+        /// Gets or Sets Feature
+        /// </summary>
+        [Required]
+        [DataMember(Name="feature", EmitDefaultValue=false)]
+        public Object Feature { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -53,10 +61,11 @@ namespace Org.OpenAPITools.Models
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class Thing {\n");
+            sb.Append("class FeatureOfInterest {\n");
             sb.Append("  Name: ").Append(Name).Append("\n");
             sb.Append("  Description: ").Append(Description).Append("\n");
-            sb.Append("  Properties: ").Append(Properties).Append("\n");
+            sb.Append("  Encoding: ").Append(Encoding).Append("\n");
+            sb.Append("  Feature: ").Append(Feature).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -79,15 +88,15 @@ namespace Org.OpenAPITools.Models
         {
             if (obj is null) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((Thing)obj);
+            return obj.GetType() == GetType() && Equals((FeatureOfInterest)obj);
         }
 
         /// <summary>
-        /// Returns true if Thing instances are equal
+        /// Returns true if FeatureOfInterest instances are equal
         /// </summary>
-        /// <param name="other">Instance of Thing to be compared</param>
+        /// <param name="other">Instance of FeatureOfInterest to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(Thing other)
+        public bool Equals(FeatureOfInterest other)
         {
             if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
@@ -104,10 +113,14 @@ namespace Org.OpenAPITools.Models
                     Description.Equals(other.Description)
                 ) && 
                 (
-                    Properties == other.Properties ||
-                    Properties != null &&
-                    other.Properties != null &&
-                    Properties.SequenceEqual(other.Properties)
+                    Encoding == other.Encoding ||
+                    Encoding != null &&
+                    Encoding.Equals(other.Encoding)
+                ) && 
+                (
+                    Feature == other.Feature ||
+                    Feature != null &&
+                    Feature.Equals(other.Feature)
                 );
         }
 
@@ -125,8 +138,10 @@ namespace Org.OpenAPITools.Models
                     hashCode = hashCode * 59 + Name.GetHashCode();
                     if (Description != null)
                     hashCode = hashCode * 59 + Description.GetHashCode();
-                    if (Properties != null)
-                    hashCode = hashCode * 59 + Properties.GetHashCode();
+                    if (Encoding != null)
+                    hashCode = hashCode * 59 + Encoding.GetHashCode();
+                    if (Feature != null)
+                    hashCode = hashCode * 59 + Feature.GetHashCode();
                 return hashCode;
             }
         }
@@ -134,12 +149,12 @@ namespace Org.OpenAPITools.Models
         #region Operators
         #pragma warning disable 1591
 
-        public static bool operator ==(Thing left, Thing right)
+        public static bool operator ==(FeatureOfInterest left, FeatureOfInterest right)
         {
             return Equals(left, right);
         }
 
-        public static bool operator !=(Thing left, Thing right)
+        public static bool operator !=(FeatureOfInterest left, FeatureOfInterest right)
         {
             return !Equals(left, right);
         }

@@ -25,21 +25,21 @@ namespace Org.OpenAPITools.Controllers
     /// 
     /// </summary>
     [ApiController]
-    public class ThingApiController : ControllerBase
+    public class ObservedPropertyApiController : ControllerBase
     { 
         /// <summary>
-        /// Delete an existing probe
+        /// Deletes an ObservedProperty
         /// </summary>
-        /// <param name="thingname">Unique thingName</param>
+        /// <param name="observedPropertyName">Unique ObservedProperty name</param>
         /// <response code="200">Successful response</response>
         /// <response code="404">Not created response</response>
         [HttpDelete]
-        [Route("/Thing")]
+        [Route("/ObservedProperty")]
         [ValidateModelState]
-        [SwaggerOperation("DeleteThing")]
+        [SwaggerOperation("DeleteObservedProperty")]
         [SwaggerResponse(statusCode: 200, type: typeof(Sample), description: "Successful response")]
         [SwaggerResponse(statusCode: 404, type: typeof(string), description: "Not created response")]
-        public virtual IActionResult DeleteThing([FromQuery]string thingname)
+        public virtual IActionResult DeleteObservedProperty([FromQuery]string observedPropertyName)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
@@ -57,18 +57,18 @@ namespace Org.OpenAPITools.Controllers
         }
 
         /// <summary>
-        /// Get an existing probe
+        /// gets an ObservedProperty
         /// </summary>
-        /// <param name="thingname">Unique thingName</param>
+        /// <param name="observedPropertyName">Unique ObservedProperty name</param>
         /// <response code="200">Successful response</response>
         /// <response code="404">Not created response</response>
         [HttpGet]
-        [Route("/Thing")]
+        [Route("/ObservedProperty")]
         [ValidateModelState]
-        [SwaggerOperation("GetThing")]
+        [SwaggerOperation("GetObservedProperty")]
         [SwaggerResponse(statusCode: 200, type: typeof(Sample), description: "Successful response")]
         [SwaggerResponse(statusCode: 404, type: typeof(string), description: "Not created response")]
-        public virtual IActionResult GetThing([FromQuery]string thingname)
+        public virtual IActionResult GetObservedProperty([FromQuery]string observedPropertyName)
         { 
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
@@ -86,23 +86,51 @@ namespace Org.OpenAPITools.Controllers
         }
 
         /// <summary>
-        /// Creates a new probe
+        /// Creates a new ObservedProperty
         /// </summary>
-        /// <remarks>Creates new thing</remarks>
-        /// <param name="thing">Optional properties represented as json for the Thing</param>
+        /// <param name="observedProperty"></param>
         /// <response code="201">Successful response</response>
         /// <response code="404">Not created response</response>
         [HttpPost]
-        [Route("/Thing")]
+        [Route("/ObservedProperty")]
         [ValidateModelState]
-        [SwaggerOperation("NewThing")]
+        [SwaggerOperation("PostObservedProperty")]
         [SwaggerResponse(statusCode: 201, type: typeof(Sample), description: "Successful response")]
         [SwaggerResponse(statusCode: 404, type: typeof(string), description: "Not created response")]
-        public virtual IActionResult NewThing([FromBody]Thing thing)
+        public virtual IActionResult PostObservedProperty([FromBody]ObservedProperty observedProperty)
         { 
 
             //TODO: Uncomment the next line to return response 201 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(201, default(Sample));
+            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(404, default(string));
+            string exampleJson = null;
+            exampleJson = "{\r\n  \"placeholder\" : \"placeholder\"\r\n}";
+            
+            var example = exampleJson != null
+            ? JsonConvert.DeserializeObject<Sample>(exampleJson)
+            : default(Sample);
+            //TODO: Change the data returned
+            return new ObjectResult(example);
+        }
+
+        /// <summary>
+        /// updates an ObservedProperty
+        /// </summary>
+        /// <param name="observedProperty"></param>
+        /// <response code="200">Successful response</response>
+        /// <response code="404">Not created response</response>
+        [HttpPut]
+        [Route("/ObservedProperty")]
+        [ValidateModelState]
+        [SwaggerOperation("PutObservedProperty")]
+        [SwaggerResponse(statusCode: 200, type: typeof(Sample), description: "Successful response")]
+        [SwaggerResponse(statusCode: 404, type: typeof(string), description: "Not created response")]
+        public virtual IActionResult PutObservedProperty([FromBody]ObservedProperty observedProperty)
+        { 
+
+            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
+            // return StatusCode(200, default(Sample));
             //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(404, default(string));
             string exampleJson = null;

@@ -9,6 +9,36 @@
     "url" : "/"
   } ],
   "paths" : {
+    "/Things" : {
+      "get" : {
+        "operationId" : "getThings",
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Sample"
+                }
+              }
+            },
+            "description" : "Successful response"
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "title" : "Thing not cretead",
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : "Not created response"
+          }
+        },
+        "summary" : "Gets all things (probes)",
+        "tags" : [ "Thing" ]
+      }
+    },
     "/Thing" : {
       "delete" : {
         "operationId" : "deleteThing",
@@ -46,9 +76,6 @@
             "description" : "Not created response"
           }
         },
-        "security" : [ {
-          "oauth2" : [ "modifyData" ]
-        } ],
         "summary" : "Delete an existing probe",
         "tags" : [ "Thing" ]
       },
@@ -128,11 +155,49 @@
             "description" : "Not created response"
           }
         },
-        "security" : [ {
-          "oauth2" : [ "modifyData" ]
-        } ],
         "summary" : "Creates a new probe",
         "tags" : [ "Thing" ]
+      }
+    },
+    "/Observations" : {
+      "get" : {
+        "operationId" : "getObservations",
+        "parameters" : [ {
+          "description" : "Ref to unique datastream",
+          "explode" : true,
+          "in" : "query",
+          "name" : "datastreamRef",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "form"
+        } ],
+        "responses" : {
+          "201" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Sample"
+                }
+              }
+            },
+            "description" : "Successful response"
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "title" : "Thing not cretead",
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : "Not created response"
+          }
+        },
+        "summary" : "Get all observations associated to datastream",
+        "tags" : [ "Observation" ]
       }
     },
     "/Observation" : {
@@ -172,7 +237,7 @@
             "description" : "Not created response"
           }
         },
-        "summary" : "Call to write observation to database",
+        "summary" : "Call to get observation from database",
         "tags" : [ "Observation" ]
       },
       "post" : {
@@ -211,11 +276,49 @@
             "description" : "Not created response"
           }
         },
-        "security" : [ {
-          "oauth2" : [ "modifyData" ]
-        } ],
         "summary" : "Call to write observation to database",
         "tags" : [ "Observation" ]
+      }
+    },
+    "/dataStreams" : {
+      "get" : {
+        "operationId" : "getDatastreams",
+        "parameters" : [ {
+          "description" : "Ref to unique thing",
+          "explode" : true,
+          "in" : "query",
+          "name" : "thingRef",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "form"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Sample"
+                }
+              }
+            },
+            "description" : "Successful response"
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "title" : "Thing not cretead",
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : "Not created response"
+          }
+        },
+        "summary" : "Get all datastreams from thing",
+        "tags" : [ "Datastream" ]
       }
     },
     "/dataStream" : {
@@ -255,9 +358,6 @@
             "description" : "Not created response"
           }
         },
-        "security" : [ {
-          "oauth2" : [ "modifyData" ]
-        } ],
         "summary" : "deletes a datastream",
         "tags" : [ "Datastream" ]
       },
@@ -336,9 +436,6 @@
             "description" : "Not created response"
           }
         },
-        "security" : [ {
-          "oauth2" : [ "modifyData" ]
-        } ],
         "summary" : "posts a datastream",
         "tags" : [ "Datastream" ]
       },
@@ -389,9 +486,6 @@
             "description" : "Not created response"
           }
         },
-        "security" : [ {
-          "oauth2" : [ "modifyData" ]
-        } ],
         "summary" : "put to a datastream",
         "tags" : [ "Datastream" ]
       }
@@ -433,9 +527,6 @@
             "description" : "Not created response"
           }
         },
-        "security" : [ {
-          "oauth2" : [ "modifyData" ]
-        } ],
         "summary" : "deletes a sensor",
         "tags" : [ "Sensor" ]
       },
@@ -513,9 +604,6 @@
             "description" : "Not created response"
           }
         },
-        "security" : [ {
-          "oauth2" : [ "modifyData" ]
-        } ],
         "summary" : "post a sensor",
         "tags" : [ "Sensor" ]
       },
@@ -565,9 +653,6 @@
             "description" : "Not created response"
           }
         },
-        "security" : [ {
-          "oauth2" : [ "modifyData" ]
-        } ],
         "summary" : "puts a sensor",
         "tags" : [ "Sensor" ]
       }
@@ -609,9 +694,6 @@
             "description" : "Not created response"
           }
         },
-        "security" : [ {
-          "oauth2" : [ "modifyData" ]
-        } ],
         "summary" : "deletes a sensor",
         "tags" : [ "Location" ]
       },
@@ -689,9 +771,6 @@
             "description" : "Not created response"
           }
         },
-        "security" : [ {
-          "oauth2" : [ "modifyData" ]
-        } ],
         "summary" : "posting a new location",
         "tags" : [ "Location" ]
       },
@@ -730,9 +809,6 @@
             "description" : "Not created response"
           }
         },
-        "security" : [ {
-          "oauth2" : [ "modifyData" ]
-        } ],
         "summary" : "updates a location",
         "tags" : [ "Location" ]
       }
@@ -774,9 +850,6 @@
             "description" : "Not created response"
           }
         },
-        "security" : [ {
-          "oauth2" : [ "modifyData" ]
-        } ],
         "summary" : "deletes a FeatureOfInterest",
         "tags" : [ "FeatureOfInterest" ]
       },
@@ -854,9 +927,6 @@
             "description" : "Not created response"
           }
         },
-        "security" : [ {
-          "oauth2" : [ "modifyData" ]
-        } ],
         "summary" : "posting a new FeatureOfInterest",
         "tags" : [ "FeatureOfInterest" ]
       },
@@ -895,9 +965,6 @@
             "description" : "Not created response"
           }
         },
-        "security" : [ {
-          "oauth2" : [ "modifyData" ]
-        } ],
         "summary" : "updates a FeatureOfInterest",
         "tags" : [ "FeatureOfInterest" ]
       }
@@ -939,9 +1006,6 @@
             "description" : "Not created response"
           }
         },
-        "security" : [ {
-          "oauth2" : [ "modifyData" ]
-        } ],
         "summary" : "Deletes an ObservedProperty",
         "tags" : [ "ObservedProperty" ]
       },
@@ -1019,9 +1083,6 @@
             "description" : "Not created response"
           }
         },
-        "security" : [ {
-          "oauth2" : [ "modifyData" ]
-        } ],
         "summary" : "Creates a new ObservedProperty",
         "tags" : [ "ObservedProperty" ]
       },
@@ -1060,9 +1121,6 @@
             "description" : "Not created response"
           }
         },
-        "security" : [ {
-          "oauth2" : [ "modifyData" ]
-        } ],
         "summary" : "updates an ObservedProperty",
         "tags" : [ "ObservedProperty" ]
       }
@@ -1141,6 +1199,28 @@
         "explode" : true,
         "in" : "query",
         "name" : "observedPropertyName",
+        "required" : false,
+        "schema" : {
+          "type" : "string"
+        },
+        "style" : "form"
+      },
+      "thingRef" : {
+        "description" : "Ref to unique thing",
+        "explode" : true,
+        "in" : "query",
+        "name" : "thingRef",
+        "required" : false,
+        "schema" : {
+          "type" : "string"
+        },
+        "style" : "form"
+      },
+      "datastreamRef" : {
+        "description" : "Ref to unique datastream",
+        "explode" : true,
+        "in" : "query",
+        "name" : "datastreamRef",
         "required" : false,
         "schema" : {
           "type" : "string"
@@ -1385,20 +1465,6 @@
             "type" : "string"
           }
         }
-      }
-    },
-    "securitySchemes" : {
-      "oAuthModify" : {
-        "description" : "This API uses OAuth 2 with the implicit grant flow.",
-        "flows" : {
-          "password" : {
-            "scopes" : {
-              "modifyData" : "modify all data"
-            },
-            "tokenUrl" : "/oauth2/token"
-          }
-        },
-        "type" : "oauth2"
       }
     }
   }

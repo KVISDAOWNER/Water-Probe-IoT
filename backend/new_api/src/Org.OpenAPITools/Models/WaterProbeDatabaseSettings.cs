@@ -5,17 +5,19 @@ using System.Threading.Tasks;
 
 namespace Org.OpenAPITools.Models
 {
-    public class ThingDatabaseSettings : IThingDatabaseSettings
+    public class WaterProbeDatabaseSettings : IWaterProbeDatabaseSettings
     {
-        public string ThingCollectionName { get; set; }
+        public string DatastreamsCollectionName { get; set; }
         public string ConnectionString { get; set; }
         public string DatabaseName { get; set; }
+
     }
 
-    public interface IThingDatabaseSettings
+    public interface IWaterProbeDatabaseSettings
     {
-        string ThingCollectionName { get; set; }
+        string DatastreamsCollectionName { get; set; }
         string ConnectionString { get; set; }
         string DatabaseName { get; set; }
     }
 }
+
