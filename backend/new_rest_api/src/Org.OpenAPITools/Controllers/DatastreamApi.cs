@@ -81,6 +81,7 @@ namespace Org.OpenAPITools.Controllers
         public virtual IActionResult GetDatastream([FromQuery]string dataStreamName)
         {
 
+            //Find the observations with the ref to this datastream and return them. 
             try
             {
                 var exampleJson = _dataStreamService.Get(dataStreamName).ToJson();
@@ -97,6 +98,7 @@ namespace Org.OpenAPITools.Controllers
                 return StatusCode(404, e.Message);
             }
         }
+
 
         /// <summary>
         /// posts a datastream

@@ -29,14 +29,10 @@ namespace Org.OpenAPITools.Models
     public partial class DataStream : IEquatable<DataStream>
     {
 
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
         /// <summary>
         /// Gets or Sets Name
         /// </summary>
-
-        [BsonElement("name")]
+        [BsonId]
         [Required]
         [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
@@ -52,7 +48,7 @@ namespace Org.OpenAPITools.Models
         /// <summary>
         /// Gets or Sets ObservationType
         /// </summary>
-        [BsonElement("observationtype")]
+        [BsonElement("observationType")]
         [Required]
         [DataMember(Name="observationtype", EmitDefaultValue=false)]
         public Object ObservationType { get; set; }
@@ -60,7 +56,7 @@ namespace Org.OpenAPITools.Models
         /// <summary>
         /// Gets or Sets UnitOfMeasurement
         /// </summary>
-        [BsonElement("unitofMeasurement")]
+        [BsonElement("unitOfMeasurement")]
         [Required]
         [DataMember(Name="unitofMeasurement", EmitDefaultValue=false)]
         public List<Object> UnitOfMeasurement { get; set; }
@@ -68,28 +64,28 @@ namespace Org.OpenAPITools.Models
         /// <summary>
         /// Gets or Sets ObservedArea
         /// </summary>
-        [BsonElement("observedarea")]
+        [BsonElement("observedArea")]
         [DataMember(Name="observedarea", EmitDefaultValue=false)]
         public Object ObservedArea { get; set; }
 
         /// <summary>
         /// Gets or Sets PhenomenonTime
         /// </summary>
-        [BsonElement("phenomenontime")]
+        [BsonElement("phenomenonTime")]
         [DataMember(Name="phenomenontime", EmitDefaultValue=false)]
         public Object PhenomenonTime { get; set; }
 
         /// <summary>
         /// Gets or Sets ResultTime
         /// </summary>
-        [BsonElement("resulttime")]
+        [BsonElement("resultTime")]
         [DataMember(Name="resulttime", EmitDefaultValue=false)]
         public Object ResultTime { get; set; }
 
         /// <summary>
         /// Gets or Sets ThingRef
         /// </summary>
-        [BsonElement("thingref")]
+        [BsonElement("thingRef")]
         [Required]
         [DataMember(Name="thingref", EmitDefaultValue=false)]
         public string ThingRef { get; set; }
@@ -97,7 +93,7 @@ namespace Org.OpenAPITools.Models
         /// <summary>
         /// Gets or Sets SensorRef
         /// </summary>
-        [BsonElement("sensorref")]
+        [BsonElement("sensorRef")]
         [Required]
         [DataMember(Name="sensorref", EmitDefaultValue=false)]
         public string SensorRef { get; set; }
@@ -105,7 +101,7 @@ namespace Org.OpenAPITools.Models
         /// <summary>
         /// Gets or Sets ObservedPropertyRef
         /// </summary>
-        [BsonElement("observedpropertyref")]
+        [BsonElement("observedPropertyRef")]
         [Required]
         [DataMember(Name="observedpropertyref", EmitDefaultValue=false)]
         public string ObservedPropertyRef { get; set; }
