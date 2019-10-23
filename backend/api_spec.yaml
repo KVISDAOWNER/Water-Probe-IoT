@@ -610,6 +610,10 @@ components:
           type: string
         observationType:
           $ref: '#/components/schemas/valueCode'
+        unitOfMeasurement:	
+          type: array	
+          items:	
+            type: object
         observedArea:
           $ref: '#/components/schemas/gm_envelope'
         phenomenonTime:
