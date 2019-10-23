@@ -25,6 +25,7 @@ db.ObservedProperty.insert({'_id' : 'ph', 'definition' : 'http://examples.com#p'
 db.ValueCode.insert({'_id' : '[ph]', 'value' : 'pH'})
 
 db.Datastream.insert({'_id' : 'Datastream1', 'description' : 'Lorem ipsum dolor', 'observationType' : '[ph]', 'unitOfMeasurement' : [{}],  'thingRef' : 'Probe4', 'sensorRef' : 'Sensor145', 'observedPropertyRef' : 'ph'})
+db.Datastream.insert({'_id' : 'Datastream2', 'description' : 'Lorem ipsum dolor', 'observationType' : '[ph]', 'unitOfMeasurement' : [{}],  'thingRef' : 'Probe4', 'sensorRef' : 'Sensor145', 'observedPropertyRef' : 'ph'})
 
 db.Observation.insert({'phenomenonTime' : '2010-12-23T10:20:00.00-07:00', 'resultTime' : '2019-10-23T10:24:37+0100', 'result' : '1.23', 'dataStreamRef' : 'Datastream1'})
 db.Observation.insert({'phenomenonTime' : '2010-12-23T10:20:00.00-07:00', 'resultTime' : '2019-10-23T10:24:37+0100', 'result' : '2.67', 'dataStreamRef' : 'Datastream1'})

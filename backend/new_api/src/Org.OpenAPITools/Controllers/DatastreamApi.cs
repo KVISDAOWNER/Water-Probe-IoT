@@ -109,20 +109,25 @@ namespace Org.OpenAPITools.Controllers
         [SwaggerResponse(statusCode: 200, type: typeof(Sample), description: "Successful response")]
         [SwaggerResponse(statusCode: 404, type: typeof(string), description: "Not created response")]
         public virtual IActionResult GetDatastreams([FromQuery]string thingRef)
-        { 
+        {
 
+            var exampleJson = _dataStreamService.GetThingDatastreams(thingRef);
+
+            string json = JsonConvert.SerializeObject(exampleJson, Formatting.Indented);
+
+            return new ObjectResult(json);
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(Sample));
             //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(404, default(string));
-            string exampleJson = null;
-            exampleJson = "{\r\n  \"placeholder\" : \"placeholder\"\r\n}";
+
+          /*  exampleJson = "{\r\n  \"placeholder\" : \"placeholder\"\r\n}";
             
             var example = exampleJson != null
             ? JsonConvert.DeserializeObject<Sample>(exampleJson)
             : default(Sample);
             //TODO: Change the data returned
-            return new ObjectResult(example);
+            return new ObjectResult(example);*/
         }
 
         /// <summary>

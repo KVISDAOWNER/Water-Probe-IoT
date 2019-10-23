@@ -137,6 +137,8 @@ namespace Org.OpenAPITools.Models
             return JsonConvert.SerializeObject(this, Formatting.Indented);
         }
 
+
+
         /// <summary>
         /// Returns true if objects are equal
         /// </summary>

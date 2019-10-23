@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace Org.OpenAPITools.Services
 {
     public class DatastreamService
@@ -24,6 +25,12 @@ namespace Org.OpenAPITools.Services
 
         public DataStream Get(string id) =>
             _dataStreams.Find<DataStream>(dataStream => dataStream.Name == id).FirstOrDefault();
+
+
+        public List<DataStream> GetThingDatastreams(string thingRef)
+        {
+            return _dataStreams.Find<DataStream>(datastream => datastream.ThingRef == thingRef).ToList();
+        }
 
         public DataStream Create(DataStream dataStream)
         {
