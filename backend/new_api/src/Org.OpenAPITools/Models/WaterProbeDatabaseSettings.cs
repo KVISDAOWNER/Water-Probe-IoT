@@ -10,6 +10,7 @@ namespace Org.OpenAPITools.Models
         public string DatastreamsCollectionName { get; set; }
         public string ConnectionString { get; set; }
         public string DatabaseName { get; set; }
+        public string ObservationCollectionName { get; set; }
 
     }
 
@@ -18,6 +19,7 @@ namespace Org.OpenAPITools.Models
         string DatastreamsCollectionName { get; set; }
         string ConnectionString { get; set; }
         string DatabaseName { get; set; }
+        string ObservationCollectionName { get; set; }
     }
 }
 

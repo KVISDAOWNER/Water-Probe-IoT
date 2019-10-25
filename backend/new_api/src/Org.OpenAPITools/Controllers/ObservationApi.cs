@@ -18,6 +18,7 @@ using System.ComponentModel.DataAnnotations;
 using Org.OpenAPITools.Attributes;
 using Microsoft.AspNetCore.Authorization;
 using Org.OpenAPITools.Models;
+using Org.OpenAPITools.Services;
 
 namespace Org.OpenAPITools.Controllers
 { 
@@ -26,7 +27,15 @@ namespace Org.OpenAPITools.Controllers
     /// </summary>
     [ApiController]
     public class ObservationApiController : ControllerBase
-    { 
+    {
+
+        private readonly ObservationService _observationService;
+        public ObservationApiController(ObservationService observationService)
+        {
+            _observationService = observationService;
+        }
+
+
         /// <summary>
         /// Call to get observation from database
         /// </summary>
@@ -69,20 +78,25 @@ namespace Org.OpenAPITools.Controllers
         [SwaggerResponse(statusCode: 201, type: typeof(Sample), description: "Successful response")]
         [SwaggerResponse(statusCode: 404, type: typeof(string), description: "Not created response")]
         public virtual IActionResult GetObservations([FromQuery]string datastreamRef)
-        { 
+        {
+
+            try {
+
+                var exampleJson = _observationService.GetDatastreamsObservations(datastreamRef);
+
+                string json = JsonConvert.SerializeObject(exampleJson, Formatting.Indented);
+
+                return new ObjectResult(json);
+            } catch (Exception e)
+            {
+                return StatusCode(404, e.Message);
+            }
+
 
             //TODO: Uncomment the next line to return response 201 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(201, default(Sample));
             //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(404, default(string));
-            string exampleJson = null;
-            exampleJson = "{\r\n  \"placeholder\" : \"placeholder\"\r\n}";
-            
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<Sample>(exampleJson)
-            : default(Sample);
-            //TODO: Change the data returned
-            return new ObjectResult(example);
         }
 
         /// <summary>

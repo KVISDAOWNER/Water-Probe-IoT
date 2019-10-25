@@ -17,6 +17,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Org.OpenAPITools.Converters;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
 
 namespace Org.OpenAPITools.Models
 { 
@@ -25,24 +27,33 @@ namespace Org.OpenAPITools.Models
     /// </summary>
     [DataContract]
     public partial class Observation : IEquatable<Observation>
-    { 
+    {
+
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        [DataMember(Name = "_id", EmitDefaultValue = false)]
+        public String _id { get; set; }
+
         /// <summary>
         /// Gets or Sets PhenomenonTime
         /// </summary>
+        [BsonElement("phenomenonTime")]
         [Required]
         [DataMember(Name="phenomenonTime", EmitDefaultValue=false)]
-        public TmObject PhenomenonTime { get; set; }
+        public string PhenomenonTime { get; set; }
 
         /// <summary>
         /// Gets or Sets ResultTime
         /// </summary>
+        [BsonElement("resultTime")]
         [Required]
         [DataMember(Name="resultTime", EmitDefaultValue=false)]
-        public TmInstant ResultTime { get; set; }
+        public string ResultTime { get; set; }
 
         /// <summary>
         /// Gets or Sets Result
         /// </summary>
+        [BsonElement("result")]
         [Required]
         [DataMember(Name="result", EmitDefaultValue=false)]
         public decimal Result { get; set; }
@@ -50,24 +61,28 @@ namespace Org.OpenAPITools.Models
         /// <summary>
         /// Gets or Sets ResultQuality
         /// </summary>
+        [BsonElement("resultQuality")]
         [DataMember(Name="resultQuality", EmitDefaultValue=false)]
         public List<Object> ResultQuality { get; set; }
 
         /// <summary>
         /// Gets or Sets ValidTime
         /// </summary>
+        [BsonElement("validTime")]
         [DataMember(Name="validTime", EmitDefaultValue=false)]
         public List<Object> ValidTime { get; set; }
 
         /// <summary>
         /// Gets or Sets Parameters
         /// </summary>
+        [BsonElement("parameters")]
         [DataMember(Name="parameters", EmitDefaultValue=false)]
         public List<Object> Parameters { get; set; }
 
         /// <summary>
         /// Gets or Sets DatastreamRef
         /// </summary>
+        [BsonElement("datastreamRef")]
         [Required]
         [DataMember(Name="datastreamRef", EmitDefaultValue=false)]
         public string DatastreamRef { get; set; }
@@ -75,6 +90,7 @@ namespace Org.OpenAPITools.Models
         /// <summary>
         /// Gets or Sets FeatureOfInterestRef
         /// </summary>
+        [BsonElement("featureOfInterestRef")]
         [DataMember(Name="featureOfInterestRef", EmitDefaultValue=false)]
         public string FeatureOfInterestRef { get; set; }
 

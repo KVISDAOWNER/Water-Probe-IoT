@@ -65,6 +65,7 @@ namespace Org.OpenAPITools
                 sp.GetRequiredService<IOptions<WaterProbeDatabaseSettings>>().Value);
 
             services.AddSingleton<DatastreamService>();
+            services.AddSingleton<ObservationService>();
 
             // Add framework services.
             services
