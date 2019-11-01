@@ -20,6 +20,7 @@ using Microsoft.AspNetCore.Authorization;
 using IO.Swagger.Models;
 using MongoDB.Driver;
 using Org.OpenAPITools.Models;
+using System.Linq;
 
 namespace IO.Swagger.Controllers
 { 
@@ -28,7 +29,10 @@ namespace IO.Swagger.Controllers
     /// </summary>
     [ApiController]
     public class DefaultApiController : ControllerBase
-    { 
+    {
+        private const string turbidityName = "MJKDZ";
+        private const string temperatureName = "DS18B20";
+        private const string pHName = "PH-4502C";
         /// <summary>
         /// Posts new data
         /// </summary>
@@ -44,23 +48,23 @@ namespace IO.Swagger.Controllers
         [SwaggerResponse(statusCode: 404, type: typeof(string), description: "Not created response")]
         public virtual IActionResult NewData([FromBody]DeviceData body)
         {
-
             string connectionString = "mongodb://localhost:27017";
 
             MongoClient client = new MongoClient(connectionString);
 
-            var observationCollection = client.GetDatabase("waterProbeData").GetCollection<DeviceData>("Observation");
-            var dataStreamCollection = client.GetDatabase("waterProbeData").GetCollection<DataStream>("Datastream");
+            var turbidityCollection = client.GetDatabase("waterProbeData").GetCollection<Observation>(turbidityName + "_" + body.Device);
+            var temperatureCollection = client.GetDatabase("waterProbeData").GetCollection<Observation>(temperatureName + "_" + body.Device);
+            var pHCollection = client.GetDatabase("waterProbeData").GetCollection<Observation>(pHName + "_" + body.Device);
 
+            List<double> data = UnravelData(body.Data).Select(x => double.Parse(x)).ToList();
 
+            Observation turbidityObservation = new Observation(new TmObject(), new TmInstant(), data[0]);
+            Observation temperatureObservation = new Observation(new TmObject(), new TmInstant(), data[1]);
+            Observation pHObservation = new Observation(new TmObject(), new TmInstant(), data[2]);
 
-            IFindFluent<DataStream,DataStream> pHDataStream = dataStreamCollection.Find(datastream => datastream.ThingRef == body.Device && (datastream.ObservationType as string) == "pH");
-
-            string json = JsonConvert.SerializeObject(pHDataStream.First(), Formatting.Indented);
-      
-
-
-            observationCollection.InsertOne(body);
+            turbidityCollection.InsertOne(turbidityObservation);
+            temperatureCollection.InsertOne(temperatureObservation);
+            pHCollection.InsertOne(pHObservation);
 
             //TODO: Uncomment the next line to return response 201 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(201, default(Sample));
