@@ -18,6 +18,7 @@ using System.ComponentModel.DataAnnotations;
 using Org.OpenAPITools.Attributes;
 using Microsoft.AspNetCore.Authorization;
 using Org.OpenAPITools.Models;
+using Org.OpenAPITools.Services;
 
 namespace Org.OpenAPITools.Controllers
 { 
@@ -26,7 +27,14 @@ namespace Org.OpenAPITools.Controllers
     /// </summary>
     [ApiController]
     public class ThingApiController : ControllerBase
-    { 
+    {
+        public ThingApiController(ThingService thingService)
+        {
+            this._thingService = thingService;
+        }
+
+        private readonly ThingService _thingService;
+
         /// <summary>
         /// Delete an existing probe
         /// </summary>
@@ -97,20 +105,17 @@ namespace Org.OpenAPITools.Controllers
         [SwaggerResponse(statusCode: 200, type: typeof(Sample), description: "Successful response")]
         [SwaggerResponse(statusCode: 404, type: typeof(string), description: "Not created response")]
         public virtual IActionResult GetThings()
-        { 
+        {
 
+                List<Thing> things = _thingService.GetAll();
+                string result = JsonConvert.SerializeObject(things, Formatting.Indented);
+                return new ObjectResult(things);
+            
+            
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(Sample));
             //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(404, default(string));
-            string exampleJson = null;
-            exampleJson = "{\r\n  \"placeholder\" : \"placeholder\"\r\n}";
-            
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<Sample>(exampleJson)
-            : default(Sample);
-            //TODO: Change the data returned
-            return new ObjectResult(example);
         }
 
         /// <summary>

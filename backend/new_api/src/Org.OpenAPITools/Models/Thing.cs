@@ -17,6 +17,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Org.OpenAPITools.Converters;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace Org.OpenAPITools.Models
 { 
@@ -25,10 +27,11 @@ namespace Org.OpenAPITools.Models
     /// </summary>
     [DataContract]
     public partial class Thing : IEquatable<Thing>
-    { 
+    {
         /// <summary>
         /// Gets or Sets Name
         /// </summary>
+        [BsonId]
         [Required]
         [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
@@ -36,6 +39,7 @@ namespace Org.OpenAPITools.Models
         /// <summary>
         /// Gets or Sets Description
         /// </summary>
+        [BsonElement("description")]
         [Required]
         [DataMember(Name="description", EmitDefaultValue=false)]
         public string Description { get; set; }
@@ -43,6 +47,7 @@ namespace Org.OpenAPITools.Models
         /// <summary>
         /// Gets or Sets Properties
         /// </summary>
+        [BsonElement("properties")]
         [DataMember(Name="properties", EmitDefaultValue=false)]
         public List<Object> Properties { get; set; }
 

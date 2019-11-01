@@ -54,18 +54,18 @@ namespace Org.OpenAPITools
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
-
-
-
-            // requires using Microsoft.Extensions.Options
+            
             services.Configure<WaterProbeDatabaseSettings>(
                 Configuration.GetSection(nameof(WaterProbeDatabaseSettings)));
 
             services.AddSingleton<IWaterProbeDatabaseSettings>(sp =>
                 sp.GetRequiredService<IOptions<WaterProbeDatabaseSettings>>().Value);
 
+            services.AddSingleton<ThingService>();
+
             services.AddSingleton<DatastreamService>();
             services.AddSingleton<ObservationService>();
+
 
             // Add framework services.
             services
