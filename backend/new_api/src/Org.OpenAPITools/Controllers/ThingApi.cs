@@ -19,6 +19,7 @@ using Org.OpenAPITools.Attributes;
 using Microsoft.AspNetCore.Authorization;
 using Org.OpenAPITools.Models;
 using Org.OpenAPITools.Services;
+using Org.OpenAPITools.Models.DBModels;
 
 namespace Org.OpenAPITools.Controllers
 { 
@@ -77,7 +78,12 @@ namespace Org.OpenAPITools.Controllers
         [SwaggerResponse(statusCode: 200, type: typeof(Sample), description: "Successful response")]
         [SwaggerResponse(statusCode: 404, type: typeof(string), description: "Not created response")]
         public virtual IActionResult GetThing([FromQuery]string thingname)
-        { 
+        {
+            List<Probe> probes = _thingService.GetProbes();
+
+
+            List<Data> data1 = _thingService.GetData("Temperature_1D95A5");
+            List<Data> data2 = _thingService.GetData("Turbidity_1D95A5");
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(Sample));
@@ -106,11 +112,14 @@ namespace Org.OpenAPITools.Controllers
         [SwaggerResponse(statusCode: 404, type: typeof(string), description: "Not created response")]
         public virtual IActionResult GetThings()
         {
-
-                List<Thing> things = _thingService.GetAll();
-                string result = JsonConvert.SerializeObject(things, Formatting.Indented);
-                return new ObjectResult(things);
-            
+            List<Probe> probes = _thingService.GetProbes();
+            List<Thing> things = new List<Thing>();
+            foreach (var probe in probes)
+            {
+                things.Add(new Thing(probe));
+            }
+            string result = JsonConvert.SerializeObject(things, Formatting.Indented);
+            return new ObjectResult(things);
             
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(Sample));

@@ -1,33 +1,42 @@
-var db = connect('127.0.0.1:27017/waterProbeData');
+﻿var db = connect('127.0.0.1:27017/waterProbeData');
 
-db.createCollection('Thing');
-db.createCollection('Location');
-db.createCollection('HistoricalLocation');
-db.createCollection('Sensor');
+db.createCollection('Probes');
+db.createCollection('Locations');
+db.createCollection('Sensors');
 db.createCollection('ObservedProperty');
-db.createCollection('Datastream');
-db.createCollection('Observation');
-db.createCollection('FeatureOfInterest');
-db.createCollection('ValueCode');
+db.createCollection('Turbidity_1D95A5');
+db.createCollection('Temperature_1D95A5');
 
-db.Thing.insert({'_id' : 'Probe4', 'description' : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'properties' : [{}]});
-db.Thing.insert({'_id' : '87416', 'description' : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'properties' : [{}]});
-db.Thing.insert({'_id' : 'Østerå_probe', 'description' : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'properties' : [{}]});
-db.Thing.insert({'_id' : 'Bjarke\'s probe', 'description' : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'properties' : [{}]});
-
- 
-db.Sensor.insert({'_id' : 'Sensor145', 'description' : 'consectetur adipiscing elit, sed do eiusmod tempor', 'encodingType' : 'ph', 'metadata': 'precision 1.1'})
-db.Sensor.insert({'_id' : 'PHsensor1.0Turbo', 'description' : 'consectetur adipiscing elit, sed do eiusmod tempor', 'encodingType' : 'ph'})
-
-db.ObservedProperty.insert({'_id' : 'DewPoint Temperature', 'definition' : 'http://examples.com#DewPointTemperature' , 'description' :'The dewpoint temperature is the temperature to which the air must be cooled, at constant pressure, for dew to form. As the grass and other objects near the ground cool to the dewpoint, some of the water vapor in the atmosphere condenses into liquid water on the objects.'})
-db.ObservedProperty.insert({'_id' : 'ph', 'definition' : 'http://examples.com#p' , 'description' :'The dewpoint temperature is the temperature to which the air must be cooled, at constant pressure, for dew to form. As the grass and other objects near the ground cool to the dewpoint, some of the water vapor in the atmosphere condenses into liquid water on the objects.'})
-
-db.ValueCode.insert({'_id' : '[ph]', 'value' : 'pH'})
-
-db.Datastream.insert({'_id' : 'Datastream1', 'description' : 'Lorem ipsum dolor', 'observationType' : '[ph]', 'unitOfMeasurement' : [{}],  'thingRef' : 'Probe4', 'sensorRef' : 'Sensor145', 'observedPropertyRef' : 'ph'})
-db.Datastream.insert({'_id' : 'Datastream2', 'description' : 'Lorem ipsum dolor', 'observationType' : '[ph]', 'unitOfMeasurement' : [{}],  'thingRef' : 'Probe4', 'sensorRef' : 'Sensor145', 'observedPropertyRef' : 'ph'})
-
-db.Observation.insert({'phenomenonTime' : '2010-12-23T10:20:00.00-07:0', 'resultTime' : '2019-10-23T10:24:37+0100', 'result' : '1.23', 'datastreamRef' : 'Datastream1'})
-db.Observation.insert({'phenomenonTime' : '2010-12-23T10:20:00.00-07:00', 'resultTime' : '2019-10-23T10:24:37+0100', 'result' : '2.67', 'datastreamRef' : 'Datastream1'})
-db.Observation.insert({'phenomenonTime' : '2010-12-23T10:20:00.00-07:00', 'resultTime' : '2019-10-23T10:24:37+0100', 'result' : '10.23', 'datastreamRef' : 'Datastream1'})
-db.Observation.insert({'phenomenonTime' : '2010-12-23T10:20:00.00-07:00', 'resultTime' : '2019-10-23T10:24:37+0100', 'result' : '7', 'datastreamRef' : 'Datastream1'})
+    
+db.Probes.insert({_id : '1D95A5', description : 'Lorem ipsum dol', properties : {}, locations: [{locationReference: "locRef", locationTime: "2014-12-31T11:59:59.00+08:00"}], attachedSensors: [{refToSensor: "Turbidity", description: "Water Turbidity"},{refToSensor: "Temperature", description: "Water Temperatur"}]});
+db.Locations.insert({description : 'Lorem ipsum dolo', 'properties' : {}, encodingType: "Some encodingType", location: 'Coordinates here'});
+db.Sensors.insert({_id : 'Turbidity', description : 'Lorem ipsum dolor sit ame', encodingType: "Some encodingType", metadata: {}, unitOfMeasurement: "NTU", observedPropertyRef:"WaterTurbidity"});
+db.Sensors.insert({_id : 'Temperature', description : 'Lorem ipsum dolor sit ame', encodingType: "Some encodingType", metadata: {}, unitOfMeasurement: "°C", observedPropertyRef:"WaterTemperature"});
+db.ObservedProperty.insert({_id: "WaterTemperature", definition: "some URI", description: "The temperature of water"});
+db.ObservedProperty.insert({_id: "WaterTurbidity", definition: "some URI", description: "The turbidity of water"});
+db.Turbidity_1D95A5.insert({});
+db.Temperature_1D95A5.insert({phenomenonTime: "2014-12-31T11:59:59.00+08:00", resultTime: "2014-12-31T11:59:59.00+08:00", result: "12"});
+db.Temperature_1D95A5.insert({phenomenonTime: "2014-13-01T11:59:59.00+08:00", resultTime: "2014-12-31T11:59:59.00+08:00", result: "13"});
+db.Temperature_1D95A5.insert({phenomenonTime: "2014-13-02T11:59:59.00+08:00", resultTime: "2014-12-31T11:59:59.00+08:00", result: "14"});
+db.Temperature_1D95A5.insert({phenomenonTime: "2014-13-03T11:59:59.00+08:00", resultTime: "2014-12-31T11:59:59.00+08:00", result: "15"});
+db.Temperature_1D95A5.insert({phenomenonTime: "2014-13-04T11:59:59.00+08:00", resultTime: "2014-12-31T11:59:59.00+08:00", result: "16"});
+db.Temperature_1D95A5.insert({phenomenonTime: "2014-13-05T11:59:59.00+08:00", resultTime: "2014-12-31T11:59:59.00+08:00", result: "17"});
+db.Temperature_1D95A5.insert({phenomenonTime: "2014-13-06T11:59:59.00+08:00", resultTime: "2014-12-31T11:59:59.00+08:00", result: "18"});
+db.Temperature_1D95A5.insert({phenomenonTime: "2014-13-07T11:59:59.00+08:00", resultTime: "2014-12-31T11:59:59.00+08:00", result: "19"});
+db.Temperature_1D95A5.insert({phenomenonTime: "2014-13-08T11:59:59.00+08:00", resultTime: "2014-12-31T11:59:59.00+08:00", result: "20"});
+db.Temperature_1D95A5.insert({phenomenonTime: "2014-13-09T11:59:59.00+08:00", resultTime: "2014-12-31T11:59:59.00+08:00", result: "21"});
+db.Temperature_1D95A5.insert({phenomenonTime: "2014-13-10T11:59:59.00+08:00", resultTime: "2014-12-31T11:59:59.00+08:00", result: "22"});
+db.Temperature_1D95A5.insert({phenomenonTime: "2014-13-11T11:59:59.00+08:00", resultTime: "2014-12-31T11:59:59.00+08:00", result: "23"});
+db.Temperature_1D95A5.insert({phenomenonTime: "2014-13-12T11:59:59.00+08:00", resultTime: "2014-12-31T11:59:59.00+08:00", result: "24"});
+db.Turbidity_1D95A5.insert({phenomenonTime: "2014-12-31T11:59:59.00+08:00", resultTime: "2014-12-31T11:59:59.00+08:00", result: "300"})
+db.Turbidity_1D95A5.insert({phenomenonTime: "2014-13-01T11:59:59.00+08:00", resultTime: "2014-12-31T11:59:59.00+08:00", result: "310"})
+db.Turbidity_1D95A5.insert({phenomenonTime: "2014-13-02T11:59:59.00+08:00", resultTime: "2014-12-31T11:59:59.00+08:00", result: "320"})
+db.Turbidity_1D95A5.insert({phenomenonTime: "2014-13-03T11:59:59.00+08:00", resultTime: "2014-12-31T11:59:59.00+08:00", result: "330"})
+db.Turbidity_1D95A5.insert({phenomenonTime: "2014-13-04T11:59:59.00+08:00", resultTime: "2014-12-31T11:59:59.00+08:00", result: "340"})
+db.Turbidity_1D95A5.insert({phenomenonTime: "2014-13-05T11:59:59.00+08:00", resultTime: "2014-12-31T11:59:59.00+08:00", result: "350"})
+db.Turbidity_1D95A5.insert({phenomenonTime: "2014-13-06T11:59:59.00+08:00", resultTime: "2014-12-31T11:59:59.00+08:00", result: "360"})
+db.Turbidity_1D95A5.insert({phenomenonTime: "2014-13-07T11:59:59.00+08:00", resultTime: "2014-12-31T11:59:59.00+08:00", result: "370"})
+db.Turbidity_1D95A5.insert({phenomenonTime: "2014-13-08T11:59:59.00+08:00", resultTime: "2014-12-31T11:59:59.00+08:00", result: "380"})
+db.Turbidity_1D95A5.insert({phenomenonTime: "2014-13-09T11:59:59.00+08:00", resultTime: "2014-12-31T11:59:59.00+08:00", result: "390"})
+db.Turbidity_1D95A5.insert({phenomenonTime: "2014-13-10T11:59:59.00+08:00", resultTime: "2014-12-31T11:59:59.00+08:00", result: "400"})
+db.Turbidity_1D95A5.insert({phenomenonTime: "2014-13-11T11:59:59.00+08:00", resultTime: "2014-12-31T11:59:59.00+08:00", result: "410"})

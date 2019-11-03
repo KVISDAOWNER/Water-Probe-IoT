@@ -17,6 +17,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Org.OpenAPITools.Converters;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace Org.OpenAPITools.Models
 { 
@@ -29,13 +30,14 @@ namespace Org.OpenAPITools.Models
         /// <summary>
         /// Gets or Sets Name
         /// </summary>
-        [Required]
+        [BsonId]
         [DataMember(Name="name", EmitDefaultValue=false)]
-        public string Name { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
         /// Gets or Sets Description
         /// </summary>
+        [BsonElement("description")]
         [Required]
         [DataMember(Name="description", EmitDefaultValue=false)]
         public string Description { get; set; }
@@ -43,6 +45,7 @@ namespace Org.OpenAPITools.Models
         /// <summary>
         /// Gets or Sets EncodingType
         /// </summary>
+        [BsonElement("encodingType")]
         [Required]
         [DataMember(Name="encodingType", EmitDefaultValue=false)]
         public Object EncodingType { get; set; }
@@ -50,9 +53,10 @@ namespace Org.OpenAPITools.Models
         /// <summary>
         /// Gets or Sets MetaData
         /// </summary>
+        [BsonElement("metadata")]
         [Required]
-        [DataMember(Name="metaData", EmitDefaultValue=false)]
-        public Object MetaData { get; set; }
+        [DataMember(Name="metadata", EmitDefaultValue=false)]
+        public Object Metadata { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -62,10 +66,10 @@ namespace Org.OpenAPITools.Models
         {
             var sb = new StringBuilder();
             sb.Append("class Sensor {\n");
-            sb.Append("  Name: ").Append(Name).Append("\n");
+            sb.Append("  Name: ").Append(Id).Append("\n");
             sb.Append("  Description: ").Append(Description).Append("\n");
             sb.Append("  EncodingType: ").Append(EncodingType).Append("\n");
-            sb.Append("  MetaData: ").Append(MetaData).Append("\n");
+            sb.Append("  MetaData: ").Append(Metadata).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -103,9 +107,9 @@ namespace Org.OpenAPITools.Models
 
             return 
                 (
-                    Name == other.Name ||
-                    Name != null &&
-                    Name.Equals(other.Name)
+                    Id == other.Id ||
+                    Id != null &&
+                    Id.Equals(other.Id)
                 ) && 
                 (
                     Description == other.Description ||
@@ -118,9 +122,9 @@ namespace Org.OpenAPITools.Models
                     EncodingType.Equals(other.EncodingType)
                 ) && 
                 (
-                    MetaData == other.MetaData ||
-                    MetaData != null &&
-                    MetaData.Equals(other.MetaData)
+                    Metadata == other.Metadata ||
+                    Metadata != null &&
+                    Metadata.Equals(other.Metadata)
                 );
         }
 
@@ -134,14 +138,14 @@ namespace Org.OpenAPITools.Models
             {
                 var hashCode = 41;
                 // Suitable nullity checks etc, of course :)
-                    if (Name != null)
-                    hashCode = hashCode * 59 + Name.GetHashCode();
+                    if (Id != null)
+                    hashCode = hashCode * 59 + Id.GetHashCode();
                     if (Description != null)
                     hashCode = hashCode * 59 + Description.GetHashCode();
                     if (EncodingType != null)
                     hashCode = hashCode * 59 + EncodingType.GetHashCode();
-                    if (MetaData != null)
-                    hashCode = hashCode * 59 + MetaData.GetHashCode();
+                    if (Metadata != null)
+                    hashCode = hashCode * 59 + Metadata.GetHashCode();
                 return hashCode;
             }
         }

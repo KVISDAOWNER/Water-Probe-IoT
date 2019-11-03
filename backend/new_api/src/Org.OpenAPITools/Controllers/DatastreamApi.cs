@@ -79,21 +79,7 @@ namespace Org.OpenAPITools.Controllers
         {
 
             //Find the observations with the ref to this datastream and return them. 
-            try
-            {
-                var exampleJson = _dataStreamService.Get(dataStreamName).ToJson();
-
-
-                return new ObjectResult(exampleJson);
-
-                //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-                // return StatusCode(404, default(string));
-            }
-            catch (Exception e)
-            {
-                //TODO: Maybe change response message to default(string)
-                return StatusCode(404, e.Message);
-            }
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -110,24 +96,10 @@ namespace Org.OpenAPITools.Controllers
         [SwaggerResponse(statusCode: 404, type: typeof(string), description: "Not created response")]
         public virtual IActionResult GetDatastreams([FromQuery]string thingRef)
         {
+            List<DataStream> dataStreams = _dataStreamService.GetThingDatastreams(thingRef);
 
-            var exampleJson = _dataStreamService.GetThingDatastreams(thingRef);
-
-            string json = JsonConvert.SerializeObject(exampleJson, Formatting.Indented);
-
+            string json = JsonConvert.SerializeObject(dataStreams, Formatting.Indented);
             return new ObjectResult(json);
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(Sample));
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(string));
-
-          /*  exampleJson = "{\r\n  \"placeholder\" : \"placeholder\"\r\n}";
-            
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<Sample>(exampleJson)
-            : default(Sample);
-            //TODO: Change the data returned
-            return new ObjectResult(example);*/
         }
 
         /// <summary>

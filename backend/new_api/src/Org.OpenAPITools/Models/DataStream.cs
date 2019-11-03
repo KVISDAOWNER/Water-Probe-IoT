@@ -32,7 +32,6 @@ namespace Org.OpenAPITools.Models
         /// <summary>
         /// Gets or Sets Name
         /// </summary>
-        [BsonId]
         [Required]
         [DataMember(Name = "name", EmitDefaultValue = false)]
         public string Name { get; set; }
@@ -40,7 +39,6 @@ namespace Org.OpenAPITools.Models
         /// <summary>
         /// Gets or Sets Description
         /// </summary>
-        [BsonElement("description")]
         [Required]
         [DataMember(Name = "description", EmitDefaultValue = false)]
         public string Description { get; set; }
@@ -48,7 +46,6 @@ namespace Org.OpenAPITools.Models
         /// <summary>
         /// Gets or Sets ObservationType
         /// </summary>
-        [BsonElement("observationType")]
         [Required]
         [DataMember(Name = "observationtype", EmitDefaultValue = false)]
         public Object ObservationType { get; set; }
@@ -56,36 +53,31 @@ namespace Org.OpenAPITools.Models
         /// <summary>
         /// Gets or Sets UnitOfMeasurement
         /// </summary>
-        [BsonElement("unitOfMeasurement")]
         [Required]
         [DataMember(Name = "unitofMeasurement", EmitDefaultValue = false)]
-        public List<Object> UnitOfMeasurement { get; set; }
+        public Object UnitOfMeasurement { get; set; }
 
         /// <summary>
         /// Gets or Sets ObservedArea
         /// </summary>
-        [BsonElement("observedArea")]
         [DataMember(Name = "observedarea", EmitDefaultValue = false)]
         public Object ObservedArea { get; set; }
 
         /// <summary>
         /// Gets or Sets PhenomenonTime
         /// </summary>
-        [BsonElement("phenomenonTime")]
         [DataMember(Name = "phenomenontime", EmitDefaultValue = false)]
         public Object PhenomenonTime { get; set; }
 
         /// <summary>
         /// Gets or Sets ResultTime
         /// </summary>
-        [BsonElement("resultTime")]
         [DataMember(Name = "resulttime", EmitDefaultValue = false)]
         public Object ResultTime { get; set; }
 
         /// <summary>
         /// Gets or Sets ThingRef
         /// </summary>
-        [BsonElement("thingRef")]
         [Required]
         [DataMember(Name = "thingref", EmitDefaultValue = false)]
         public string ThingRef { get; set; }
@@ -93,7 +85,6 @@ namespace Org.OpenAPITools.Models
         /// <summary>
         /// Gets or Sets SensorRef
         /// </summary>
-        [BsonElement("sensorRef")]
         [Required]
         [DataMember(Name = "sensorref", EmitDefaultValue = false)]
         public string SensorRef { get; set; }
@@ -101,7 +92,6 @@ namespace Org.OpenAPITools.Models
         /// <summary>
         /// Gets or Sets ObservedPropertyRef
         /// </summary>
-        [BsonElement("observedPropertyRef")]
         [Required]
         [DataMember(Name = "observedpropertyref", EmitDefaultValue = false)]
         public string ObservedPropertyRef { get; set; }
@@ -181,7 +171,7 @@ namespace Org.OpenAPITools.Models
                     UnitOfMeasurement == other.UnitOfMeasurement ||
                     UnitOfMeasurement != null &&
                     other.UnitOfMeasurement != null &&
-                    UnitOfMeasurement.SequenceEqual(other.UnitOfMeasurement)
+                    UnitOfMeasurement.Equals(other.UnitOfMeasurement)
                 ) &&
                 (
                     ObservedArea == other.ObservedArea ||

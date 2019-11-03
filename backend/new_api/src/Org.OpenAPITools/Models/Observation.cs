@@ -28,11 +28,8 @@ namespace Org.OpenAPITools.Models
     [DataContract]
     public partial class Observation : IEquatable<Observation>
     {
-
-        [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        [DataMember(Name = "_id", EmitDefaultValue = false)]
-        public String _id { get; set; }
+        public string Id { get; set; }
 
         /// <summary>
         /// Gets or Sets PhenomenonTime
@@ -56,12 +53,12 @@ namespace Org.OpenAPITools.Models
         [BsonElement("result")]
         [Required]
         [DataMember(Name="result", EmitDefaultValue=false)]
-        public decimal Result { get; set; }
+        public double Result { get; set; }
 
         /// <summary>
         /// Gets or Sets ResultQuality
         /// </summary>
-        [BsonElement("resultQuality")]
+        [BsonElement("resulQuality")]
         [DataMember(Name="resultQuality", EmitDefaultValue=false)]
         public List<Object> ResultQuality { get; set; }
 
@@ -79,20 +76,6 @@ namespace Org.OpenAPITools.Models
         [DataMember(Name="parameters", EmitDefaultValue=false)]
         public List<Object> Parameters { get; set; }
 
-        /// <summary>
-        /// Gets or Sets DatastreamRef
-        /// </summary>
-        [BsonElement("datastreamRef")]
-        [Required]
-        [DataMember(Name="datastreamRef", EmitDefaultValue=false)]
-        public string DatastreamRef { get; set; }
-
-        /// <summary>
-        /// Gets or Sets FeatureOfInterestRef
-        /// </summary>
-        [BsonElement("featureOfInterestRef")]
-        [DataMember(Name="featureOfInterestRef", EmitDefaultValue=false)]
-        public string FeatureOfInterestRef { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -108,8 +91,6 @@ namespace Org.OpenAPITools.Models
             sb.Append("  ResultQuality: ").Append(ResultQuality).Append("\n");
             sb.Append("  ValidTime: ").Append(ValidTime).Append("\n");
             sb.Append("  Parameters: ").Append(Parameters).Append("\n");
-            sb.Append("  DatastreamRef: ").Append(DatastreamRef).Append("\n");
-            sb.Append("  FeatureOfInterestRef: ").Append(FeatureOfInterestRef).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -145,49 +126,39 @@ namespace Org.OpenAPITools.Models
             if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
 
-            return 
+            return
                 (
                     PhenomenonTime == other.PhenomenonTime ||
                     PhenomenonTime != null &&
                     PhenomenonTime.Equals(other.PhenomenonTime)
-                ) && 
+                ) &&
                 (
                     ResultTime == other.ResultTime ||
                     ResultTime != null &&
                     ResultTime.Equals(other.ResultTime)
-                ) && 
+                ) &&
                 (
                     Result == other.Result ||
-                    
+
                     Result.Equals(other.Result)
-                ) && 
+                ) &&
                 (
                     ResultQuality == other.ResultQuality ||
                     ResultQuality != null &&
                     other.ResultQuality != null &&
                     ResultQuality.SequenceEqual(other.ResultQuality)
-                ) && 
+                ) &&
                 (
                     ValidTime == other.ValidTime ||
                     ValidTime != null &&
                     other.ValidTime != null &&
                     ValidTime.SequenceEqual(other.ValidTime)
-                ) && 
+                ) &&
                 (
                     Parameters == other.Parameters ||
                     Parameters != null &&
                     other.Parameters != null &&
                     Parameters.SequenceEqual(other.Parameters)
-                ) && 
-                (
-                    DatastreamRef == other.DatastreamRef ||
-                    DatastreamRef != null &&
-                    DatastreamRef.Equals(other.DatastreamRef)
-                ) && 
-                (
-                    FeatureOfInterestRef == other.FeatureOfInterestRef ||
-                    FeatureOfInterestRef != null &&
-                    FeatureOfInterestRef.Equals(other.FeatureOfInterestRef)
                 );
         }
 
@@ -213,10 +184,6 @@ namespace Org.OpenAPITools.Models
                     hashCode = hashCode * 59 + ValidTime.GetHashCode();
                     if (Parameters != null)
                     hashCode = hashCode * 59 + Parameters.GetHashCode();
-                    if (DatastreamRef != null)
-                    hashCode = hashCode * 59 + DatastreamRef.GetHashCode();
-                    if (FeatureOfInterestRef != null)
-                    hashCode = hashCode * 59 + FeatureOfInterestRef.GetHashCode();
                 return hashCode;
             }
         }

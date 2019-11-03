@@ -8,23 +8,23 @@ using System.Threading.Tasks;
 
 namespace Org.OpenAPITools.Services
 {
-    public class ObservationService
+    public class SensorService
     {
+        private readonly IMongoCollection<DBSensor> _sensors;
         private readonly IMongoDatabase mongoDatabase;
-        public ObservationService(IWaterProbeDatabaseSettings settings)
+        private readonly ThingService thingService;
+
+        public SensorService(IWaterProbeDatabaseSettings settings)
         {
             var client = new MongoClient(settings.ConnectionString);
             mongoDatabase = client.GetDatabase(settings.DatabaseName);
+            _sensors = mongoDatabase.GetCollection<DBSensor>("Sensors");
         }
 
-
-        public List<Observation> GetDatastreamsObservations(string datastreamRef)
+        public DBSensor GetSensor(string sensorId)
         {
-            var collection = mongoDatabase.GetCollection<Observation>(datastreamRef);
-            var result = collection.Find<Observation>(d => true).ToList();
-            return result;
+            var sensors = _sensors.Find(s => true);
+            return _sensors.Find<DBSensor>(s => s.Id == sensorId).FirstOrDefault();
         }
     }
-
 }
-

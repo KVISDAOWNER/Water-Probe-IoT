@@ -62,7 +62,7 @@ namespace Org.OpenAPITools
                 sp.GetRequiredService<IOptions<WaterProbeDatabaseSettings>>().Value);
 
             services.AddSingleton<ThingService>();
-
+            services.AddSingleton<SensorService>();
             services.AddSingleton<DatastreamService>();
             services.AddSingleton<ObservationService>();
 

@@ -19,6 +19,7 @@ using Newtonsoft.Json;
 using Org.OpenAPITools.Converters;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using Org.OpenAPITools.Models.DBModels;
 
 namespace Org.OpenAPITools.Models
 { 
@@ -28,10 +29,15 @@ namespace Org.OpenAPITools.Models
     [DataContract]
     public partial class Thing : IEquatable<Thing>
     {
+        public Thing(Probe probe)
+        {
+            this.Name = probe.Id;
+            this.Description = probe.Description;
+            this.Properties = probe.Properties;
+        }
         /// <summary>
         /// Gets or Sets Name
         /// </summary>
-        [BsonId]
         [Required]
         [DataMember(Name="name", EmitDefaultValue=false)]
         public string Name { get; set; }
@@ -39,7 +45,6 @@ namespace Org.OpenAPITools.Models
         /// <summary>
         /// Gets or Sets Description
         /// </summary>
-        [BsonElement("description")]
         [Required]
         [DataMember(Name="description", EmitDefaultValue=false)]
         public string Description { get; set; }
@@ -47,9 +52,8 @@ namespace Org.OpenAPITools.Models
         /// <summary>
         /// Gets or Sets Properties
         /// </summary>
-        [BsonElement("properties")]
         [DataMember(Name="properties", EmitDefaultValue=false)]
-        public List<Object> Properties { get; set; }
+        public Object Properties { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -112,7 +116,7 @@ namespace Org.OpenAPITools.Models
                     Properties == other.Properties ||
                     Properties != null &&
                     other.Properties != null &&
-                    Properties.SequenceEqual(other.Properties)
+                    Properties.Equals(other.Properties)
                 );
         }
 
