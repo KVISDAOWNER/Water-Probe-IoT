@@ -18,7 +18,7 @@ namespace Org.OpenAPITools.Services
         {
             var client = new MongoClient(settings.ConnectionString);
             mongoDatabase = client.GetDatabase(settings.DatabaseName);
-            _sensors = mongoDatabase.GetCollection<DBSensor>("Sensors");
+            _sensors = mongoDatabase.GetCollection<DBSensor>(settings.SensorCollectionName);
         }
 
         public DBSensor GetSensor(string sensorId)

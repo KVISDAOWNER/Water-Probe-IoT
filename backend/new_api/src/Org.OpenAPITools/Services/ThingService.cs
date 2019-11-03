@@ -15,7 +15,7 @@ namespace Org.OpenAPITools.Services
         {
             var client = new MongoClient(settings.ConnectionString);
             mongoDatabase = client.GetDatabase(settings.DatabaseName);
-            _probes = mongoDatabase.GetCollection<Probe>("Probes");
+            _probes = mongoDatabase.GetCollection<Probe>(settings.ProbeCollectionName);
         }
 
         public List<Probe> GetProbes() =>
@@ -23,14 +23,5 @@ namespace Org.OpenAPITools.Services
 
         public Probe GetProbe(string id) =>
             _probes.Find<Probe>(p => p.Id == id).FirstOrDefault();
-
-        public List<Data> GetData(string collectionName) =>
-            mongoDatabase.GetCollection<Data>(collectionName).Find(data => true).ToList();
-
-        //public Thing Create(Thing thing)
-        //{
-        //    _things.InsertOne(thing);
-        //    return thing;
-        //}
     }
 }

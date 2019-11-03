@@ -23,14 +23,7 @@ namespace Org.OpenAPITools.Services
             thingService = new ThingService(settings);
             sensorService = new SensorService(settings);
         }
-        
-        //public List<DataStream> Get() =>
-        //    _dataStreams.Find(datastream => true).ToList();
-
-        //public DataStream Get(string Id) =>
-        //    _dataStreams.Find<DataStream>(dataStream => dataStream.Name == Id).FirstOrDefault();
-            
-
+ 
         public List<DataStream> GetThingDatastreams(string probeId)
         {
             List<DataStream> resultDatastreams = new List<DataStream>();
@@ -51,21 +44,5 @@ namespace Org.OpenAPITools.Services
             }
             return resultDatastreams;
         }
-
-        //    public DataStream Create(DataStream dataStream)
-        //    {
-        //        _dataStreams.InsertOne(dataStream);
-        //        return dataStream;
-        //    }
-
-        //    public void Update(string id, DataStream dataStreamIn) =>
-        //        _dataStreams.ReplaceOne(dataStream => dataStream.Name == id, dataStreamIn);
-
-        //    public void Remove(DataStream dataStreamIn) =>
-        //        _dataStreams.DeleteOne(dataStream => dataStream.Name == dataStreamIn.Name);
-
-        //    public void Remove(string id) =>
-        //        _dataStreams.DeleteOne(dataStream => dataStream.Name == id);
-        //
     }
 }

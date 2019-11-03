@@ -1,17 +1,17 @@
 ﻿var db = connect('127.0.0.1:27017/waterProbeData');
 
-db.createCollection('Probes');
-db.createCollection('Locations');
-db.createCollection('Sensors');
+db.createCollection('Probe');
+db.createCollection('Location');
+db.createCollection('Sensor');
 db.createCollection('ObservedProperty');
 db.createCollection('Turbidity_1D95A5');
 db.createCollection('Temperature_1D95A5');
 
     
-db.Probes.insert({_id : '1D95A5', description : 'Lorem ipsum dol', properties : {}, locations: [{locationReference: "locRef", locationTime: "2014-12-31T11:59:59.00+08:00"}], attachedSensors: [{refToSensor: "Turbidity", description: "Water Turbidity"},{refToSensor: "Temperature", description: "Water Temperatur"}]});
-db.Locations.insert({description : 'Lorem ipsum dolo', 'properties' : {}, encodingType: "Some encodingType", location: 'Coordinates here'});
-db.Sensors.insert({_id : 'Turbidity', description : 'Lorem ipsum dolor sit ame', encodingType: "Some encodingType", metadata: {}, unitOfMeasurement: "NTU", observedPropertyRef:"WaterTurbidity"});
-db.Sensors.insert({_id : 'Temperature', description : 'Lorem ipsum dolor sit ame', encodingType: "Some encodingType", metadata: {}, unitOfMeasurement: "°C", observedPropertyRef:"WaterTemperature"});
+db.Probe.insert({_id : '1D95A5', description : 'Lorem ipsum dol', properties : {}, locations: [{locationReference: "locRef", locationTime: "2014-12-31T11:59:59.00+08:00"}], attachedSensors: [{refToSensor: "Turbidity", description: "Water Turbidity"},{refToSensor: "Temperature", description: "Water Temperatur"}]});
+db.Location.insert({description : 'Lorem ipsum dolo', 'properties' : {}, encodingType: "Some encodingType", location: 'Coordinates here'});
+db.Sensor.insert({_id : 'Turbidity', description : 'Lorem ipsum dolor sit ame', encodingType: "Some encodingType", metadata: {}, unitOfMeasurement: "NTU", observedPropertyRef:"WaterTurbidity"});
+db.Sensor.insert({_id : 'Temperature', description : 'Lorem ipsum dolor sit ame', encodingType: "Some encodingType", metadata: {}, unitOfMeasurement: "°C", observedPropertyRef:"WaterTemperature"});
 db.ObservedProperty.insert({_id: "WaterTemperature", definition: "some URI", description: "The temperature of water"});
 db.ObservedProperty.insert({_id: "WaterTurbidity", definition: "some URI", description: "The turbidity of water"});
 db.Turbidity_1D95A5.insert({});
