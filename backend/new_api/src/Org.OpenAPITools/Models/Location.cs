@@ -17,6 +17,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Org.OpenAPITools.Converters;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace Org.OpenAPITools.Models
 { 
@@ -25,11 +26,19 @@ namespace Org.OpenAPITools.Models
     /// </summary>
     [DataContract]
     public partial class Location : IEquatable<Location>
-    { 
+    {
+        /// <summary>
+        /// Gets or Sets the id
+        /// </summary>
+        [Required]
+        [DataMember(Name = "_id", EmitDefaultValue = false)]
+        public string Id { get; set; }
+
         /// <summary>
         /// Gets or Sets Description
         /// </summary>
         [Required]
+        [BsonElement("description")]
         [DataMember(Name="description", EmitDefaultValue=false)]
         public string Description { get; set; }
 
@@ -37,6 +46,7 @@ namespace Org.OpenAPITools.Models
         /// Gets or Sets EncodingType
         /// </summary>
         [Required]
+        [BsonElement("encodingType")]
         [DataMember(Name="encodingType", EmitDefaultValue=false)]
         public Object EncodingType { get; set; }
 
@@ -44,6 +54,7 @@ namespace Org.OpenAPITools.Models
         /// Gets or Sets _Location
         /// </summary>
         [Required]
+        [BsonElement("location")]
         [DataMember(Name="location", EmitDefaultValue=false)]
         public Object _Location { get; set; }
 
@@ -55,6 +66,7 @@ namespace Org.OpenAPITools.Models
         {
             var sb = new StringBuilder();
             sb.Append("class Location {\n");
+            sb.Append("  Id: ").Append(Id).Append("\n");
             sb.Append("  Description: ").Append(Description).Append("\n");
             sb.Append("  EncodingType: ").Append(EncodingType).Append("\n");
             sb.Append("  _Location: ").Append(_Location).Append("\n");

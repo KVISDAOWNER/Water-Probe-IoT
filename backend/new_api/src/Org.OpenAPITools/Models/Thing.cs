@@ -29,11 +29,13 @@ namespace Org.OpenAPITools.Models
     [DataContract]
     public partial class Thing : IEquatable<Thing>
     {
-        public Thing(Probe probe)
+        public Thing(Probe probe, Location location )
         {
             this.Name = probe.Id;
             this.Description = probe.Description;
             this.Properties = probe.Properties;
+            this.Location = location;
+
         }
         /// <summary>
         /// Gets or Sets Name
@@ -54,6 +56,10 @@ namespace Org.OpenAPITools.Models
         /// </summary>
         [DataMember(Name="properties", EmitDefaultValue=false)]
         public Object Properties { get; set; }
+
+        
+        [DataMember(Name = "location", EmitDefaultValue = false)]
+        public Location Location { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object

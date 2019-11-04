@@ -36,6 +36,7 @@ namespace Org.OpenAPITools.Controllers
 
         private readonly ThingService _thingService;
 
+
         /// <summary>
         /// Delete an existing probe
         /// </summary>
@@ -95,7 +96,8 @@ namespace Org.OpenAPITools.Controllers
         }
 
         /// <summary>
-        /// Gets all things (probes)
+        /// Gets all things (probes), loops through the array of location References, finding the one with the most recent time
+        /// Gets the most recent locationreference and converts it to a location.
         /// </summary>
         /// <response code="200">Successful response</response>
         /// <response code="404">Not created response</response>
@@ -109,9 +111,24 @@ namespace Org.OpenAPITools.Controllers
         {
             List<Probe> probes = _thingService.GetProbes();
             List<Thing> things = new List<Thing>();
+
+            string probeLocation;
+            DateTime dateTime = DateTime.MinValue;
+            DateTime dateTimeTemp;
             foreach (var probe in probes)
             {
-                things.Add(new Thing(probe));
+                probeLocation = "";
+                foreach (var loc in probe.Locations)
+                {
+                    dateTimeTemp = DateTime.Parse(loc.LocationTime, null, System.Globalization.DateTimeStyles.RoundtripKind);
+                    if (dateTime < dateTimeTemp)
+                    {
+                        dateTime = dateTimeTemp;
+                        probeLocation = loc.LocationReference;
+                    }
+                }
+                var location = _thingService.GetLocation(probeLocation);
+                things.Add(new Thing(probe, location));
             }
             string result = JsonConvert.SerializeObject(things, Formatting.Indented);
             return new ObjectResult(things);

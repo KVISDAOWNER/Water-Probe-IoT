@@ -10,12 +10,15 @@ namespace Org.OpenAPITools.Services
     {
         private readonly IMongoDatabase mongoDatabase;
         private readonly IMongoCollection<Probe> _probes;
+        readonly IMongoCollection<Location> _locations;
+
 
         public ThingService(IWaterProbeDatabaseSettings settings)
         {
             var client = new MongoClient(settings.ConnectionString);
             mongoDatabase = client.GetDatabase(settings.DatabaseName);
             _probes = mongoDatabase.GetCollection<Probe>(settings.ProbeCollectionName);
+            _locations = mongoDatabase.GetCollection<Location>(settings.LocationCollectionName);
         }
 
         public List<Probe> GetProbes() =>
@@ -23,5 +26,11 @@ namespace Org.OpenAPITools.Services
 
         public Probe GetProbe(string id) =>
             _probes.Find<Probe>(p => p.Id == id).FirstOrDefault();
+
+        public List<Location> getLocations() =>
+            _locations.Find(location => true).ToList();
+
+        public Location GetLocation(string id) =>
+            _locations.Find(location => location.Id == id).FirstOrDefault();
     }
 }
