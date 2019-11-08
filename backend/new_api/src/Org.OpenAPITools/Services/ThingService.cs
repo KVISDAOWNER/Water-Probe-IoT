@@ -13,12 +13,12 @@ namespace Org.OpenAPITools.Services
         readonly IMongoCollection<Location> _locations;
 
 
-        public ThingService(IWaterProbeDatabaseSettings settings)
+        public ThingService(IMongoDBSettings settings)
         {
-            var client = new MongoClient(settings.ConnectionString);
-            mongoDatabase = client.GetDatabase(settings.DatabaseName);
-            _probes = mongoDatabase.GetCollection<Probe>(settings.ProbeCollectionName);
-            _locations = mongoDatabase.GetCollection<Location>(settings.LocationCollectionName);
+            var client = new MongoClient("mongodb://" + settings.Host + ":" + settings.Port);
+            mongoDatabase = client.GetDatabase(settings.Database);
+            _probes = mongoDatabase.GetCollection<Probe>("Probe");
+            _locations = mongoDatabase.GetCollection<Location>("Location");
         }
 
         public List<Probe> GetProbes() =>

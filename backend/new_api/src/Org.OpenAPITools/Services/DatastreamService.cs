@@ -16,10 +16,10 @@ namespace Org.OpenAPITools.Services
         private readonly ThingService thingService;
         private readonly SensorService sensorService;
 
-        public DatastreamService(IWaterProbeDatabaseSettings settings)
+        public DatastreamService(IMongoDBSettings settings)
         {
-            var client = new MongoClient(settings.ConnectionString);
-            mongoDatabase = client.GetDatabase(settings.DatabaseName);
+            var client = new MongoClient("mongodb://" + settings.Host+':'+settings.Port);
+            mongoDatabase = client.GetDatabase(settings.Database);
             thingService = new ThingService(settings);
             sensorService = new SensorService(settings);
         }

@@ -11,10 +11,10 @@ namespace Org.OpenAPITools.Services
     public class ObservationService
     {
         private readonly IMongoDatabase mongoDatabase;
-        public ObservationService(IWaterProbeDatabaseSettings settings)
+        public ObservationService(IMongoDBSettings settings)
         {
-            var client = new MongoClient(settings.ConnectionString);
-            mongoDatabase = client.GetDatabase(settings.DatabaseName);
+            var client = new MongoClient("mongodb://" + settings.Host + ':' + settings.Port);
+            mongoDatabase = client.GetDatabase(settings.Database);
         }
 
 

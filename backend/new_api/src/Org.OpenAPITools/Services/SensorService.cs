@@ -14,11 +14,11 @@ namespace Org.OpenAPITools.Services
         private readonly IMongoDatabase mongoDatabase;
         private readonly ThingService thingService;
 
-        public SensorService(IWaterProbeDatabaseSettings settings)
+        public SensorService(IMongoDBSettings settings)
         {
-            var client = new MongoClient(settings.ConnectionString);
-            mongoDatabase = client.GetDatabase(settings.DatabaseName);
-            _sensors = mongoDatabase.GetCollection<DBSensor>(settings.SensorCollectionName);
+            var client = new MongoClient("mongodb://" + settings.Host + ':' + settings.Port);
+            mongoDatabase = client.GetDatabase(settings.Database);
+            _sensors = mongoDatabase.GetCollection<DBSensor>("Sensor");
         }
 
         public DBSensor GetSensor(string sensorId)

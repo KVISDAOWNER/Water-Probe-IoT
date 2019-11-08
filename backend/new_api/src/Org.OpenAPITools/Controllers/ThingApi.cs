@@ -109,7 +109,15 @@ namespace Org.OpenAPITools.Controllers
         [SwaggerResponse(statusCode: 404, type: typeof(string), description: "Not created response")]
         public virtual IActionResult GetThings()
         {
-            List<Probe> probes = _thingService.GetProbes();
+            List<Probe> probes;
+            try
+            {
+                probes = _thingService.GetProbes();
+            }
+            catch (Exception e)
+            {
+                return new ObjectResult(e.Message);
+            }
             List<Thing> things = new List<Thing>();
 
             string probeLocation;

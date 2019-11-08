@@ -55,11 +55,11 @@ namespace Org.OpenAPITools
         public void ConfigureServices(IServiceCollection services)
         {
             
-            services.Configure<WaterProbeDatabaseSettings>(
-                Configuration.GetSection(nameof(WaterProbeDatabaseSettings)));
+            services.Configure<MongoDBSettings>(
+                Configuration.GetSection("MongoDB"));
 
-            services.AddSingleton<IWaterProbeDatabaseSettings>(sp =>
-                sp.GetRequiredService<IOptions<WaterProbeDatabaseSettings>>().Value);
+            services.AddSingleton<IMongoDBSettings>(sp =>
+                sp.GetRequiredService<IOptions<MongoDBSettings>>().Value);
 
             services.AddSingleton<ThingService>();
             services.AddSingleton<SensorService>();
