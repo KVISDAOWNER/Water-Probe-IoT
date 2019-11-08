@@ -52,15 +52,17 @@ namespace IO.Swagger.Controllers
 
             MongoClient client = new MongoClient(connectionString);
 
-            var turbidityCollection = client.GetDatabase("waterProbeData").GetCollection<Observation>(turbidityName + "_" + body.Device);
-            var temperatureCollection = client.GetDatabase("waterProbeData").GetCollection<Observation>(temperatureName + "_" + body.Device);
-            var pHCollection = client.GetDatabase("waterProbeData").GetCollection<Observation>(pHName + "_" + body.Device);
+            var turbidityCollection = client.GetDatabase("waterProbeData").GetCollection<Observation>("Turbidity" + "_" + body.Device);
+            var temperatureCollection = client.GetDatabase("waterProbeData").GetCollection<Observation>("Temperature" + "_" + body.Device);
+            var pHCollection = client.GetDatabase("waterProbeData").GetCollection<Observation>("PH" + "_" + body.Device);
 
             List<double> data = UnravelData(body.Data).Select(x => double.Parse(x)).ToList();
 
             Observation turbidityObservation = new Observation(new TmObject(), new TmInstant(), data[0]);
-            Observation temperatureObservation = new Observation(new TmObject(), new TmInstant(), data[1]);
-            Observation pHObservation = new Observation(new TmObject(), new TmInstant(), data[2]);
+            Observation temperatureObservation = new Observation(new TmObject(), new TmInstant(), data[2]);
+            Observation pHObservation = new Observation(new TmObject(), new TmInstant(), data[1]);
+
+            DateTime dateTime = DateTime.UnixEpoch.AddSeconds(int.Parse(body.Time));
 
             turbidityCollection.InsertOne(turbidityObservation);
             temperatureCollection.InsertOne(temperatureObservation);
