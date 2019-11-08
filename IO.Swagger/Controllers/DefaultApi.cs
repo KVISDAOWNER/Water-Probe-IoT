@@ -30,9 +30,16 @@ namespace IO.Swagger.Controllers
     [ApiController]
     public class DefaultApiController : ControllerBase
     {
+        public DefaultApiController(IMongoDBSettings dBSettings)
+        {
+            MongoClient mongoClient = new MongoClient("mongodb://" + dBSettings.Host + ":" + dBSettings.Port);
+            mongoDB = mongoClient.GetDatabase(dBSettings.Database);
+        }
         private const string turbidityName = "MJKDZ";
         private const string temperatureName = "DS18B20";
         private const string pHName = "PH-4502C";
+        private readonly IMongoDatabase mongoDB;
+
         /// <summary>
         /// Posts new data
         /// </summary>
@@ -48,13 +55,9 @@ namespace IO.Swagger.Controllers
         [SwaggerResponse(statusCode: 404, type: typeof(string), description: "Not created response")]
         public virtual IActionResult NewData([FromBody]DeviceData body)
         {
-            string connectionString = "mongodb://localhost:27017";
-
-            MongoClient client = new MongoClient(connectionString);
-
-            var turbidityCollection = client.GetDatabase("waterProbeData").GetCollection<Observation>("Turbidity" + "_" + body.Device);
-            var temperatureCollection = client.GetDatabase("waterProbeData").GetCollection<Observation>("Temperature" + "_" + body.Device);
-            var pHCollection = client.GetDatabase("waterProbeData").GetCollection<Observation>("PH" + "_" + body.Device);
+            var turbidityCollection = mongoDB.GetCollection<Observation>("Turbidity" + "_" + body.Device);
+            var temperatureCollection = mongoDB.GetCollection<Observation>("Temperature" + "_" + body.Device);
+            var pHCollection = mongoDB.GetCollection<Observation>("PH" + "_" + body.Device);
 
             List<double> data = UnravelData(body.Data).Select(x => double.Parse(x)).ToList();
 

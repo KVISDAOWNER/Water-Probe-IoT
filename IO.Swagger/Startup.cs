@@ -22,6 +22,8 @@ using IO.Swagger.Filters;
 
 
 using Microsoft.AspNetCore.Authentication;
+using IO.Swagger.Models;
+using Microsoft.Extensions.Options;
 
 namespace IO.Swagger
 {
@@ -52,6 +54,12 @@ namespace IO.Swagger
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
+            services.Configure<MongoDBSettings>(
+                Configuration.GetSection("MongoDB"));
+
+            services.AddSingleton<IMongoDBSettings>(sp =>
+                sp.GetRequiredService<IOptions<MongoDBSettings>>().Value);
+
             services
                 .AddMvc()
                 .AddJsonOptions(opts =>
