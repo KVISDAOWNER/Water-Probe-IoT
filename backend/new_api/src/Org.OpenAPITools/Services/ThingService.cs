@@ -27,6 +27,10 @@ namespace Org.OpenAPITools.Services
         public Probe GetProbe(string id) =>
             _probes.Find<Probe>(p => p.Id == id).FirstOrDefault();
 
+    
+        
+
+        //The location related functionality is necessary to get the location for a probe
         public List<Location> getLocations() =>
             _locations.Find(location => true).ToList();
 
