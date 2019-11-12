@@ -11,14 +11,14 @@ namespace IO.Swagger.Models
     /// </summary>
     public class Observation
     {
-        public TmObject TmObject;
-        public TmInstant TmInstant;
+        public string PhenomenonTime;
+        public string ResultTime;
         public double Result;
 
-        public Observation(TmObject tmObject, TmInstant tmInstant, double result)
+        public Observation(string phenomenonTime, string resultTime, double result)
         {
-            TmObject = tmObject;
-            TmInstant = tmInstant;
+            PhenomenonTime = phenomenonTime;
+            ResultTime = resultTime;
             Result = result;
         }
     }
