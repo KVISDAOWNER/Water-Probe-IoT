@@ -80,7 +80,9 @@ namespace Org.OpenAPITools.Controllers
         [SwaggerResponse(statusCode: 404, type: typeof(string), description: "Not created response")]
         public virtual IActionResult GetThing([FromQuery]string thingname)
         {
-
+            var probe = _thingService.GetProbe(thingname);
+            var result = JsonConvert.SerializeObject(probe, Formatting.Indented);
+            return new ObjectResult(result);
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(Sample));
             //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
