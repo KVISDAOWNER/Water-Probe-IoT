@@ -38,7 +38,7 @@ namespace IO.Swagger.Controllers
         }
         private const string turbidityName = "MJKDZ";
         private const string temperatureName = "DS18B20";
-        private const string pHName = "PH-4502C";
+        private const string pHName = "PH4502C";
         private const string nitrogenName = "Nitrogen";
         private const string phosphorusName = "Phosphorus";
 
