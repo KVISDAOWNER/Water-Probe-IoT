@@ -115,33 +115,33 @@ namespace Org.OpenAPITools.Controllers
             try
             {
                 probes = _thingService.GetProbes();
+                List<Thing> things = new List<Thing>();
+
+                foreach (var probe in probes)
+                {
+                    string probeLocation;
+                    DateTime dateTime = DateTime.MinValue;
+                    DateTime dateTimeTemp;
+                    probeLocation = "";
+                    foreach (var loc in probe.Locations)
+                    {
+                        dateTimeTemp = DateTime.Parse(loc.LocationTime, null, System.Globalization.DateTimeStyles.RoundtripKind);
+                        if (dateTime < dateTimeTemp)
+                        {
+                            dateTime = dateTimeTemp;
+                            probeLocation = loc.LocationReference;
+                        }
+                    }
+                    var location = _thingService.GetLocation(probeLocation);
+                    things.Add(new Thing(probe, location));
+                }
+                string result = JsonConvert.SerializeObject(things, Formatting.Indented);
+                return StatusCode(200, result);
             }
             catch (Exception e)
             {
-                return new ObjectResult(e.Message);
+                return StatusCode(404, e.Message);
             }
-            List<Thing> things = new List<Thing>();
-
-            foreach (var probe in probes)
-            {
-                string probeLocation;
-                DateTime dateTime = DateTime.MinValue;
-                DateTime dateTimeTemp;
-                probeLocation = "";
-                foreach (var loc in probe.Locations)
-                {
-                    dateTimeTemp = DateTime.Parse(loc.LocationTime, null, System.Globalization.DateTimeStyles.RoundtripKind);
-                    if (dateTime < dateTimeTemp)
-                    {
-                        dateTime = dateTimeTemp;
-                        probeLocation = loc.LocationReference;
-                    }
-                }
-                var location = _thingService.GetLocation(probeLocation);
-                things.Add(new Thing(probe, location));
-            }
-            string result = JsonConvert.SerializeObject(things, Formatting.Indented);
-            return new ObjectResult(things);
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(Sample));

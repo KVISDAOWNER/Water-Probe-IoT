@@ -79,11 +79,18 @@ namespace Org.OpenAPITools.Controllers
         [SwaggerResponse(statusCode: 404, type: typeof(string), description: "Not created response")]
         public virtual IActionResult GetObservations([FromQuery]string datastreamRef)
         {
-            var exampleJson = _observationService.GetDatastreamsObservations(datastreamRef);
+            try
+            {
+                var observations = _observationService.GetDatastreamsObservations(datastreamRef);
 
-            string json = JsonConvert.SerializeObject(exampleJson, Formatting.Indented);
+                string json = JsonConvert.SerializeObject(observations, Formatting.Indented);
 
-            return new ObjectResult(json);
+                return StatusCode(200, json);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(404, e.Message);
+            }
 
 
             //TODO: Uncomment the next line to return response 201 or use other options such as return this.NotFound(), return this.BadRequest(..), ...

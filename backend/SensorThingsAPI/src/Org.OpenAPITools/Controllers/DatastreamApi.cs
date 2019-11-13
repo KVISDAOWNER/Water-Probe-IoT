@@ -96,10 +96,17 @@ namespace Org.OpenAPITools.Controllers
         [SwaggerResponse(statusCode: 404, type: typeof(string), description: "Not created response")]
         public virtual IActionResult GetDatastreams([FromQuery]string thingRef)
         {
-            List<DataStream> dataStreams = _dataStreamService.GetThingDatastreams(thingRef);
+            try
+            {
+                List<DataStream> dataStreams = _dataStreamService.GetThingDatastreams(thingRef);
 
-            string json = JsonConvert.SerializeObject(dataStreams, Formatting.Indented);
-            return new ObjectResult(json);
+                string json = JsonConvert.SerializeObject(dataStreams, Formatting.Indented);
+                return StatusCode(200, json);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(404, e.Message);
+            }
         }
 
         /// <summary>
