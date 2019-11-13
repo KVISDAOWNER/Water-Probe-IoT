@@ -21,6 +21,7 @@ using IO.Swagger.Models;
 using MongoDB.Driver;
 using Org.OpenAPITools.Models;
 using System.Linq;
+using System.Text;
 
 namespace IO.Swagger.Controllers
 { 
@@ -38,6 +39,14 @@ namespace IO.Swagger.Controllers
         private const string turbidityName = "MJKDZ";
         private const string temperatureName = "DS18B20";
         private const string pHName = "PH-4502C";
+        private const string nitrogenName = "Nitrogen";
+        private const string phosphorusName = "Phosphorus";
+
+        private const double measurementsPerCycle = 16;
+        private const double minutesPerCycle = 15;
+
+        private const string databaseName = "waterProbeData";
+
         private readonly IMongoDatabase mongoDB;
 
         /// <summary>
@@ -55,36 +64,39 @@ namespace IO.Swagger.Controllers
         [SwaggerResponse(statusCode: 404, type: typeof(string), description: "Not created response")]
         public virtual IActionResult NewData([FromBody]DeviceData body)
         {
-            var turbidityCollection = mongoDB.GetCollection<Observation>("Turbidity" + "_" + body.Device);
-            var temperatureCollection = mongoDB.GetCollection<Observation>("Temperature" + "_" + body.Device);
-            var pHCollection = mongoDB.GetCollection<Observation>("PH" + "_" + body.Device);
+            try
+            {
+                var turbidityCollection = mongoDB.GetCollection<Observation>(turbidityName + "_" + body.Device);
+                var temperatureCollection = mongoDB.GetCollection<Observation>(temperatureName + "_" + body.Device);
+                var pHCollection = mongoDB.GetCollection<Observation>(pHName + "_" + body.Device);
+                var nitrogenCollection = mongoDB.GetCollection<Observation>(nitrogenName + "_" + body.Device);
+                var phosphorusCollection = mongoDB.GetCollection<Observation>(phosphorusName + "_" + body.Device);
 
-            List<double> data = UnravelData(body.Data).Select(x => double.Parse(x)).ToList();
+                List<string> data = UnravelData(body.Data);
+                List<int> timeIndices = UnravelTime(body.Data);
 
-            Observation turbidityObservation = new Observation(new TmObject(), new TmInstant(), data[0]);
-            Observation temperatureObservation = new Observation(new TmObject(), new TmInstant(), data[2]);
-            Observation pHObservation = new Observation(new TmObject(), new TmInstant(), data[1]);
+                DateTime startTime = DateTime.UnixEpoch.AddSeconds(int.Parse(body.Time)).Subtract(new TimeSpan(0, 15, 0));
+                DateTime endTime = DateTime.UnixEpoch.AddSeconds(int.Parse(body.Time));
+                string phenomenonTime = TimeToString(startTime) + "-" + TimeToString(endTime);
 
-            DateTime dateTime = DateTime.UnixEpoch.AddSeconds(int.Parse(body.Time));
+                Observation turbidityObservation = new Observation(phenomenonTime, TimeToString(startTime.AddMinutes(minutesPerCycle / measurementsPerCycle * timeIndices[0])), data[0]);
+                Observation pHObservation = new Observation(phenomenonTime, TimeToString(startTime.AddMinutes(minutesPerCycle / measurementsPerCycle * timeIndices[1])), data[1]);
+                Observation temperatureObservation = new Observation(phenomenonTime, TimeToString(startTime.AddMinutes(minutesPerCycle / measurementsPerCycle * timeIndices[2])), data[2]);
+                Observation nitrogenObservation = new Observation(phenomenonTime, TimeToString(startTime.AddMinutes(minutesPerCycle / measurementsPerCycle * timeIndices[3])), data[3]);
+                Observation phosphorusObservation = new Observation(phenomenonTime, TimeToString(startTime.AddMinutes(minutesPerCycle / measurementsPerCycle * timeIndices[4])), data[4]);
 
-            turbidityCollection.InsertOne(turbidityObservation);
-            temperatureCollection.InsertOne(temperatureObservation);
-            pHCollection.InsertOne(pHObservation);
 
-            //TODO: Uncomment the next line to return response 201 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(201, default(Sample));
-
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(string));
-            /*string exampleJson = null;
-            exampleJson = "{\n  \"placeholder\" : \"placeholder\"\n}";
-            
-                        var example = exampleJson != null
-                        ? JsonConvert.DeserializeObject<Sample>(exampleJson)
-                        : default(Sample);            //TODO: Change the data returned
-            */
-            return this.NotFound();
-            //return new ObjectResult(example);
+                turbidityCollection.InsertOne(turbidityObservation);
+                temperatureCollection.InsertOne(temperatureObservation);
+                pHCollection.InsertOne(pHObservation);
+                nitrogenCollection.InsertOne(nitrogenObservation);
+                phosphorusCollection.InsertOne(phosphorusObservation);
+                return StatusCode(201, default(Sample));
+            }
+            catch (Exception e)
+            {
+                return StatusCode(404, e.Message);
+            }
         }
         
         /// <summary>
@@ -98,10 +110,14 @@ namespace IO.Swagger.Controllers
             string turbidityByte = data.Substring(0, 2);
             string pHByte = data.Substring(2, 2);
             string temperatureByte = data.Substring(4, 2);
+            string nitrogenByte = data.Substring(6, 2);
+            string phosphorusByte = data.Substring(8, 2);
 
-            result.Add(UnravelTurbidity(Convert.ToInt32(turbidityByte,16)));
+            result.Add(UnravelTurbidity(Convert.ToInt32(turbidityByte, 16)));
             result.Add(UnravelpH(Convert.ToInt32(pHByte, 16)));
             result.Add(UnravelTemperature(Convert.ToInt32(temperatureByte, 16)));
+            result.Add(UnravelNitrogen(Convert.ToInt32(nitrogenByte, 16)));
+            result.Add(UnravelPhosphorus(Convert.ToInt32(phosphorusByte, 16)));
 
             return result;
         }
@@ -133,6 +149,54 @@ namespace IO.Swagger.Controllers
                 return "too high";
             else
                 return (b * 40.0 / 253.0 - 10).ToString();
+        }
+        private string UnravelPhosphorus(int b)
+        {
+            return b.ToString();
+        }
+
+        private string UnravelNitrogen(int b)
+        {
+            return b.ToString();
+        }
+        private List<int> UnravelTime(string data)
+        {
+            data = data.Substring(12, 5);
+            List<int> result = new List<int>();
+
+            for (int i = 0; i < data.Length; i++)
+            {
+                result.Add(Convert.ToInt32(data[i].ToString(), 16));
+            }
+
+            return result;
+        }
+
+        private string TimeToString(DateTime dateTime)
+        {
+            StringBuilder SB = new StringBuilder();
+            SB.Append(dateTime.Year);
+            SB.Append(":");
+            if (dateTime.Month.ToString().Length == 1)
+                SB.Append("0");
+            SB.Append(dateTime.Month);
+            SB.Append(":");
+            if (dateTime.Day.ToString().Length == 1)
+                SB.Append("0");
+            SB.Append(dateTime.Day);
+            SB.Append("T");
+            if (dateTime.Hour.ToString().Length == 1)
+                SB.Append("0");
+            SB.Append(dateTime.Hour);
+            SB.Append(":");
+            if (dateTime.Minute.ToString().Length == 1)
+                SB.Append("0");
+            SB.Append(dateTime.Minute);
+            SB.Append(":");
+            if (dateTime.Second.ToString().Length == 1)
+                SB.Append("0");
+            SB.Append(dateTime.Second);
+            return SB.ToString();
         }
     }
 }
