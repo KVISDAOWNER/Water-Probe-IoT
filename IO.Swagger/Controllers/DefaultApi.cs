@@ -45,8 +45,6 @@ namespace IO.Swagger.Controllers
         private const double measurementsPerCycle = 16;
         private const double minutesPerCycle = 15;
 
-        private const string databaseName = "waterProbeData";
-
         private readonly IMongoDatabase mongoDB;
 
         /// <summary>
