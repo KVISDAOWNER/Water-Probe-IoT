@@ -22,7 +22,7 @@ using Org.OpenAPITools.Services;
 using Org.OpenAPITools.Models.DBModels;
 
 namespace Org.OpenAPITools.Controllers
-{ 
+{
     /// <summary>
     /// 
     /// </summary>
@@ -50,7 +50,7 @@ namespace Org.OpenAPITools.Controllers
         [SwaggerResponse(statusCode: 200, type: typeof(Sample), description: "Successful response")]
         [SwaggerResponse(statusCode: 404, type: typeof(string), description: "Not created response")]
         public virtual IActionResult DeleteThing([FromQuery]string thingname)
-        { 
+        {
 
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(Sample));
@@ -58,7 +58,7 @@ namespace Org.OpenAPITools.Controllers
             // return StatusCode(404, default(string));
             string exampleJson = null;
             exampleJson = "{\r\n  \"placeholder\" : \"placeholder\"\r\n}";
-            
+
             var example = exampleJson != null
             ? JsonConvert.DeserializeObject<Sample>(exampleJson)
             : default(Sample);
@@ -89,7 +89,7 @@ namespace Org.OpenAPITools.Controllers
             // return StatusCode(404, default(string));
             string exampleJson = null;
             exampleJson = "{\r\n  \"placeholder\" : \"placeholder\"\r\n}";
-            
+
             var example = exampleJson != null
             ? JsonConvert.DeserializeObject<Sample>(exampleJson)
             : default(Sample);
@@ -122,11 +122,11 @@ namespace Org.OpenAPITools.Controllers
             }
             List<Thing> things = new List<Thing>();
 
-            string probeLocation;
-            DateTime dateTime = DateTime.MinValue;
-            DateTime dateTimeTemp;
             foreach (var probe in probes)
             {
+                string probeLocation;
+                DateTime dateTime = DateTime.MinValue;
+                DateTime dateTimeTemp;
                 probeLocation = "";
                 foreach (var loc in probe.Locations)
                 {
@@ -142,7 +142,7 @@ namespace Org.OpenAPITools.Controllers
             }
             string result = JsonConvert.SerializeObject(things, Formatting.Indented);
             return new ObjectResult(things);
-            
+
             //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(200, default(Sample));
             //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
@@ -163,7 +163,7 @@ namespace Org.OpenAPITools.Controllers
         [SwaggerResponse(statusCode: 201, type: typeof(Sample), description: "Successful response")]
         [SwaggerResponse(statusCode: 404, type: typeof(string), description: "Not created response")]
         public virtual IActionResult NewThing([FromBody]Thing thing)
-        { 
+        {
 
             //TODO: Uncomment the next line to return response 201 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(201, default(Sample));
@@ -171,7 +171,7 @@ namespace Org.OpenAPITools.Controllers
             // return StatusCode(404, default(string));
             string exampleJson = null;
             exampleJson = "{\r\n  \"placeholder\" : \"placeholder\"\r\n}";
-            
+
             var example = exampleJson != null
             ? JsonConvert.DeserializeObject<Sample>(exampleJson)
             : default(Sample);
