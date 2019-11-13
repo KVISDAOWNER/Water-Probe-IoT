@@ -45,7 +45,7 @@ namespace Org.OpenAPITools.Models
         /// </summary>
         [Required]
         [DataMember(Name="encoding", EmitDefaultValue=false)]
-        public Object Encoding { get; set; }
+        public string Encoding { get; set; }
 
         /// <summary>
         /// Gets or Sets Feature

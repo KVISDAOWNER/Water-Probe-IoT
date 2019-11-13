@@ -13,7 +13,13 @@ paths:
       operationId: getThings
       responses:
         200:
-          $ref: '#/components/responses/200'
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/thing'
         404:
           $ref: '#/components/responses/404'
   /Thing:
@@ -26,7 +32,11 @@ paths:
        - $ref: '#/components/parameters/thingname'
       responses:
         200:
-          $ref: '#/components/responses/200'
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/thing'
         404:
           $ref: '#/components/responses/404'
     post:
@@ -69,8 +79,14 @@ paths:
       summary: "Get all observations associated to datastream"
       operationId: getObservations
       responses:
-        201:
-          $ref: '#/components/responses/201'
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/observation'
         404:
           $ref: '#/components/responses/404'
       
@@ -83,8 +99,12 @@ paths:
       summary: "Call to get observation from database"
       operationId: getObservation
       responses:
-        201:
-          $ref: '#/components/responses/201'
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observation'
         404:
           $ref: '#/components/responses/404'
       
@@ -118,7 +138,13 @@ paths:
         operationId: getDatastreams
         responses:
           200:
-            $ref: '#/components/responses/200'
+            description: OK
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/dataStream'
           404:
             $ref: '#/components/responses/404'
                   
@@ -133,7 +159,11 @@ paths:
       operationId: getDatastream
       responses:
         200:
-          $ref: '#/components/responses/200'
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dataStream'
         404:
           $ref: '#/components/responses/404'
                 
@@ -204,7 +234,11 @@ paths:
       operationId: getSensor
       responses:
         200:
-          $ref: '#/components/responses/200'
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sensor'
         404:
          $ref: '#/components/responses/404'
                 
@@ -274,7 +308,11 @@ paths:
       operationId: getLocation
       responses:
         200:
-          $ref: '#/components/responses/200'
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/location'
         404:
           $ref: '#/components/responses/404'
       parameters:
@@ -336,7 +374,11 @@ paths:
       operationId: getFeatureOfInterest
       responses:
         200:
-          $ref: '#/components/responses/200'
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/featureOfInterest'
         404:
           $ref: '#/components/responses/404'
       parameters:
@@ -398,7 +440,11 @@ paths:
       operationId: getObservedProperty
       responses:
         200:
-          $ref: '#/components/responses/200'
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observedProperty'
         404:
           $ref: '#/components/responses/404'
       parameters:
@@ -457,7 +503,6 @@ components:
       content:
         application/json:
           schema:
-            title: Sample
             type: object
             properties:
               placeholder:
@@ -468,7 +513,6 @@ components:
       content:
         application/json:
           schema:
-            title: Sample
             type: object
             properties:
               placeholder:
@@ -480,7 +524,6 @@ components:
       content:
         text/plain:
           schema:
-            title: Thing not cretead
             type: string
             example:
     
@@ -608,6 +651,8 @@ components:
           type: array
           items:
             type: object
+        location:
+          $ref: '#/components/schemas/location'
           
           
     observation:
@@ -650,9 +695,6 @@ components:
        - description
        - observationType
        - unitOfMeasurement
-       - thingRef
-       - sensorRef
-       - observedPropertyRef
        
       properties:
         name:
@@ -662,7 +704,7 @@ components:
         observationType:
           $ref: '#/components/schemas/valueCode'
         unitOfMeasurement:
-          type: array	
+          type: array  
           items:
             type: object
         observedArea:

@@ -48,7 +48,7 @@ namespace Org.OpenAPITools.Models
         [Required]
         [BsonElement("encodingType")]
         [DataMember(Name="encodingType", EmitDefaultValue=false)]
-        public Object EncodingType { get; set; }
+        public string EncodingType { get; set; }
 
         /// <summary>
         /// Gets or Sets _Location
@@ -56,7 +56,7 @@ namespace Org.OpenAPITools.Models
         [Required]
         [BsonElement("location")]
         [DataMember(Name="location", EmitDefaultValue=false)]
-        public Object _Location { get; set; }
+        public object _Location { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object

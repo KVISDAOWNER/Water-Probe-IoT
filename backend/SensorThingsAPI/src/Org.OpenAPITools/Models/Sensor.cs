@@ -43,12 +43,13 @@ namespace Org.OpenAPITools.Models
         public string Description { get; set; }
 
         /// <summary>
-        /// Gets or Sets EncodingType
+        /// Gets or Sets 
+        /// Type
         /// </summary>
         [BsonElement("encodingType")]
         [Required]
         [DataMember(Name="encodingType", EmitDefaultValue=false)]
-        public Object EncodingType { get; set; }
+        public string EncodingType { get; set; }
 
         /// <summary>
         /// Gets or Sets MetaData
