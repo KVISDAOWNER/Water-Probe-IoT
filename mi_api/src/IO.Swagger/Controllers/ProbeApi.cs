@@ -157,8 +157,23 @@ namespace IO.Swagger.Controllers
         [SwaggerOperation("NewThing")]
         [SwaggerResponse(statusCode: 201, type: typeof(Sample), description: "Successful response")]
         [SwaggerResponse(statusCode: 404, type: typeof(string), description: "Not created response")]
-        public virtual IActionResult NewThing([FromBody]Object body)
-        { 
+        public virtual IActionResult NewThing([FromBody] Prediction body)
+        {
+            try
+            {
+                string collectionForInserting = body.Sensor + body.Probe;
+                var miValues = mongoDB.GetCollection<Observation>(collectionForInserting);
+                Observation ob = new Observation(body.PhenomenonTime, body.ResultTime, body.Result);
+                miValues.InsertOne(ob);
+
+                return StatusCode(200, default(Sample));
+            }
+            catch (Exception e)
+            {
+                return new ObjectResult(e.Message);
+            }
+
+
             //TODO: Uncomment the next line to return response 201 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
             // return StatusCode(201, default(Sample));
 
