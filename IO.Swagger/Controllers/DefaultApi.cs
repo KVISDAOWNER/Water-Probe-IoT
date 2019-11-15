@@ -70,18 +70,18 @@ namespace IO.Swagger.Controllers
                 var nitrogenCollection = mongoDB.GetCollection<Observation>(nitrogenName + "_" + body.Device);
                 var phosphorusCollection = mongoDB.GetCollection<Observation>(phosphorusName + "_" + body.Device);
 
-                List<string> data = UnravelData(body.Data);
-                List<int> timeIndices = UnravelTime(body.Data);
+                List<string> data = HelperFunctions.UnravelData(body.Data);
+                List<int> timeIndices = HelperFunctions.UnravelTime(body.Data);
 
                 DateTime startTime = DateTime.UnixEpoch.AddSeconds(int.Parse(body.Time)).Subtract(new TimeSpan(0, 15, 0));
                 DateTime endTime = DateTime.UnixEpoch.AddSeconds(int.Parse(body.Time));
-                string phenomenonTime = TimeToString(startTime) + "-" + TimeToString(endTime);
+                string phenomenonTime = HelperFunctions.TimeToString(startTime) + "-" + HelperFunctions.TimeToString(endTime);
 
-                Observation turbidityObservation = new Observation(phenomenonTime, TimeToString(startTime.AddMinutes(minutesPerCycle / measurementsPerCycle * timeIndices[0])), data[0]);
-                Observation pHObservation = new Observation(phenomenonTime, TimeToString(startTime.AddMinutes(minutesPerCycle / measurementsPerCycle * timeIndices[1])), data[1]);
-                Observation temperatureObservation = new Observation(phenomenonTime, TimeToString(startTime.AddMinutes(minutesPerCycle / measurementsPerCycle * timeIndices[2])), data[2]);
-                Observation nitrogenObservation = new Observation(phenomenonTime, TimeToString(startTime.AddMinutes(minutesPerCycle / measurementsPerCycle * timeIndices[3])), data[3]);
-                Observation phosphorusObservation = new Observation(phenomenonTime, TimeToString(startTime.AddMinutes(minutesPerCycle / measurementsPerCycle * timeIndices[4])), data[4]);
+                Observation turbidityObservation = new Observation(phenomenonTime, HelperFunctions.TimeToString(startTime.AddMinutes(minutesPerCycle / measurementsPerCycle * timeIndices[0])), data[0]);
+                Observation pHObservation = new Observation(phenomenonTime, HelperFunctions.TimeToString(startTime.AddMinutes(minutesPerCycle / measurementsPerCycle * timeIndices[1])), data[1]);
+                Observation temperatureObservation = new Observation(phenomenonTime, HelperFunctions.TimeToString(startTime.AddMinutes(minutesPerCycle / measurementsPerCycle * timeIndices[2])), data[2]);
+                Observation nitrogenObservation = new Observation(phenomenonTime, HelperFunctions.TimeToString(startTime.AddMinutes(minutesPerCycle / measurementsPerCycle * timeIndices[3])), data[3]);
+                Observation phosphorusObservation = new Observation(phenomenonTime, HelperFunctions.TimeToString(startTime.AddMinutes(minutesPerCycle / measurementsPerCycle * timeIndices[4])), data[4]);
 
 
                 turbidityCollection.InsertOne(turbidityObservation);
@@ -96,13 +96,18 @@ namespace IO.Swagger.Controllers
                 return StatusCode(404, e.Message);
             }
         }
-        
+    }
+    /// <summary>
+    /// Container for helping functions
+    /// </summary>
+    public static class HelperFunctions
+    {
         /// <summary>
         /// Unconvert from the conversion made by the Arduino.
         /// </summary>
         /// <param name="data"> byte values of data.</param>
         /// <returns> the data in readable numbers.</returns>
-        private List<string> UnravelData(string data)
+        public static List<string> UnravelData(string data)
         {
             List<string> result = new List<string>();
             string turbidityByte = data.Substring(0, 2);
@@ -120,7 +125,7 @@ namespace IO.Swagger.Controllers
             return result;
         }
 
-        private string UnravelpH(int b)
+        public static string UnravelpH(int b)
         {
             if (b == 254)
                 return "too low";
@@ -130,7 +135,7 @@ namespace IO.Swagger.Controllers
                 return (b * 4.0 / 253.0 + 5.0).ToString();
         }
 
-        private string UnravelTurbidity(int b)
+        public static string UnravelTurbidity(int b)
         {
             if (b == 254)
                 return "too low";
@@ -139,7 +144,7 @@ namespace IO.Swagger.Controllers
             else
                 return (b * 3.0 / 253).ToString();
         }
-        private string UnravelTemperature(int b)
+        public static string UnravelTemperature(int b)
         {
             if (b == 254)
                 return "too low";
@@ -148,16 +153,26 @@ namespace IO.Swagger.Controllers
             else
                 return (b * 40.0 / 253.0 - 10).ToString();
         }
-        private string UnravelPhosphorus(int b)
+        public static string UnravelPhosphorus(int b)
         {
-            return b.ToString();
+            if (b == 254)
+                return "too low";
+            else if (b == 255)
+                return "too high";
+            else
+                return b.ToString();
         }
 
-        private string UnravelNitrogen(int b)
+        public static string UnravelNitrogen(int b)
         {
-            return b.ToString();
+            if (b == 254)
+                return "too low";
+            else if (b == 255)
+                return "too high";
+            else
+                return b.ToString();
         }
-        private List<int> UnravelTime(string data)
+        public static List<int> UnravelTime(string data)
         {
             data = data.Substring(12, 5);
             List<int> result = new List<int>();
@@ -170,7 +185,7 @@ namespace IO.Swagger.Controllers
             return result;
         }
 
-        private string TimeToString(DateTime dateTime)
+        public static string TimeToString(DateTime dateTime)
         {
             StringBuilder SB = new StringBuilder();
             SB.Append(dateTime.Year);
