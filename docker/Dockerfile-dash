@@ -1,4 +1,4 @@
-4# Dockerfile-flask
+# Dockerfile-flask
 # We simply inherit the Python 3 image. This image does
 # not particularly care what OS runs underneath
 
@@ -37,9 +37,9 @@ COPY ./code ./client
 RUN python3 setup.py install --user
 
 #Our application is now located here.
-Note: synes generelt disse directories er sjove
-synes fx at app.init burde være i client/code og ikke bare i
-client og at setup.py burde være i ./client, men det er i .
+#Note: synes generelt disse directories er sjove
+#synes fx at app.init burde være i client/code og ikke bare i
+#client og at setup.py burde være i ./client, men det er i .
 WORKDIR ./client
 
 
