@@ -260,6 +260,69 @@ namespace IO.Swagger.Controllers.Tests
         }
 
         [TestMethod()]
+        public void UnravelPhosphorus1()
+        {
+            // Arrange 
+            int value = 254;
+
+            // Act
+            string result = HelperFunctions.UnravelPhosphorus(value);
+
+            // Assert
+            Assert.IsTrue(result == "too low");
+        }
+
+        [TestMethod()]
+        public void UnravelPhosphorus2()
+        {
+            // Arrange 
+            int value = 255;
+
+            // Act
+            string result = HelperFunctions.UnravelPhosphorus(value);
+
+            // Assert
+            Assert.IsTrue(result == "too high");
+        }
+        [TestMethod()]
+        public void UnravelPhosphorus3()
+        {
+            // Arrange 
+            int value = 0;
+
+            // Act
+            double result = double.Parse(HelperFunctions.UnravelPhosphorus(value));
+
+            // Assert
+            Assert.IsTrue(result == 0);
+        }
+        [TestMethod()]
+        public void UnravelPhosphorus4()
+        {
+            // Arrange 
+            int value = 253;
+
+            // Act
+            double result = double.Parse(HelperFunctions.UnravelPhosphorus(value));
+
+            // Assert
+            Assert.IsTrue(result == 253);
+        }
+
+        [TestMethod()]
+        public void UnravelPhosphorus5()
+        {
+            // Arrange 
+            int value = 126;
+
+            // Act
+            double result = double.Parse(HelperFunctions.UnravelPhosphorus(value));
+
+            // Assert
+            Assert.IsTrue(result == 126);
+        }
+
+        [TestMethod()]
         public void Unraveltime1()
         {
             // Arrange 
