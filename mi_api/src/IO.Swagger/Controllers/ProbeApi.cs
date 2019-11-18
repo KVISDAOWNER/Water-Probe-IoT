@@ -163,8 +163,15 @@ namespace IO.Swagger.Controllers
             {
                 string collectionForInserting = body.Sensor + body.Probe;
                 var miValues = mongoDB.GetCollection<Observation>(collectionForInserting);
-                Observation ob = new Observation(body.PhenomenonTime, body.ResultTime, body.Result);
-                miValues.InsertOne(ob);
+
+                List<Observation> obs = new List<Observation>();
+
+                foreach (var ob in body.Values)
+                {
+                    obs.Add(new Observation(ob.PhenomenonTime, ob.ResultTime, ob.Result)); 
+                }
+
+                miValues.InsertMany(obs);
 
                 return StatusCode(200, default(Sample));
             }

@@ -11,11 +11,7 @@ namespace IO.Swagger.Models
 {
     public class Observation
     {
-
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; }
-
-
+        
         [BsonElement("phenomenonTime")]
         [Required]
         [DataMember(Name = "phenomenonTime", EmitDefaultValue = false)]

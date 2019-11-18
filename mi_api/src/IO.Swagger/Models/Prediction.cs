@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace IO.Swagger.Models
 {
+    /// <summary>
+    /// The prediction class is used as a schema for what values should be specified when posting machine predicted values
+    /// </summary>
     public class Prediction
     {
         [Required]
@@ -21,29 +24,12 @@ namespace IO.Swagger.Models
         [DataMember(Name = "sensor", EmitDefaultValue = false)]
         public string Sensor { get; set; }
 
-        /// <summary>
-        /// Gets or Sets Definition
-        /// </summary>
-        [BsonElement("phenomenonTime")]
-        [Required]
-        [DataMember(Name = "phenomenonTime", EmitDefaultValue = false)]
-        public string PhenomenonTime { get; set; }
 
-        /// <summary>
-        /// Gets or Sets Definition
-        /// </summary>
-        [BsonElement("resultTime")]
+        [BsonElement("values")]
         [Required]
-        [DataMember(Name = "resultTime", EmitDefaultValue = false)]
-        public string ResultTime { get; set; }
+        [DataMember(Name = "values", EmitDefaultValue = false)]
+        public List<Observation> Values { get; set; }
 
-        /// <summary>
-        /// Gets or Sets Definition
-        /// </summary>
-        [BsonElement("result")]
-        [Required]
-        [DataMember(Name = "result", EmitDefaultValue = false)]
-        public double Result { get; set; }
      
         /// <summary>
         /// Returns the string presentation of the object
