@@ -33,6 +33,7 @@ namespace IO.Swagger.Controllers
     {
         public DefaultApiController(IMongoDBSettings dBSettings)
         {
+            
             MongoClient mongoClient = new MongoClient("mongodb://" + dBSettings.Host + ":" + dBSettings.Port);
             mongoDB = mongoClient.GetDatabase(dBSettings.Database);
         }

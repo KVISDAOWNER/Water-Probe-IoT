@@ -3,6 +3,8 @@ using IO.Swagger.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
+using IO.Swagger.Models;
 
 namespace IO.Swagger.Controllers.Tests
 {
@@ -20,7 +22,6 @@ namespace IO.Swagger.Controllers.Tests
             // Assert
             Assert.IsTrue("too high" == result);
         }
-
         [TestMethod()]
         public void UnravelpHTest2()
         {
@@ -33,7 +34,6 @@ namespace IO.Swagger.Controllers.Tests
             // Assert
             Assert.IsTrue("too low" == result);
         }
-        
         [TestMethod()]
         public void UnravelpHTest3()
         {
@@ -70,7 +70,6 @@ namespace IO.Swagger.Controllers.Tests
             // Assert
             Assert.IsTrue(result == 9);
         }
-
         [TestMethod()]
         public void UnravelTurbidity1()
         {
@@ -83,7 +82,6 @@ namespace IO.Swagger.Controllers.Tests
             // Assert
             Assert.IsTrue("too low" == result);
         }
-
         [TestMethod()]
         public void UnravelTurbidity2()
         {
@@ -96,7 +94,6 @@ namespace IO.Swagger.Controllers.Tests
             // Assert
             Assert.IsTrue("too high" == result);
         }
-
         [TestMethod()]
         public void UnravelTurbidity3()
         {
@@ -121,7 +118,6 @@ namespace IO.Swagger.Controllers.Tests
             // Assert
             Assert.IsTrue(3 == result);
         }
-
         [TestMethod()]
         public void UnravelTurbidity5()
         {
@@ -146,7 +142,6 @@ namespace IO.Swagger.Controllers.Tests
             // Assert
             Assert.IsTrue(result == 30);
         }
-
         [TestMethod()]
         public void UnravelTemperature2()
         {
@@ -195,7 +190,6 @@ namespace IO.Swagger.Controllers.Tests
             // Assert
             Assert.IsTrue(9.9 < result && result < 10.1);
         }
-
         [TestMethod()]
         public void UnravelNitrogen1()
         {
@@ -208,7 +202,6 @@ namespace IO.Swagger.Controllers.Tests
             // Assert
             Assert.IsTrue(result == "too low");
         }
-
         [TestMethod()]
         public void UnravelNitrogen2()
         {
@@ -245,7 +238,6 @@ namespace IO.Swagger.Controllers.Tests
             // Assert
             Assert.IsTrue(result == 253);
         }
-
         [TestMethod()]
         public void UnravelNitrogen5()
         {
@@ -258,7 +250,6 @@ namespace IO.Swagger.Controllers.Tests
             // Assert
             Assert.IsTrue(result == 126);
         }
-
         [TestMethod()]
         public void UnravelPhosphorus1()
         {
@@ -271,7 +262,6 @@ namespace IO.Swagger.Controllers.Tests
             // Assert
             Assert.IsTrue(result == "too low");
         }
-
         [TestMethod()]
         public void UnravelPhosphorus2()
         {
@@ -308,7 +298,6 @@ namespace IO.Swagger.Controllers.Tests
             // Assert
             Assert.IsTrue(result == 253);
         }
-
         [TestMethod()]
         public void UnravelPhosphorus5()
         {
@@ -321,7 +310,6 @@ namespace IO.Swagger.Controllers.Tests
             // Assert
             Assert.IsTrue(result == 126);
         }
-
         [TestMethod()]
         public void Unraveltime1()
         {
@@ -339,7 +327,6 @@ namespace IO.Swagger.Controllers.Tests
             Assert.IsTrue(result[3] == 0);
             Assert.IsTrue(result[4] == 0);
         }
-
         [TestMethod()]
         public void Unraveltime2()
         {
@@ -408,7 +395,23 @@ namespace IO.Swagger.Controllers.Tests
             Assert.IsTrue(result[3] == 15);
             Assert.IsTrue(result[4] == 15);
         }
+        [TestMethod()]
+        public void UnravelTime6()
+        {
+            // Arrange
+            string bytes = "000000000000B63A80";
 
+            // Act
+            var result = HelperFunctions.UnravelTime(bytes);
+
+            // Assert
+            Assert.IsTrue(result.Count == 5);
+            Assert.IsTrue(result[0] == 11);
+            Assert.IsTrue(result[1] == 6);
+            Assert.IsTrue(result[2] == 3);
+            Assert.IsTrue(result[3] == 10);
+            Assert.IsTrue(result[4] == 8);
+        }
         [TestMethod()]
         public void TimeToString1()
         {
@@ -421,7 +424,6 @@ namespace IO.Swagger.Controllers.Tests
             // Assert
             Assert.IsTrue(result == "1996:03:27T10:31:54");
         }
-
         [TestMethod()]
         public void TimeToString2()
         {
@@ -458,7 +460,6 @@ namespace IO.Swagger.Controllers.Tests
             // Assert
             Assert.IsTrue(result == "1996:12:20T11:01:34");
         }
-
         [TestMethod()]
         public void TimeToString5()
         {
@@ -470,6 +471,137 @@ namespace IO.Swagger.Controllers.Tests
 
             // Assert
             Assert.IsTrue(result == "2020:12:20T11:01:34");
+        }
+        [TestMethod()]
+        public void TimeToString6()
+        {
+            // Arrange
+            DateTime dateTime = new DateTime(9999, 12, 31, 23, 59, 59);
+
+            // Act
+            string result = HelperFunctions.TimeToString(dateTime);
+
+            // Assert
+            Assert.IsTrue(result == "9999:12:31T23:59:59");
+        }
+        [TestMethod()]
+        public void UnravelData1()
+        {
+            // Arrange
+            string data = "0000000000";
+
+            // Act
+            List<string> result = HelperFunctions.UnravelData(data);
+
+            // Assert
+            Assert.IsTrue(result.Count == 5);
+            Assert.IsTrue(result[0] == "0");
+            Assert.IsTrue(result[1] == "5");
+            Assert.IsTrue(result[2] == "-10");
+            Assert.IsTrue(result[3] == "0");
+            Assert.IsTrue(result[4] == "0");
+        }
+        [TestMethod()]
+        public void UnravelData2()
+        {
+            // Arrange
+            string data = "0000000020";
+
+            // Act
+            List<string> result = HelperFunctions.UnravelData(data);
+
+            // Assert
+            Assert.IsTrue(result.Count == 5);
+            Assert.IsTrue(result[0] == "0");
+            Assert.IsTrue(result[1] == "5");
+            Assert.IsTrue(result[2] == "-10");
+            Assert.IsTrue(result[3] == "0");
+            Assert.IsTrue(result[4] == "32");
+        }
+        [TestMethod()]
+        public void UnravelData3()
+        {
+            // Arrange
+            string data = "0020000020";
+
+            // Act
+            List<string> result = HelperFunctions.UnravelData(data);
+
+            // Assert
+            Assert.IsTrue(result.Count == 5);
+            Assert.IsTrue(result[0] == "0");
+            Assert.IsTrue(double.Parse(result[1]) >= 5.5 && double.Parse(result[1]) <= 5.51);
+            Assert.IsTrue(result[2] == "-10");
+            Assert.IsTrue(result[3] == "0");
+            Assert.IsTrue(result[4] == "32");
+        }
+        [TestMethod()]
+        public void UnravelData4()
+        {
+            // Arrange 
+            string data = "FFFFFFFFFF";
+
+            // Act
+            List<string> result = HelperFunctions.UnravelData(data);
+
+            // Assert
+            Assert.IsTrue(result.Count == 5);
+            Assert.IsTrue(result[0] == "too high");
+            Assert.IsTrue(result[1] == "too high");
+            Assert.IsTrue(result[2] == "too high");
+            Assert.IsTrue(result[3] == "too high");
+            Assert.IsTrue(result[4] == "too high");
+        }
+        [TestMethod()]
+        public void UnravelData5()
+        {
+            // Arrange 
+            string data = "FEFEFEFEFE";
+
+            // Act
+            List<string> result = HelperFunctions.UnravelData(data);
+
+            // Assert
+            Assert.IsTrue(result.Count == 5);
+            Assert.IsTrue(result[0] == "too low");
+            Assert.IsTrue(result[1] == "too low");
+            Assert.IsTrue(result[2] == "too low");
+            Assert.IsTrue(result[3] == "too low");
+            Assert.IsTrue(result[4] == "too low");
+        }
+        [TestMethod()]
+        public void UnravelData6()
+        {
+            // Arrange 
+            string data = "a669ae1234";
+
+            // Act
+            List<double> result = HelperFunctions.UnravelData(data).Select(x => double.Parse(x)).ToList();
+
+            // Assert
+            Assert.IsTrue(result.Count == 5);
+            Assert.IsTrue(result[0] >= 1.96 && result[0] <= 1.97);
+            Assert.IsTrue(result[1] >= 6.66 && result[1] <= 6.67);
+            Assert.IsTrue(result[2] >= 17.5 && result[2] <= 17.51);
+            Assert.IsTrue(result[3] == 18);
+            Assert.IsTrue(result[4] == 52);
+        }
+        [TestMethod()]
+        public void UnravelData7()
+        {
+            // Arrange 
+            string data = "9a6ca574b4";
+
+            // Act
+            List<double> result = HelperFunctions.UnravelData(data).Select(x => double.Parse(x)).ToList();
+
+            // Assert
+            Assert.IsTrue(result.Count == 5);
+            Assert.IsTrue(result[0] >= 1.826 && result[0] <= 1.827);
+            Assert.IsTrue(result[1] >= 6.7 && result[1] <= 6.8);
+            Assert.IsTrue(result[2] >= 16.08 && result[2] <= 16.09);
+            Assert.IsTrue(result[3] == 116);
+            Assert.IsTrue(result[4] == 180);
         }
     }
 }
