@@ -11,7 +11,17 @@ namespace IO.Swagger.Models
 {
     public class Observation
     {
-        
+        public Observation(string phenomenonTime, string resultTime, double result)
+        {
+            PhenomenonTime = phenomenonTime;
+            ResultTime = resultTime;
+            Result = result;
+        }
+
+        [BsonRepresentation(BsonType.ObjectId)]
+        [BsonIgnoreIfDefault]
+        string _id { get; set; }
+       
         [BsonElement("phenomenonTime")]
         [Required]
         [DataMember(Name = "phenomenonTime", EmitDefaultValue = false)]
@@ -27,11 +37,5 @@ namespace IO.Swagger.Models
         [DataMember(Name = "result", EmitDefaultValue = false)]
         public double Result { get; set; }
 
-        public Observation(string phenomenonTime, string resultTime, double result)
-        {
-            PhenomenonTime = phenomenonTime;
-            ResultTime = resultTime;
-            Result = result;
-        }
     }
 }
