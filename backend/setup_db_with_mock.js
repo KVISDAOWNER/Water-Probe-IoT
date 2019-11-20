@@ -10,6 +10,7 @@ db.createCollection('PH4502C_1D95A5');
 db.createCollection('Nitrogen_1D95A5');
 db.createCollection('Phosphorus_1D95A5');
 
+
     
 db.Sensor.insert({_id : 'MJKDZ', description : 'Turbidity Sensor', encodingType: "Some encodingType", metadata: {}, unitOfMeasurement: "NTU", observedPropertyRef:"WaterTurbidity"});
 db.Sensor.insert({_id : 'DS18B20', description : 'Temperature Sensor', encodingType: "Some encodingType", metadata: {}, unitOfMeasurement: "°C", observedPropertyRef:"WaterTemperature"});
@@ -17,8 +18,9 @@ db.Sensor.insert({_id : 'PH4502C', description : 'pH Sensor', encodingType: "Som
 db.Sensor.insert({_id : 'Nitrogen', description : 'Nitrogen Sensor', encodingType: "Some encodingType", metadata: {}, unitOfMeasurement: "mg/L", observedPropertyRef:"WaterNitrogen"});
 db.Sensor.insert({_id : 'Phosphorus', description : 'Phosphorus Sensor', encodingType: "Some encodingType", metadata: {}, unitOfMeasurement: "mg/L", observedPropertyRef:"WaterPhosphorus"});
 
-db.Probe.insert({_id : '1D95A5', description : 'Lorem ipsum dol', properties : {}, locations: [{locationReference: "123bc", locationTime: "2014-12-31T11:59:59.00+08:00"}], attachedSensors: [{refToSensor: "Turbidity", description: "Water Turbidity"},{refToSensor: "Temperature", description: "Water Temperatur"}]});
-db.Probe.insert({_id : '1D95A6', description : 'Lorem ipsum dol', properties : {}, locations: [{locationReference: "123bD", locationTime: "2014-12-31T11:59:59.00+08:00"}], attachedSensors: [{refToSensor: "Turbidity", description: "Water Turbidity"},{refToSensor: "Temperature", description: "Water Temperatur"}]});
+db.Probe.insert({_id : '1D95A5', description : 'Test probe', properties : {}, locations: [{locationReference: "locRef", locationTime: "2014-12-31T11:59:59.00+08:00"}], attachedSensors: [{refToSensor: "MJKDZ", description: "Water Turbidity"},{refToSensor: "DS18B20", description: "Water Temperatur"},{refToSensor: "PH4502C", description: "Water pH"},{refToSensor: "Nitrogen", description: "Water Nitrogen"}, {refToSensor: "Phosphorus", description: "Water Phosphorus"}]});
+db.Probe.insert({_id : '1D95A7', description : 'Mock probe', properties : {}, locations: [{locationReference: "123bc", locationTime: "2014-12-31T11:59:59.00+08:00"}], attachedSensors: [{refToSensor: "Turbidity", description: "Water Turbidity"},{refToSensor: "Temperature", description: "Water Temperatur"}]});
+db.Probe.insert({_id : '1D95A6', description : 'Mock probe', properties : {}, locations: [{locationReference: "123bD", locationTime: "2014-12-31T11:59:59.00+08:00"}], attachedSensors: [{refToSensor: "Turbidity", description: "Water Turbidity"},{refToSensor: "Temperature", description: "Water Temperatur"}]});
 db.Location.insert({_id: "123bc", description : 'Lorem ipsum dolo', encodingType: "Some encodingType", location: {lat: 57.045249, long: 9.862715}});
 db.Location.insert({_id: "123bD", description : 'Lorem ipsum dolo', encodingType: "Some encodingType", location: {lat:  57.049249, long: 9.863515}});
 db.Sensor.insert({_id : 'Turbidity', description : 'Lorem ipsum dolor sit ame', encodingType: "Some encodingType", metadata: {}, unitOfMeasurement: "NTU", observedPropertyRef:"WaterTurbidity"});
