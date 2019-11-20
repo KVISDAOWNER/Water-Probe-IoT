@@ -85,7 +85,7 @@ namespace IO.Swagger.Controllers
                 List<Observation> currentDataList = new List<Observation>();
                 var observationCollection = mongoDB.GetCollection<Observation>(currentSensor.Id + "_" + probename);
                 var observationList = observationCollection.Find(x => true).ToList();
-                results.Add(Tuple.Create(currentSensor.ObservedPropertyRef, observationList));
+                results.Add(Tuple.Create(currentSensor.Id + "_" + currentSensor.ObservedPropertyRef, observationList));
             }
             return new ObjectResult(JsonConvert.SerializeObject(results, Formatting.Indented));
         }
@@ -132,7 +132,7 @@ namespace IO.Swagger.Controllers
                     Sensor currentSensor = sensorCollection.Find(x => x.Id == attachedSensor.RefToSensor).FirstOrDefault();
                     var observationCollection = mongoDB.GetCollection<Observation>(currentSensor.Id + "_" + probe.Id);
                     var observationList = observationCollection.Find(x => true).ToList();
-                    intermediateResult.Add(Tuple.Create(currentSensor.ObservedPropertyRef, observationList));
+                    intermediateResult.Add(Tuple.Create(currentSensor.Id + "_" + currentSensor.ObservedPropertyRef, observationList));
 
                 }
 
