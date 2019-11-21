@@ -67,6 +67,49 @@ namespace IO.Swagger.Controllers
         {
             try
             {
+                var probeCollection = mongoDB.GetCollection<Probe>("Probe");
+                if (probeCollection.Find(x => x.Id == body.Device).CountDocuments() == 0)
+                {
+                    Probe probe = new Probe()
+                    {
+                        Id = body.Device,
+                        AttachedSensors = new List<AttachedSensor>()
+                        {
+                            new AttachedSensor()
+                            {
+                                RefToSensor = turbidityName,
+                                Description = "Water Turbidity"
+                            },
+                            new AttachedSensor()
+                            {
+                                RefToSensor = temperatureName,
+                                Description = "Water Temperature"
+                            },
+                            new AttachedSensor()
+                            {
+                                RefToSensor = pHName,
+                                Description = "Water pH"
+                            },
+                            new AttachedSensor()
+                            {
+                                RefToSensor = nitrogenName,
+                                Description = "Water Nitrogen"
+                            },
+                            new AttachedSensor()
+                            {
+                                RefToSensor = phosphorusName,
+                                Description = "Water Phosphorus"
+                            }
+                        },
+                        Description = "New probe",
+                        Locations = new List<LocationRef>(),
+                        Properties = new List<string>()
+                    };
+
+                    probeCollection.InsertOne(probe);
+                }
+
+
                 var turbidityCollection = mongoDB.GetCollection<Observation>(turbidityName + "_" + body.Device);
                 var temperatureCollection = mongoDB.GetCollection<Observation>(temperatureName + "_" + body.Device);
                 var pHCollection = mongoDB.GetCollection<Observation>(pHName + "_" + body.Device);
