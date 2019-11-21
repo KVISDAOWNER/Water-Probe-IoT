@@ -84,7 +84,14 @@ namespace IO.Swagger.Controllers
                 ObservedProperty currentObservedProperty = observedPropertyCollection.Find(x => x.Id == currentSensor.ObservedPropertyRef).FirstOrDefault();
                 List<Observation> currentDataList = new List<Observation>();
                 var observationCollection = mongoDB.GetCollection<Observation>(currentSensor.Id + "_" + probename);
+
+                //Not interested in returning the collections which are meant for containing predictions
+                if (observationCollection.CollectionNamespace.CollectionName.StartsWith("MI_"))
+                    continue;
+
                 var observationList = observationCollection.Find(x => true).ToList();
+
+
                 results.Add(Tuple.Create(currentSensor.Id + "_" + currentSensor.ObservedPropertyRef, observationList));
             }
             return new ObjectResult(JsonConvert.SerializeObject(results, Formatting.Indented));
@@ -131,6 +138,11 @@ namespace IO.Swagger.Controllers
                 {
                     Sensor currentSensor = sensorCollection.Find(x => x.Id == attachedSensor.RefToSensor).FirstOrDefault();
                     var observationCollection = mongoDB.GetCollection<Observation>(currentSensor.Id + "_" + probe.Id);
+
+                    //Not interested in returning the collections which are meant for containing predictions
+                    if (observationCollection.CollectionNamespace.CollectionName.StartsWith("MI_"))
+                        continue;
+                    
                     var observationList = observationCollection.Find(x => true).ToList();
                     intermediateResult.Add(Tuple.Create(currentSensor.Id + "_" + currentSensor.ObservedPropertyRef, observationList));
 
@@ -174,7 +186,7 @@ namespace IO.Swagger.Controllers
                 miValues.InsertMany(obs);
 
                 return StatusCode(200, default(Sample));
-            }
+            } 
             catch (Exception e)
             {
                 return new ObjectResult(e.Message);

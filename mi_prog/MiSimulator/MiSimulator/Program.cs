@@ -86,9 +86,6 @@ namespace MIapp
                 {
                     foreach (var tup in lst.Item2)
                     {
-                        if ((lst.Item1.StartsWith("MI_")))
-                            continue;
-
                         results.Add(new Observation(tup.PhenomenonTime, tup.ResultTime, tup.Result + 10));
                     }
                 }
