@@ -46,7 +46,6 @@ namespace IO.Swagger.Controllers
         private const double measurementsPerCycle = 16;
         private const double minutesPerCycle = 15;
 
-
         private readonly IMongoDatabase mongoDB;
         private const string databaseName = "waterProbeData";
 
@@ -109,7 +108,6 @@ namespace IO.Swagger.Controllers
                     probeCollection.InsertOne(probe);
                 }
 
-
                 var turbidityCollection = mongoDB.GetCollection<Observation>(turbidityName + "_" + body.Device);
                 var temperatureCollection = mongoDB.GetCollection<Observation>(temperatureName + "_" + body.Device);
                 var pHCollection = mongoDB.GetCollection<Observation>(pHName + "_" + body.Device);
@@ -128,7 +126,6 @@ namespace IO.Swagger.Controllers
                 Observation temperatureObservation = new Observation(phenomenonTime, HelperFunctions.TimeToString(startTime.AddMinutes(minutesPerCycle / measurementsPerCycle * timeIndices[2])), data[2]);
                 Observation nitrogenObservation = new Observation(phenomenonTime, HelperFunctions.TimeToString(startTime.AddMinutes(minutesPerCycle / measurementsPerCycle * timeIndices[3])), data[3]);
                 Observation phosphorusObservation = new Observation(phenomenonTime, HelperFunctions.TimeToString(startTime.AddMinutes(minutesPerCycle / measurementsPerCycle * timeIndices[4])), data[4]);
-
 
                 turbidityCollection.InsertOne(turbidityObservation);
                 temperatureCollection.InsertOne(temperatureObservation);
