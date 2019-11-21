@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.852
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MIapp", "MIapp\MIapp.csproj", "{5AEBA1C9-ECAC-4EC2-A79A-D02B8D5F5B40}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiSimulator", "MiSimulator\MiSimulator.csproj", "{8EF3FE12-728F-4345-BF31-8981C8919441}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5AEBA1C9-ECAC-4EC2-A79A-D02B8D5F5B40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5AEBA1C9-ECAC-4EC2-A79A-D02B8D5F5B40}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5AEBA1C9-ECAC-4EC2-A79A-D02B8D5F5B40}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5AEBA1C9-ECAC-4EC2-A79A-D02B8D5F5B40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EF3FE12-728F-4345-BF31-8981C8919441}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EF3FE12-728F-4345-BF31-8981C8919441}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EF3FE12-728F-4345-BF31-8981C8919441}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EF3FE12-728F-4345-BF31-8981C8919441}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {357C50CB-F39F-4F9C-A80E-7662A8DA0B4E}
+		SolutionGuid = {8984C5A3-5465-4B55-8930-6C5AE75BD35F}
 	EndGlobalSection
 EndGlobal
