@@ -20,6 +20,8 @@ using Microsoft.AspNetCore.Authorization;
 using Org.OpenAPITools.Models;
 using Org.OpenAPITools.Services;
 using Org.OpenAPITools.Models.DBModels;
+using Org.OpenAPITools.Models.DTO;
+using System.Text;
 
 namespace Org.OpenAPITools.Controllers
 {
@@ -29,13 +31,14 @@ namespace Org.OpenAPITools.Controllers
     [ApiController]
     public class ThingApiController : ControllerBase
     {
-        public ThingApiController(ThingService thingService)
+        public ThingApiController(ThingService thingService, LocationService locationService)
         {
             this._thingService = thingService;
+            this._locationService = locationService;
         }
 
         private readonly ThingService _thingService;
-
+        private readonly LocationService _locationService;
 
         /// <summary>
         /// Delete an existing probe
@@ -132,7 +135,7 @@ namespace Org.OpenAPITools.Controllers
                             probeLocation = loc.LocationReference;
                         }
                     }
-                    var location = _thingService.GetLocation(probeLocation);
+                    var location = _locationService.GetLocation(probeLocation);
                     things.Add(new Thing(probe, location));
                 }
                 string result = JsonConvert.SerializeObject(things, Formatting.Indented);
@@ -177,6 +180,37 @@ namespace Org.OpenAPITools.Controllers
             : default(Sample);
             //TODO: Change the data returned
             return new ObjectResult(example);
+        }
+
+        /// <summary>
+        /// Creates a new probe
+        /// </summary>
+        /// <remarks>Creates new thing</remarks>
+        /// <param name="thing">Optional properties represented as json for the Thing</param>
+        /// <response code="201">Successful response</response>
+        /// <response code="404">Not created response</response>
+        [HttpPatch]
+        [Route("/Thing")]
+        [ValidateModelState]
+        [SwaggerOperation("PatchThing")]
+        [SwaggerResponse(statusCode: 201, type: typeof(Sample), description: "Successful response")]
+        [SwaggerResponse(statusCode: 404, type: typeof(string), description: "Not created response")]
+        public virtual IActionResult PatchThing([FromQuery] string thingRef, [FromBody]DTOLocation dtoLocation)
+        {
+            try
+            {
+                var locationTime = DateTime.UtcNow.ToString("yyyy-MM-ddTHH\\:mm\\:sszzz");
+                Location newLocation = new Location(dtoLocation);
+                _locationService.AddLocation(newLocation);
+                _thingService.AddLocationRefToProbe(thingRef, new LocationRef() { LocationReference = newLocation.Id, LocationTime = locationTime.ToString() });
+
+                return StatusCode(200, "Succesfull patch");
+            }
+            catch (Exception e)
+            {
+
+                return StatusCode(404, e.Message);
+            }
         }
     }
 }

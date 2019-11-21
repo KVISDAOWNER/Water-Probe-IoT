@@ -83,7 +83,11 @@ namespace Org.OpenAPITools.Controllers
             {
                 var observations = _observationService.GetDatastreamsObservations(datastreamRef);
 
-                string json = JsonConvert.SerializeObject(observations, Formatting.Indented);
+                string json = JsonConvert.SerializeObject(observations, Formatting.Indented, new JsonSerializerSettings()
+                {
+
+                    NullValueHandling = NullValueHandling.Include });
+
 
                 return StatusCode(200, json);
             }

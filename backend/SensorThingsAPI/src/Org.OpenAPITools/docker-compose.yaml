@@ -10,13 +10,13 @@ services:
       - 27017:27017
 
 
-  aspapp:
+  sensor_things_api:
     build:
-      context: ..
+      context: .
       dockerfile: Dockerfile
     restart: always
     ports:
-      - 8080:80
+      - 51099:80
     environment:
       MongoDB__Host: mongo
     depends_on:

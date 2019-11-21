@@ -61,6 +61,7 @@ namespace Org.OpenAPITools
             services.AddSingleton<IMongoDBSettings>(sp =>
                 sp.GetRequiredService<IOptions<MongoDBSettings>>().Value);
 
+            services.AddSingleton<LocationService>();
             services.AddSingleton<ThingService>();
             services.AddSingleton<SensorService>();
             services.AddSingleton<DatastreamService>();

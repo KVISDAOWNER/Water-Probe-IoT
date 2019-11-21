@@ -11,14 +11,16 @@ namespace Org.OpenAPITools.Services
         private readonly IMongoDatabase mongoDatabase;
         private readonly IMongoCollection<Probe> _probes;
         readonly IMongoCollection<Location> _locations;
-
+        private readonly LocationService _locationService;
 
         public ThingService(IMongoDBSettings settings)
         {
+
             var client = new MongoClient("mongodb://" + settings.Host + ":" + settings.Port);
             mongoDatabase = client.GetDatabase(settings.Database);
             _probes = mongoDatabase.GetCollection<Probe>("Probe");
             _locations = mongoDatabase.GetCollection<Location>("Location");
+            _locationService = new LocationService(settings);
         }
 
         public List<Probe> GetProbes() =>
@@ -27,14 +29,14 @@ namespace Org.OpenAPITools.Services
         public Probe GetProbe(string id) =>
             _probes.Find<Probe>(p => p.Id == id).FirstOrDefault();
 
-    
-        
+        public void AddLocationRefToProbe(string probeRef, LocationRef locationRef)
+        {
+            var filter = Builders<Probe>.Filter.Eq(e => e.Id, probeRef);
 
-        //The location related functionality is necessary to get the location for a probe
-        public List<Location> getLocations() =>
-            _locations.Find(location => true).ToList();
+            var update = Builders<Probe>.Update.Push<LocationRef>(e => e.Locations, locationRef);
 
-        public Location GetLocation(string id) =>
-            _locations.Find(location => location.Id == id).FirstOrDefault();
+            _probes.FindOneAndUpdate(filter, update);
+        }
+
     }
 }

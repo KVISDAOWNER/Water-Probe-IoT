@@ -18,6 +18,8 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Org.OpenAPITools.Converters;
 using MongoDB.Bson.Serialization.Attributes;
+using Org.OpenAPITools.Models.DTO;
+using Org.OpenAPITools.Models.DBModels;
 
 namespace Org.OpenAPITools.Models
 { 
@@ -27,6 +29,13 @@ namespace Org.OpenAPITools.Models
     [DataContract]
     public partial class Location : IEquatable<Location>
     {
+        public Location(DTOLocation dTOLocation)
+        {
+            this.Id = MongoDB.Bson.ObjectId.GenerateNewId().ToString();
+            this.Description = dTOLocation.Description;
+            this.EncodingType = dTOLocation.EncodingType;
+            this._Location = dTOLocation._Location;
+        }
         /// <summary>
         /// Gets or Sets the id
         /// </summary>
@@ -56,7 +65,7 @@ namespace Org.OpenAPITools.Models
         [Required]
         [BsonElement("location")]
         [DataMember(Name="location", EmitDefaultValue=false)]
-        public object _Location { get; set; }
+        public LatLong _Location { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
