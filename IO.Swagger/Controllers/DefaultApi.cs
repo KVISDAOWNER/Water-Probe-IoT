@@ -67,9 +67,9 @@ namespace IO.Swagger.Controllers
             try
             {
                 var probeCollection = mongoDB.GetCollection<Probe>("Probe");
-                if (probeCollection.Find(x => x.Id == body.Device).CountDocuments() == 0)
+                if (probeCollection.Find(x => x.Id == body.Device).CountDocuments() == 0) // If the Probe Id is not in the data base
                 {
-                    Probe probe = new Probe()
+                    Probe probe = new Probe() // We add it to the database
                     {
                         Id = body.Device,
                         AttachedSensors = new List<AttachedSensor>()
