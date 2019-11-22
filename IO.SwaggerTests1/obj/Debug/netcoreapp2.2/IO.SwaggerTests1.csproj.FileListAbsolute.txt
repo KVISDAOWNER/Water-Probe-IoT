@@ -1,3 +1,0 @@
-C:\Users\Magnus\Desktop\P7\IO.SwaggerTests1\obj\Debug\netcoreapp2.2\IO.SwaggerTests1.csprojAssemblyReference.cache
-C:\Users\Magnus\Desktop\P7\IO.SwaggerTests1\obj\Debug\netcoreapp2.2\IO.SwaggerTests1.AssemblyInfoInputs.cache
-C:\Users\Magnus\Desktop\P7\IO.SwaggerTests1\obj\Debug\netcoreapp2.2\IO.SwaggerTests1.AssemblyInfo.cs

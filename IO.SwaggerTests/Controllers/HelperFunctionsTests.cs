@@ -530,7 +530,7 @@ namespace IO.Swagger.Controllers.Tests
             // Assert
             Assert.IsTrue(result.Count == 5);
             Assert.IsTrue(result[0] == "0");
-            Assert.IsTrue(double.Parse(result[1]) >= 5.5 && double.Parse(result[1]) <= 5.51);
+            Assert.IsTrue(double.Parse(result[1]) >= 5.5 && double.Parse(result[1]) <= 5.51); // The value is close to 5.5
             Assert.IsTrue(result[2] == "-10");
             Assert.IsTrue(result[3] == "0");
             Assert.IsTrue(result[4] == "32");
