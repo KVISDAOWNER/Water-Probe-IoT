@@ -37,16 +37,10 @@ namespace IO.Swagger.Controllers
             MongoClient mongoClient = new MongoClient("mongodb://" + dBSettings.Host + ":" + dBSettings.Port);
             mongoDB = mongoClient.GetDatabase(dBSettings.Database);
         }
-        private const string turbidityName = "MJKDZ";
-        private const string temperatureName = "DS18B20";
-        private const string pHName = "PH4502C";
-        private const string nitrogenName = "Nitrogen";
-        private const string phosphorusName = "Phosphorus";
+        
+        public static IMongoDatabase mongoDB;
 
-        private const double measurementsPerCycle = 16;
-        private const double minutesPerCycle = 15;
-
-        private readonly IMongoDatabase mongoDB;
+        
         private const string databaseName = "waterProbeData";
 
         /// <summary>
@@ -64,9 +58,30 @@ namespace IO.Swagger.Controllers
         [SwaggerResponse(statusCode: 404, type: typeof(string), description: "Not created response")]
         public virtual IActionResult NewData([FromBody]DeviceData body)
         {
+            if (HelperFunctions.NewData(body))
+                return StatusCode(201, default(Sample));
+            else
+                return StatusCode(404, default(Sample));
+        }
+    }
+    /// <summary>
+    /// Container for helping functions
+    /// </summary>
+    public static class HelperFunctions
+    {
+        private const string turbidityName = "MJKDZ";
+        private const string temperatureName = "DS18B20";
+        private const string pHName = "PH4502C";
+        private const string nitrogenName = "Nitrogen";
+        private const string phosphorusName = "Phosphorus";
+        
+        private const double measurementsPerCycle = 16;
+        private const double minutesPerCycle = 15;
+        public static bool NewData(DeviceData body)
+        {
             try
             {
-                var probeCollection = mongoDB.GetCollection<Probe>("Probe");
+                var probeCollection = DefaultApiController.mongoDB.GetCollection<Probe>("Probe");
                 if (probeCollection.Find(x => x.Id == body.Device).CountDocuments() == 0) // If the Probe Id is not in the data base
                 {
                     Probe probe = new Probe() // We add it to the database
@@ -108,43 +123,38 @@ namespace IO.Swagger.Controllers
                     probeCollection.InsertOne(probe);
                 }
 
-                var turbidityCollection = mongoDB.GetCollection<Observation>(turbidityName + "_" + body.Device);
-                var temperatureCollection = mongoDB.GetCollection<Observation>(temperatureName + "_" + body.Device);
-                var pHCollection = mongoDB.GetCollection<Observation>(pHName + "_" + body.Device);
-                var nitrogenCollection = mongoDB.GetCollection<Observation>(nitrogenName + "_" + body.Device);
-                var phosphorusCollection = mongoDB.GetCollection<Observation>(phosphorusName + "_" + body.Device);
+                var turbidityCollection = DefaultApiController.mongoDB.GetCollection<Observation>(turbidityName + "_" + body.Device);
+                var temperatureCollection = DefaultApiController.mongoDB.GetCollection<Observation>(temperatureName + "_" + body.Device);
+                var pHCollection = DefaultApiController.mongoDB.GetCollection<Observation>(pHName + "_" + body.Device);
+                var nitrogenCollection = DefaultApiController.mongoDB.GetCollection<Observation>(nitrogenName + "_" + body.Device);
+                var phosphorusCollection = DefaultApiController.mongoDB.GetCollection<Observation>(phosphorusName + "_" + body.Device);
 
-                List<string> data = HelperFunctions.UnravelData(body.Data);
-                List<int> timeIndices = HelperFunctions.UnravelTime(body.Data);
+                List<string> data = UnravelData(body.Data);
+                List<int> timeIndices = UnravelTime(body.Data);
 
                 DateTime startTime = DateTime.UnixEpoch.AddSeconds(int.Parse(body.Time)).Subtract(new TimeSpan(0, 15, 0));
                 DateTime endTime = DateTime.UnixEpoch.AddSeconds(int.Parse(body.Time));
-                string phenomenonTime = HelperFunctions.TimeToString(startTime) + "-" + HelperFunctions.TimeToString(endTime);
+                string phenomenonTime = TimeToString(startTime) + "-" + TimeToString(endTime);
 
-                Observation turbidityObservation = new Observation(phenomenonTime, HelperFunctions.TimeToString(startTime.AddMinutes(minutesPerCycle / measurementsPerCycle * timeIndices[0])), data[0]);
-                Observation pHObservation = new Observation(phenomenonTime, HelperFunctions.TimeToString(startTime.AddMinutes(minutesPerCycle / measurementsPerCycle * timeIndices[1])), data[1]);
-                Observation temperatureObservation = new Observation(phenomenonTime, HelperFunctions.TimeToString(startTime.AddMinutes(minutesPerCycle / measurementsPerCycle * timeIndices[2])), data[2]);
-                Observation nitrogenObservation = new Observation(phenomenonTime, HelperFunctions.TimeToString(startTime.AddMinutes(minutesPerCycle / measurementsPerCycle * timeIndices[3])), data[3]);
-                Observation phosphorusObservation = new Observation(phenomenonTime, HelperFunctions.TimeToString(startTime.AddMinutes(minutesPerCycle / measurementsPerCycle * timeIndices[4])), data[4]);
+                Observation turbidityObservation = new Observation(phenomenonTime, TimeToString(startTime.AddMinutes(minutesPerCycle / measurementsPerCycle * timeIndices[0])), data[0]);
+                Observation pHObservation = new Observation(phenomenonTime, TimeToString(startTime.AddMinutes(minutesPerCycle / measurementsPerCycle * timeIndices[1])), data[1]);
+                Observation temperatureObservation = new Observation(phenomenonTime, TimeToString(startTime.AddMinutes(minutesPerCycle / measurementsPerCycle * timeIndices[2])), data[2]);
+                Observation nitrogenObservation = new Observation(phenomenonTime, TimeToString(startTime.AddMinutes(minutesPerCycle / measurementsPerCycle * timeIndices[3])), data[3]);
+                Observation phosphorusObservation = new Observation(phenomenonTime, TimeToString(startTime.AddMinutes(minutesPerCycle / measurementsPerCycle * timeIndices[4])), data[4]);
 
                 turbidityCollection.InsertOne(turbidityObservation);
                 temperatureCollection.InsertOne(temperatureObservation);
                 pHCollection.InsertOne(pHObservation);
                 nitrogenCollection.InsertOne(nitrogenObservation);
                 phosphorusCollection.InsertOne(phosphorusObservation);
-                return StatusCode(201, default(Sample));
+                return true;
             }
             catch (Exception e)
             {
-                return StatusCode(404, e.Message);
+                return false;
             }
         }
-    }
-    /// <summary>
-    /// Container for helping functions
-    /// </summary>
-    public static class HelperFunctions
-    {
+
         /// <summary>
         /// Unconvert from the conversion made by the Arduino.
         /// </summary>
@@ -230,29 +240,7 @@ namespace IO.Swagger.Controllers
 
         public static string TimeToString(DateTime dateTime)
         {
-            StringBuilder SB = new StringBuilder();
-            SB.Append(dateTime.Year);
-            SB.Append(":");
-            if (dateTime.Month.ToString().Length == 1)
-                SB.Append("0");
-            SB.Append(dateTime.Month);
-            SB.Append(":");
-            if (dateTime.Day.ToString().Length == 1)
-                SB.Append("0");
-            SB.Append(dateTime.Day);
-            SB.Append("T");
-            if (dateTime.Hour.ToString().Length == 1)
-                SB.Append("0");
-            SB.Append(dateTime.Hour);
-            SB.Append(":");
-            if (dateTime.Minute.ToString().Length == 1)
-                SB.Append("0");
-            SB.Append(dateTime.Minute);
-            SB.Append(":");
-            if (dateTime.Second.ToString().Length == 1)
-                SB.Append("0");
-            SB.Append(dateTime.Second);
-            return SB.ToString();
+            return dateTime.ToString("yyyy-MM-ddTHH\\:mm\\:sszzz");
         }
     }
 }
