@@ -131,7 +131,7 @@ namespace IO.Swagger.Controllers
         [SwaggerOperation("NewThing")]
         [SwaggerResponse(statusCode: 201, type: typeof(Sample), description: "Successful response")]
         [SwaggerResponse(statusCode: 404, type: typeof(string), description: "Not created response")]
-        public virtual IActionResult NewThing([FromBody] Prediction body)
+        public virtual IActionResult PostPrediction([FromBody] Prediction body)
         {
             try
             {
@@ -147,7 +147,7 @@ namespace IO.Swagger.Controllers
 
                 miValues.InsertMany(obs);
 
-                return StatusCode(200, default(Sample));
+                return StatusCode(201, default(Sample));
             } 
             catch (Exception e)
             {
