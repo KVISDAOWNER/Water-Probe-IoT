@@ -50,48 +50,24 @@ namespace IO.Swagger.Controllers
         [SwaggerResponse(statusCode: 404, type: typeof(string), description: "Unsuccessful response")]
         public virtual IActionResult GetProbeMeasurement([FromQuery]string probename)
         {
+            IMongoCollection<Probe> probeCol = mongoDB.GetCollection<Probe>("Probe");
+            IMongoCollection<Sensor> sensorCol = mongoDB.GetCollection<Sensor>("Sensor");
 
-            var probeCollection = mongoDB.GetCollection<Probe>("Probe");
-            Probe probe = probeCollection.Find(x => x.Id == probename).FirstOrDefault();
-            var sensorCollection = mongoDB.GetCollection<Sensor>("Sensor");
-            var observedPropertyCollection = mongoDB.GetCollection<ObservedProperty>("observedProperty");
-            List<string> sensorIDs = new List<string>();
             List<Tuple<string, List<Observation>>> results = new List<Tuple<string, List<Observation>>>();
-            List<Sensor> sensors = new List<Sensor>();
-            List<string> observedPropertyReferences = new List<string>();
-            
-            List<ObservedProperty> observedProperties = new List<ObservedProperty>();
 
-            //Gets all sensors, need since sensor is the only entity that has an observedProperty
-            sensors = sensorCollection.Find<Sensor>(x => true).ToList();
+            Probe probe = probeCol.Find(x => x.Id == probename).FirstOrDefault();
 
-            foreach (Sensor sensor in sensors)
-            {
-                observedPropertyReferences.Add(sensor.ObservedPropertyRef);
-            }
-
-            foreach(string opRef in observedPropertyReferences)
-            {
-                observedProperties.Add(observedPropertyCollection.Find(x => x.Id == opRef).FirstOrDefault());   
-            }
-
-            
             // loop to get all attached sensors to a probe
             foreach (AttachedSensor sensor in probe.AttachedSensors)
             {
-                sensorIDs.Add(sensor.RefToSensor);
-                Sensor currentSensor = sensorCollection.Find(x => x.Id == sensor.RefToSensor).FirstOrDefault();
-                ObservedProperty currentObservedProperty = observedPropertyCollection.Find(x => x.Id == currentSensor.ObservedPropertyRef).FirstOrDefault();
-                List<Observation> currentDataList = new List<Observation>();
-                var observationCollection = mongoDB.GetCollection<Observation>(currentSensor.Id + "_" + probename);
+                Sensor currentSensor = sensorCol.Find(x => x.Id == sensor.RefToSensor).FirstOrDefault();
+                IMongoCollection<Observation> observationCollection = mongoDB.GetCollection<Observation>(currentSensor.Id + "_" + probename);
 
                 //Not interested in returning the collections which are meant for containing predictions
                 if (observationCollection.CollectionNamespace.CollectionName.StartsWith("MI_"))
                     continue;
 
-                var observationList = observationCollection.Find(x => true).ToList();
-
-
+                List<Observation> observationList = observationCollection.Find(x => true).ToList();
                 results.Add(Tuple.Create(currentSensor.Id + "_" + currentSensor.ObservedPropertyRef, observationList));
             }
             return new ObjectResult(JsonConvert.SerializeObject(results, Formatting.Indented));
@@ -111,23 +87,13 @@ namespace IO.Swagger.Controllers
         [SwaggerResponse(statusCode: 404, type: typeof(string), description: "Not created response")]
         public virtual IActionResult GetProbesMeasurements()
         {
-            List<Probe> probes = new List<Probe>();
             var probeCollection = mongoDB.GetCollection<Probe>("Probe");
-            probes = probeCollection.Find(x => true).ToList();
+            List<Probe> probes = probeCollection.Find(x => true).ToList();
 
             var sensorCollection = mongoDB.GetCollection<Sensor>("Sensor");
-            var observedPropertyCollection = mongoDB.GetCollection<ObservedProperty>("observedProperty");
 
-            List<string> sensorIDs = new List<string>();
-            List<Tuple<string, List<Observation>>> results = new List<Tuple<string, List<Observation>>>();
-            List<Sensor> sensors = new List<Sensor>();
             List<string> observedPropertyReferences = new List<string>();
             List<ObservedProperty> observedProperties = new List<ObservedProperty>();
-
-
-            //Gets all sensors, need since sensor is the only entity that has an observedProperty
-            sensors = sensorCollection.Find<Sensor>(x => true).ToList();
-
             List<Tuple<string, List<Tuple<string, List<Observation>>>>> resultsList = new List<Tuple<string, List<Tuple<string, List<Observation>>>>>();
 
             foreach (Probe probe in probes)

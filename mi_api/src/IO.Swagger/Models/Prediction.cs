@@ -13,27 +13,29 @@ namespace IO.Swagger.Models
     /// </summary>
     public class Prediction
     {
+        /// <summary>
+        /// Gets or sets Probe
+        /// </summary>
+
         [Required]
         [DataMember(Name = "probe", EmitDefaultValue = false)]
         public string Probe { get; set; }
 
         /// <summary>
-        /// Gets or Sets Definition
+        /// Gets or sets Sensor
         /// </summary>
         [Required]
         [DataMember(Name = "sensor", EmitDefaultValue = false)]
         public string Sensor { get; set; }
 
+        /// <summary>
+        /// Gets or sets Values, a list of Observations
+        /// </summary>
 
         [BsonElement("values")]
         [Required]
         [DataMember(Name = "values", EmitDefaultValue = false)]
         public List<Observation> Values { get; set; }
 
-     
-        /// <summary>
-        /// Returns the string presentation of the object
-        /// </summary>
-        /// <returns>String presentation of the object</returns>
     }
 }
