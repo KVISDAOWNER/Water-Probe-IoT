@@ -111,15 +111,11 @@ namespace IO.Swagger.Controllers
                     
                     var observationList = observationCollection.Find(x => true).ToList();
                     intermediateResult.Add(Tuple.Create(currentSensor.Id + "_" + currentSensor.ObservedPropertyRef, observationList));
-
                 }
-
                 resultsList.Add(Tuple.Create(probe.Id, intermediateResult));
-
             }
 
             return new ObjectResult(JsonConvert.SerializeObject(resultsList, Formatting.Indented));
-
         }
 
         /// <summary>
@@ -157,20 +153,6 @@ namespace IO.Swagger.Controllers
             {
                 return new ObjectResult(e.Message);
             }
-
-
-            //TODO: Uncomment the next line to return response 201 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(201, default(Sample));
-
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(string));
-            string exampleJson = null;
-            exampleJson = "{\n  \"placeholder\" : \"placeholder\"\n}";
-            
-                        var example = exampleJson != null
-                        ? JsonConvert.DeserializeObject<Sample>(exampleJson)
-                        : default(Sample);            //TODO: Change the data returned
-            return new ObjectResult(example);
         }
     }
 }
