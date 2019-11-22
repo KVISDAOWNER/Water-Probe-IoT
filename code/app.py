@@ -12,7 +12,7 @@ mapbox_access_token = 'pk.eyJ1Ijoid2F0ZXJib2lzIiwiYSI6ImNrMmFkaDhmejBmcGUzb3AyaG
 
 app = dash.Dash("Water Bois")
 app.title = 'Waterbois'
-
+server = app.server
 
 def construct_default_graph():
     data_dict = {"time": [0, 1, 2, 3, 4, 5, 6, 7, 8]}
