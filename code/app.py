@@ -12,7 +12,7 @@ mapbox_access_token = 'pk.eyJ1Ijoid2F0ZXJib2lzIiwiYSI6ImNrMmFkaDhmejBmcGUzb3AyaG
 
 app = dash.Dash("Water Bois")
 app.title = 'Waterbois'
-server = app.server
+
 
 def construct_default_graph():
     data_dict = {"time": [0, 1, 2, 3, 4, 5, 6, 7, 8]}
@@ -46,6 +46,12 @@ def create_defaultmap():
             size=11,
             color='red'
         ),
+        selected={
+            'marker':
+                {
+                    'color': 'green'
+                }
+        },
         text=all_probes_names,
         hoverinfo='text'
     ))
@@ -157,7 +163,7 @@ admin_page = html.Div([
      State('lon', 'value'),
      State('description', 'value')]
 )
-def update_probe_location(n_clicks, probe_id,
+def patch_probe_location(n_clicks, probe_id,
                           lat, lon, desc):
     return 'Input: Id: {} Lat: {} Lon: {} Desc: {}'.format(
         probe_id, lat, lon, desc)
@@ -238,8 +244,14 @@ def update_map(value):
             mode='markers',
             marker=go.scattermapbox.Marker(
                 size=11,
-                color='blue'
+                color='red'
             ),
+            selected={
+                'marker':
+                    {
+                        'color':'green'
+                    }
+            },
             text=all_probes_names,
             hoverinfo='text'
         ))
