@@ -1,0 +1,2 @@
+FROM mongo
+COPY setup_db_with_mock.js /docker-entrypoint-initdb.d/
