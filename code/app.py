@@ -229,6 +229,9 @@ def update_checklist(selected_data):
     [Input('checklist', 'value')])
 def update_map(value):
     if not value:
+        # We only have one dataset in our figure.
+        # Therefore we access index 0.
+        defaultmap.data[0].selectedpoints = []
         return defaultmap
     else:
         selected_probes = []
@@ -236,44 +239,8 @@ def update_map(value):
             for j in range(len(all_probes)):
                 if value[i] == all_probes[j].name:
                     selected_probes.append(j)
-
-        fig = go.Figure(go.Scattermapbox(
-            lat=DAL.get_latitudes(all_probes),
-            lon=DAL.get_longitudes(all_probes),
-            selectedpoints=selected_probes,
-            mode='markers',
-            marker=go.scattermapbox.Marker(
-                size=11,
-                color='red'
-            ),
-            selected={
-                'marker':
-                    {
-                        'color':'green'
-                    }
-            },
-            text=all_probes_names,
-            hoverinfo='text'
-        ))
-
-        fig.update_layout(
-            autosize=True,
-            hovermode='closest',
-            clickmode='event+select',
-            margin=dict(l=40, r=10, t=10, b=10),
-            mapbox=go.layout.Mapbox(
-                accesstoken=mapbox_access_token,
-                bearing=0,
-                style='open-street-map',
-                center=go.layout.mapbox.Center(
-                    lat=57.04,
-                    lon=9.935
-                ),
-                pitch=0,
-                zoom=11
-            ),
-        )
-        return fig
+        defaultmap.data[0].selectedpoints = selected_probes
+        return defaultmap
 
 
 @app.callback(
