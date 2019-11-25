@@ -1,0 +1,196 @@
+{
+  "openapi" : "3.0.2",
+  "info" : {
+    "title" : "Machine learning API",
+    "description" : "API for machine learning on water probe measured data",
+    "version" : "1"
+  },
+  "servers" : [ {
+    "url" : "/"
+  } ],
+  "paths" : {
+    "/probe" : {
+      "get" : {
+        "tags" : [ "Probe" ],
+        "summary" : "Gets all observations by a probe",
+        "operationId" : "getProbeMeasurement",
+        "parameters" : [ {
+          "name" : "probename",
+          "in" : "query",
+          "description" : "Unique thingName",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Sample"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not created response",
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "title" : "Thing not cretead",
+                  "type" : "string",
+                  "x-content-type" : "text/plain"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/probes" : {
+      "get" : {
+        "tags" : [ "Probe" ],
+        "summary" : "Gets all observations by all probes",
+        "operationId" : "getProbesMeasurements",
+        "responses" : {
+          "201" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Sample"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not created response",
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "title" : "Thing not cretead",
+                  "type" : "string",
+                  "x-content-type" : "text/plain"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "Probe" ],
+        "summary" : "Post mahcine learning predicted values",
+        "description" : "Creates new thing",
+        "operationId" : "NewThing",
+        "requestBody" : {
+          "description" : "Optional properties represented as json for the Thing",
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/MIResult"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Sample"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not created response",
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "title" : "Thing not cretead",
+                  "type" : "string",
+                  "x-content-type" : "text/plain"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "oauth2" : [ "modifyData" ]
+        } ]
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "MIResult" : {
+        "type" : "object"
+      },
+      "Sample" : {
+        "type" : "object",
+        "properties" : {
+          "placeholder" : {
+            "type" : "string",
+            "description" : "Placeholder description"
+          }
+        },
+        "example" : {
+          "placeholder" : "placeholder"
+        }
+      }
+    },
+    "responses" : {
+      "200" : {
+        "description" : "Successful response",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/Sample"
+            }
+          }
+        }
+      },
+      "201" : {
+        "description" : "Successful response",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/Sample"
+            }
+          }
+        }
+      },
+      "404" : {
+        "description" : "Not created response",
+        "content" : {
+          "text/plain" : {
+            "schema" : {
+              "title" : "Thing not cretead",
+              "type" : "string",
+              "x-content-type" : "text/plain"
+            }
+          }
+        }
+      }
+    },
+    "parameters" : {
+      "probename" : {
+        "name" : "probename",
+        "in" : "query",
+        "description" : "Unique thingName",
+        "required" : false,
+        "style" : "form",
+        "explode" : true,
+        "schema" : {
+          "type" : "string"
+        }
+      }
+    }
+  }
+}
