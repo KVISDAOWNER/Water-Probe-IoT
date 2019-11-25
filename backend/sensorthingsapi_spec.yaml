@@ -1,0 +1,781 @@
+openapi: "3.0.2"
+info:
+  title: "WaterProbe API"
+  description: "API for waterprobing"
+  version: "1"
+
+paths:
+  /Things:
+    get:
+      tags: 
+      - Thing
+      summary: "Gets all things (probes)"
+      operationId: getThings
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/thing'
+        404:
+          $ref: '#/components/responses/404'
+  /Thing:
+    get:
+      tags: 
+      - Thing
+      summary: "Get an existing probe"
+      operationId: getThing
+      parameters:
+       - $ref: '#/components/parameters/thingname'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/thing'
+        404:
+          $ref: '#/components/responses/404'
+    post:
+      tags:
+       - Thing
+      summary: "Creates a new probe"
+      description: "Creates new thing"
+      operationId: "NewThing"
+      responses:
+        201:
+          $ref: '#/components/responses/201'
+        404:
+          $ref: '#/components/responses/404'
+      requestBody:
+        description: Optional properties represented as json for the Thing
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/thing'
+              
+    delete:
+      tags: 
+      - Thing
+      summary: "Delete an existing probe"
+      operationId: deleteThing
+      parameters:
+       - $ref: '#/components/parameters/thingname'
+        
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+        404:
+          $ref: '#/components/responses/404'
+  
+  /Observations:
+    get:
+      tags:
+      - Observation
+      summary: "Get all observations associated to datastream"
+      operationId: getObservations
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/observation'
+        404:
+          $ref: '#/components/responses/404'
+      
+      parameters: 
+       - $ref: '#/components/parameters/datastreamRef'
+  /Observation:
+    get:
+      tags:
+      - Observation
+      summary: "Call to get observation from database"
+      operationId: getObservation
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observation'
+        404:
+          $ref: '#/components/responses/404'
+      
+      parameters: 
+       - $ref: '#/components/parameters/observation'
+    post:
+      tags:
+      - Observation
+      summary: "Call to write observation to database"
+      operationId: postObservation
+      responses:
+        201:
+          $ref: '#/components/responses/201'
+        404:
+          $ref: '#/components/responses/404'
+      
+      requestBody:
+        description: Optional properties represented as json for the Thing
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/observation'
+              
+              
+  /dataStreams:
+      get:
+        tags: 
+        - Datastream
+        summary: "Get all datastreams from thing"
+        operationId: getDatastreams
+        responses:
+          200:
+            description: OK
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/dataStream'
+          404:
+            $ref: '#/components/responses/404'
+                  
+        parameters: 
+          - $ref: '#/components/parameters/thingRef'
+        
+  /dataStream:
+    get:
+      tags: 
+      - Datastream
+      summary: "Gets a datastream"
+      operationId: getDatastream
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/dataStream'
+        404:
+          $ref: '#/components/responses/404'
+                
+      parameters: 
+        - $ref: '#/components/parameters/dataStream'
+        
+    put:
+      tags: 
+      - Datastream
+      summary: "put to a datastream"
+      operationId: putDatastream
+      responses:
+        201:
+          $ref: '#/components/responses/201'
+        404:
+          $ref: '#/components/responses/404'
+                
+      parameters: 
+        - $ref: '#/components/parameters/dataStream'
+        
+      requestBody:
+        description: Optional properties represented as json for the dataStream
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dataStream'
+    
+    post:
+      tags: 
+      - Datastream
+      summary: "posts a datastream"
+      operationId: postDatastream
+      responses:
+        201:
+          $ref: '#/components/responses/201'
+        404:
+          $ref: '#/components/responses/404'
+                
+      requestBody:
+        description: Optional properties represented as json for the dataStream
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dataStream'
+    
+    delete:
+      tags: 
+      - Datastream
+      summary: "deletes a datastream"
+      operationId: deleteDatastream
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+        404:
+          $ref: '#/components/responses/404'
+                
+      parameters: 
+        - $ref: '#/components/parameters/dataStream'
+    
+    
+  /sensor:
+    get:
+      tags: 
+      - Sensor
+      summary: "gets a sensor"
+      operationId: getSensor
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sensor'
+        404:
+         $ref: '#/components/responses/404'
+                
+      parameters: 
+        - $ref: '#/components/parameters/sensor'
+        
+    
+    put:
+      tags: 
+      - Sensor
+      summary: "puts a sensor"
+      operationId: putSensor
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+        404:
+          $ref: '#/components/responses/404'
+                
+      parameters: 
+        - $ref: '#/components/parameters/sensor'
+      
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sensor'
+        
+    post:
+      tags: 
+      - Sensor
+      summary: "post a sensor"
+      operationId: postSensor
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+        404:
+          $ref: '#/components/responses/404'
+                
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sensor'
+        
+    
+    delete:
+      tags: 
+      - Sensor
+      summary: "deletes a sensor"
+      operationId: deleteSensor
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+        404:
+          $ref: '#/components/responses/404'
+      parameters: 
+        - $ref: '#/components/parameters/sensor'
+    
+      
+  /Location:
+    get:
+      tags:
+       - Location
+      summary: "gets a location"
+      operationId: getLocation
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/location'
+        404:
+          $ref: '#/components/responses/404'
+      parameters:
+      - $ref: '#/components/parameters/location'
+    put:
+      tags:
+      - Location
+      summary: "updates a location"
+      operationId: putLocation
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+        404:
+          $ref: '#/components/responses/404'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/location'
+        
+        
+    post:
+      tags:
+       - Location
+      summary: "posting a new location"
+      operationId: postlocation
+      responses:
+        201:
+          $ref: '#/components/responses/201'
+        404:
+          $ref: '#/components/responses/404'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/location'
+    
+    delete:
+      tags: 
+      - Location
+      summary: "deletes a sensor"
+      operationId: deleteLocation
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+        404:
+          $ref: '#/components/responses/404'
+                
+      parameters: 
+        - $ref: '#/components/parameters/location'
+        
+  /FeatureOfInterest:
+    get:
+      tags:
+       - FeatureOfInterest
+      summary: "gets a FeatureOfInterest"
+      operationId: getFeatureOfInterest
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/featureOfInterest'
+        404:
+          $ref: '#/components/responses/404'
+      parameters:
+      - $ref: '#/components/parameters/featureOfInterest'
+
+    put:
+      tags:
+      - FeatureOfInterest
+      summary: "updates a FeatureOfInterest"
+      operationId: putFeatureOfInterest
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+        404:
+          $ref: '#/components/responses/404'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/featureOfInterest'
+        
+    post:
+      tags:
+       - FeatureOfInterest
+      summary: "posting a new FeatureOfInterest"
+      operationId: postFeatureOfInterest
+      responses:
+        201:
+          $ref: '#/components/responses/201'
+        404:
+          $ref: '#/components/responses/404'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/featureOfInterest'
+    
+    delete:
+      tags: 
+      - FeatureOfInterest
+      summary: "deletes a FeatureOfInterest"
+      operationId: deleteFeatureOfInterest
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+        404:
+          $ref: '#/components/responses/404'
+                
+      parameters: 
+        - $ref: '#/components/parameters/featureOfInterest'
+        
+  /ObservedProperty:
+    get:
+      tags:
+      - ObservedProperty
+      summary: "gets an ObservedProperty"
+      operationId: getObservedProperty
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/observedProperty'
+        404:
+          $ref: '#/components/responses/404'
+      parameters:
+      - $ref: '#/components/parameters/observedProperty'
+    put:
+      tags:
+      - ObservedProperty
+      summary: "updates an ObservedProperty"
+      operationId: putObservedProperty
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+        404:
+          $ref: '#/components/responses/404'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/observedProperty'
+    post:
+      tags:
+      - ObservedProperty
+      summary: "Creates a new ObservedProperty"
+      operationId: postObservedProperty
+      responses:
+        201:
+          $ref: '#/components/responses/201'
+        404:
+          $ref: '#/components/responses/404'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/observedProperty'
+    delete:
+      tags:
+      - ObservedProperty
+      summary: "Deletes an ObservedProperty"
+      operationId: deleteObservedProperty
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+        404:
+          $ref: '#/components/responses/404'
+                
+      parameters: 
+        - $ref: '#/components/parameters/observedProperty'
+
+
+components:
+  responses:
+    200:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              placeholder:
+                type: string
+                description: Placeholder description
+    201:
+      description: Successful response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              placeholder:
+                type: string
+                description: Placeholder description
+    
+    404:
+      description: Not created response
+      content:
+        text/plain:
+          schema:
+            type: string
+            example:
+    
+  parameters:
+    observation: 
+      name: observationName
+      in: query
+      description: "Unique observationName"
+      required: false
+      schema:
+        type: string
+      
+    dataStream: 
+      name: dataStreamName
+      in: query
+      description: "Unique dataStreamName"
+      schema:
+        type: string
+        
+    sensor: 
+      name: sensorName
+      in: query
+      description: "Unique sensorName"
+      schema:
+        type: string
+        
+    thingname: 
+      name: thingname
+      in: query
+      description: "Unique thingName"
+      schema:
+        type: string
+        
+    location:
+      name: locationName
+      in: query
+      description: "Unique locationName"
+      schema:
+        type: string
+        
+    featureOfInterest:
+      name: featureOfInterestName
+      in: query
+      description: "Unique FeatureOfInterest name"
+      schema:
+        type: string
+        
+    observedProperty: 
+      name: observedPropertyName
+      in: query
+      description: "Unique ObservedProperty name"
+      schema:
+        type: string
+    thingRef:
+      name: thingRef
+      in: query
+      description: "Ref to unique thing"
+      schema:
+        type: string
+    datastreamRef:
+      name: datastreamRef
+      in: query
+      description: "Ref to unique datastream"
+      schema:
+        type: string
+
+  schemas:
+    location:
+      type: object
+      required: 
+        - description
+        - encodingType
+        - location
+      properties:
+        description:
+          type: string 
+        encodingType:
+          $ref: '#/components/schemas/valueCode' 
+        location:
+          $ref: '#/components/schemas/latLong' 
+    
+    latLong:
+      type: object
+      required:
+        - latitude
+        - longitude
+      properties:
+        lat:
+          type: string
+        long:
+          type: string
+    
+            
+    tmObject:
+      type: object
+      properties:
+        time:
+          type: string 
+          
+    
+    dqElement:
+      type: object
+      
+    
+    tmInstant:
+      type: object
+      properties:
+        time:
+          type: string
+          
+    tmPeriod:
+      type: object
+      
+    
+    namedValue:
+      type: object
+      
+    valueCode:
+      type: object
+    
+    gm_envelope:
+      type: object
+  
+    thing:
+      type: object
+      required:
+        - name
+        - description
+        
+      properties:
+        name:
+          type: string
+        description: 
+          type: string
+        properties:
+          type: array
+          items:
+            type: object
+        location:
+          $ref: '#/components/schemas/location'
+          
+          
+    observation:
+      type: object
+      required:
+        - phenomenonTime 
+        - resultTime
+        - result
+        - datastreamRef
+        
+      properties:
+        phenomenonTime:
+          $ref: '#/components/schemas/tmObject'
+        resultTime:
+          $ref: '#/components/schemas/tmInstant'
+        result:
+          type: number
+        resultQuality:
+          type: array
+          items: 
+            $ref: '#/components/schemas/dqElement'
+        validTime:
+          type: array
+          items:
+            $ref: '#/components/schemas/tmPeriod'
+        parameters:
+          type: array
+          items:
+            $ref: '#/components/schemas/namedValue'
+        datastreamRef:
+          type: string
+        featureOfInterestRef:
+          type: string
+            
+      
+    dataStream:
+      type: object
+      required:
+       - name
+       - description
+       - observationType
+       - unitOfMeasurement
+       
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        observationType:
+          $ref: '#/components/schemas/valueCode'
+        unitOfMeasurement:
+          type: array  
+          items:
+            type: object
+        observedArea:
+          $ref: '#/components/schemas/gm_envelope'
+        phenomenonTime:
+          $ref: '#/components/schemas/tmPeriod'
+        resultTime:
+          $ref: '#/components/schemas/tmPeriod'
+        thingRef:
+          type: string
+        sensorRef:
+          type: string
+        observedPropertyRef:
+          type: string
+          
+    
+    sensor:
+      type: object
+      required:
+       - name
+       - description
+       - encodingType
+       - metaData
+      
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        encodingType:
+          $ref: '#/components/schemas/valueCode'
+        metaData:
+          type: object  
+          
+    featureOfInterest:
+      type: object
+      required: 
+      - name
+      - description 
+      - encoding
+      - feature
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        encoding:
+          $ref: '#/components/schemas/valueCode'
+        feature:
+          type: object
+    observedProperty:
+      type: object
+      required: 
+      - name
+      - definition 
+      - description
+      properties:
+        name:
+          type: string
+        definition:
+          type: string
+        description:
+          type: string
