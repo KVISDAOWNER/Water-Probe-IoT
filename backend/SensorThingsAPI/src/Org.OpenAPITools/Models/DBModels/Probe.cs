@@ -6,7 +6,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
 
-namespace Org.OpenAPITools.Models.DBModels
+namespace SensorThingsAPI.Models.DBModels
 {
     public class Probe
     {

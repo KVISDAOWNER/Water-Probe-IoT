@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace Org.OpenAPITools.Attributes
+namespace SensorThingsAPI.Attributes
 {
     /// <summary>
     /// Model state validation attribute

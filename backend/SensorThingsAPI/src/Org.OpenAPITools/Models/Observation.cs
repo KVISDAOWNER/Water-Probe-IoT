@@ -16,11 +16,11 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
-using Org.OpenAPITools.Converters;
+using SensorThingsAPI.Converters;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
 
-namespace Org.OpenAPITools.Models
+namespace SensorThingsAPI.Models
 { 
     /// <summary>
     /// 

@@ -1,14 +1,14 @@
 ﻿using MongoDB.Driver;
-using Org.OpenAPITools.Models;
-using Org.OpenAPITools.Models.DBModels;
+using SensorThingsAPI.Models;
+using SensorThingsAPI.Models.DBModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Org.OpenAPITools.Services;
+using SensorThingsAPI.Services;
 
 
-namespace Org.OpenAPITools.Services
+namespace SensorThingsAPI.Services
 {
     public class DatastreamService
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Org.OpenAPITools.Models
+namespace SensorThingsAPI.Models
 {
     //TODO refactor DatabaseSettings structure
     public class MongoDBSettings : IMongoDBSettings

@@ -15,15 +15,15 @@ using Swashbuckle.AspNetCore.Annotations;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
-using Org.OpenAPITools.Attributes;
+using SensorThingsAPI.Attributes;
 using Microsoft.AspNetCore.Authorization;
-using Org.OpenAPITools.Models;
-using Org.OpenAPITools.Services;
-using Org.OpenAPITools.Models.DBModels;
-using Org.OpenAPITools.Models.DTO;
+using SensorThingsAPI.Models;
+using SensorThingsAPI.Services;
+using SensorThingsAPI.Models.DBModels;
+using SensorThingsAPI.Models.DTO;
 using System.Text;
 
-namespace Org.OpenAPITools.Controllers
+namespace SensorThingsAPI.Controllers
 {
     /// <summary>
     /// 

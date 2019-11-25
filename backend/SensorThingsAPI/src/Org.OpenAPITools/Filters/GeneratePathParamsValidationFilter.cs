@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.Controllers;
 using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace Org.OpenAPITools.Filters
+namespace SensorThingsAPI.Filters
 {
     /// <summary>
     /// Path Parameter Validation Rules Filter

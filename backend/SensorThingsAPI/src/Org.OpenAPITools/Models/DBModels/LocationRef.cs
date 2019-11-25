@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Org.OpenAPITools.Models.DBModels
+namespace SensorThingsAPI.Models.DBModels
 {
     public class LocationRef
     {

@@ -1,10 +1,10 @@
-﻿using Org.OpenAPITools.Models.DBModels;
+﻿using SensorThingsAPI.Models.DBModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Org.OpenAPITools.Models.DTO
+namespace SensorThingsAPI.Models.DTO
 {
     public class DTOLocation
     {

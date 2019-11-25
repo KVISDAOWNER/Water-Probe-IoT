@@ -20,14 +20,14 @@ using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using Org.OpenAPITools.Filters;
-using Org.OpenAPITools.Authentication;
+using SensorThingsAPI.Filters;
+using SensorThingsAPI.Authentication;
 using Microsoft.AspNetCore.Authorization;
-using Org.OpenAPITools.Models;
+using SensorThingsAPI.Models;
 using Microsoft.Extensions.Options;
-using Org.OpenAPITools.Services;
+using SensorThingsAPI.Services;
 
-namespace Org.OpenAPITools
+namespace SensorThingsAPI
 {
     /// <summary>
     /// Startup
@@ -87,8 +87,8 @@ namespace Org.OpenAPITools
                     c.SwaggerDoc("1", new Info
                     {
                         Version = "1",
-                        Title = "WaterProbe API",
-                        Description = "WaterProbe API (ASP.NET Core 2.0)",
+                        Title = "SensorThingsAPI",
+                        Description = "SensorThingsAPI (ASP.NET Core 2.0)",
                         Contact = new Contact()
                         {
                             Name = "OpenAPI-Generator Contributors",

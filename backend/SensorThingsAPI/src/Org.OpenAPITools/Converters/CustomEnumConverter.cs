@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Globalization;
 using Newtonsoft.Json;
 
-namespace Org.OpenAPITools.Converters
+namespace SensorThingsAPI.Converters
 {
     /// <summary>
     /// Custom string to enum converter

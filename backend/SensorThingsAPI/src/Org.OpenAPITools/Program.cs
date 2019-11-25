@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore;
 
-namespace Org.OpenAPITools
+namespace SensorThingsAPI
 {
     /// <summary>
     /// Program
