@@ -11,15 +11,15 @@ namespace IO.Swagger.Models
     /// </summary>
     public class Observation
     {
-        public string PhenomenonTime;
-        public string ResultTime;
-        public string Result;
+        public string phenomenonTime;
+        public string resultTime;
+        public string result;
 
         public Observation(string phenomenonTime, string resultTime, string result)
         {
-            PhenomenonTime = phenomenonTime;
-            ResultTime = resultTime;
-            Result = result;
+            this.phenomenonTime = phenomenonTime;
+            this.resultTime = resultTime;
+            this.result = result;
         }
     }
 }
