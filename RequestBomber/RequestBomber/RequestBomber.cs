@@ -20,15 +20,6 @@ namespace RequestBomber
             client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));
 
-          /*  DeviceData devicedata = new DeviceData("device", "data", "time");
-
-
-            var json = JsonConvert.SerializeObject(devicedata);
-            var data = new StringContent(json, Encoding.UTF8, "application/json");
-
-            var url = "http://localhost:50352/DeviceData";*/
-
-            //http://zetcode.com/csharp/httpclient/
             for (int i = 0; i < 100; i++)
             {
 
@@ -37,7 +28,7 @@ namespace RequestBomber
                 var json = JsonConvert.SerializeObject(devicedata, Formatting.Indented);
                 var data = new StringContent(json, Encoding.UTF8, "application/json");
 
-                var url = "http://localhost:50352/DeviceData";
+                var url = "http://130.225.57.56:51100/DeviceData";
 
                 var response = await client.PostAsync(url, data);
                 string result = response.Content.ReadAsStringAsync().Result;
