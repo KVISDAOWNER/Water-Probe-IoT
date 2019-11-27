@@ -63,25 +63,25 @@ void loop() {
     tryReplaceExtremeValue(phosphorus, phosphorus_normal, &extremePhosphorus, &phosphorusIndex, i);
     // Delay such that a whole cycle takes about 15 minutes (or 900,000 milliseconds)
     LowPower.sleep(900000 / measurements);
+    byte values[9];
+    // Put everything into an array
+    values[0] = byteClamp(5, 9, extremePh);
+    values[1] = byteClamp(0, 3, extremeTurbidity);
+    values[2] = byteClamp(-10, 30, extremeTemperature);
+    values[3] = byteClamp(0, 255, extremeNitrogen);
+    values[4] = byteClamp(0, 255, extremePhosphorus);
+    values[5] = (byte)0;  //Battery
+    values[6] = (byte)(pHIndex * 16 + turbidityIndex); //This trick allows us to store two indices in one byte.
+    values[7] = (byte)(temperatureIndex * 16 + nitrogenIndex);
+    values[8] = (byte)phosphorusIndex * 16;
+  
+    SigFox.begin();
+    SigFox.beginPacket();
+    SigFox.write(values, 9);
+    SigFox.endPacket();
+    SigFox.end();
+    
   }
-
-  byte values[9];
-  // Put everything into an array
-  values[0] = byteClamp(5, 9, extremePh);
-  values[1] = byteClamp(0, 3, extremeTurbidity);
-  values[2] = byteClamp(-10, 30, extremeTemperature);
-  values[3] = byteClamp(0, 255, extremeNitrogen);
-  values[4] = byteClamp(0, 255, extremePhosphorus);
-  values[5] = (byte)0;  //Battery
-  values[6] = (byte)(pHIndex * 16 + turbidityIndex); //This trick allows us to store two indices in one byte.
-  values[7] = (byte)(temperatureIndex * 16 + nitrogenIndex);
-  values[8] = (byte)phosphorusIndex * 16;
-
-  SigFox.begin();
-  SigFox.beginPacket();
-  SigFox.write(values, 9);
-  SigFox.endPacket();
-  SigFox.end();
 }
 
 float readTurbidity() {
