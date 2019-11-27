@@ -1,0 +1,10 @@
+C:\Users\Bjarke\source\repos\KVISDAOWNER\P7\RequestBomber\RequestBomber\obj\Debug\RequestBomber.csprojAssemblyReference.cache
+C:\Users\Bjarke\source\repos\KVISDAOWNER\P7\RequestBomber\RequestBomber\obj\Debug\RequestBomber.csproj.CoreCompileInputs.cache
+C:\Users\Bjarke\source\repos\KVISDAOWNER\P7\RequestBomber\RequestBomber\bin\Debug\RequestBomber.exe.config
+C:\Users\Bjarke\source\repos\KVISDAOWNER\P7\RequestBomber\RequestBomber\bin\Debug\RequestBomber.exe
+C:\Users\Bjarke\source\repos\KVISDAOWNER\P7\RequestBomber\RequestBomber\bin\Debug\RequestBomber.pdb
+C:\Users\Bjarke\source\repos\KVISDAOWNER\P7\RequestBomber\RequestBomber\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Bjarke\source\repos\KVISDAOWNER\P7\RequestBomber\RequestBomber\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Bjarke\source\repos\KVISDAOWNER\P7\RequestBomber\RequestBomber\obj\Debug\RequestBomber.csproj.CopyComplete
+C:\Users\Bjarke\source\repos\KVISDAOWNER\P7\RequestBomber\RequestBomber\obj\Debug\RequestBomber.exe
+C:\Users\Bjarke\source\repos\KVISDAOWNER\P7\RequestBomber\RequestBomber\obj\Debug\RequestBomber.pdb
