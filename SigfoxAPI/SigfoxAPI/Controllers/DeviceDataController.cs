@@ -29,9 +29,9 @@ namespace IO.Swagger.Controllers
     ///
     /// </summary>
     [ApiController]
-    public class DefaultApiController : ControllerBase
+    public class DeviceDataController : ControllerBase
     {
-        public DefaultApiController(IMongoDBSettings dBSettings)
+        public DeviceDataController(IMongoDBSettings dBSettings)
         {
 
             MongoClient mongoClient = new MongoClient("mongodb://" + dBSettings.Host + ":" + dBSettings.Port);
@@ -81,7 +81,7 @@ namespace IO.Swagger.Controllers
         {
             try
             {
-                var probeCollection = DefaultApiController.mongoDB.GetCollection<Probe>("Probe");
+                var probeCollection = DeviceDataController.mongoDB.GetCollection<Probe>("Probe");
                 if (probeCollection.Find(x => x.Id == body.Device).CountDocuments() == 0) // If the Probe Id is not in the data base
                 {
                     Probe probe = new Probe() // We add it to the database
@@ -123,11 +123,11 @@ namespace IO.Swagger.Controllers
                     probeCollection.InsertOne(probe);
                 }
 
-                var turbidityCollection = DefaultApiController.mongoDB.GetCollection<Observation>(turbidityName + "_" + body.Device);
-                var temperatureCollection = DefaultApiController.mongoDB.GetCollection<Observation>(temperatureName + "_" + body.Device);
-                var pHCollection = DefaultApiController.mongoDB.GetCollection<Observation>(pHName + "_" + body.Device);
-                var nitrogenCollection = DefaultApiController.mongoDB.GetCollection<Observation>(nitrogenName + "_" + body.Device);
-                var phosphorusCollection = DefaultApiController.mongoDB.GetCollection<Observation>(phosphorusName + "_" + body.Device);
+                var turbidityCollection = DeviceDataController.mongoDB.GetCollection<Observation>(turbidityName + "_" + body.Device);
+                var temperatureCollection = DeviceDataController.mongoDB.GetCollection<Observation>(temperatureName + "_" + body.Device);
+                var pHCollection = DeviceDataController.mongoDB.GetCollection<Observation>(pHName + "_" + body.Device);
+                var nitrogenCollection = DeviceDataController.mongoDB.GetCollection<Observation>(nitrogenName + "_" + body.Device);
+                var phosphorusCollection = DeviceDataController.mongoDB.GetCollection<Observation>(phosphorusName + "_" + body.Device);
 
                 List<string> data = UnravelData(body.Data);
                 List<int> timeIndices = UnravelTime(body.Data);
