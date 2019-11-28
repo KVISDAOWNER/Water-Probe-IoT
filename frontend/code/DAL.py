@@ -5,6 +5,18 @@ thingapi = openapi_client.ThingApi()
 datastreamapi = openapi_client.DatastreamApi()
 observationapi = openapi_client.ObservationApi()
 
+ip_of_server_api = '130.225.57.56:51099'
+
+
+def patch_location_of_thing(probe_id, lat, lon, desc) :
+    location = {"lat": float(lat), "long": float(lon)}
+    body = {"description": desc, "encodingType": "string", "_Location": location}
+    res = thingapi.api_client.request('PATCH', '130.225.57.56:51099/Thing',
+                                      query_params=[('thingRef', probe_id)],
+                                      body=body)
+
+    return res.status == 200
+
 
 def get_names_of_things():
     thingapi.api_client.configuration.host = '130.225.57.56:51099'
