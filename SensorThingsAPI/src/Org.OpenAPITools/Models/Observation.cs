@@ -58,7 +58,7 @@ namespace SensorThingsAPI.Models
         /// <summary>
         /// Gets or Sets ResultQuality
         /// </summary>
-        [BsonElement("resulQuality")]
+        [BsonElement("resultQuality")]
         [DataMember(Name="resultQuality", EmitDefaultValue=false)]
         public List<Object> ResultQuality { get; set; }
 
