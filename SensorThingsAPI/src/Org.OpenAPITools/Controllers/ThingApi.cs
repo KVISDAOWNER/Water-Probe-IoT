@@ -86,18 +86,7 @@ namespace SensorThingsAPI.Controllers
             var probe = _thingService.GetProbe(thingname);
             var result = JsonConvert.SerializeObject(probe, Formatting.Indented);
             return new ObjectResult(result);
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(Sample));
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(string));
-            string exampleJson = null;
-            exampleJson = "{\r\n  \"placeholder\" : \"placeholder\"\r\n}";
 
-            var example = exampleJson != null
-            ? JsonConvert.DeserializeObject<Sample>(exampleJson)
-            : default(Sample);
-            //TODO: Change the data returned
-            return new ObjectResult(example);
         }
 
         /// <summary>
@@ -145,11 +134,6 @@ namespace SensorThingsAPI.Controllers
             {
                 return StatusCode(404, e.Message);
             }
-
-            //TODO: Uncomment the next line to return response 200 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(200, default(Sample));
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(string));
         }
 
         /// <summary>

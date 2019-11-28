@@ -57,7 +57,10 @@ namespace SensorThingsAPI.Models
         [DataMember(Name="properties", EmitDefaultValue=false)]
         public Object Properties { get; set; }
 
-        
+
+        /// <summary>
+        /// Gets or sets location
+        /// </summary>
         [DataMember(Name = "location", EmitDefaultValue = false)]
         public Location Location { get; set; }
 
