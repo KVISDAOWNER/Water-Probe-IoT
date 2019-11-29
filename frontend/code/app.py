@@ -31,13 +31,7 @@ def construct_default_graph():
     return graph
 
 
-all_probes_names = DAL.get_names_of_things()
-all_probes = DAL.get_things_objects()
-lats = DAL.get_latitudes(all_probes)
-lons = DAL.get_longitudes(all_probes)
-
-
-def create_defaultmap():
+def create_defaultmap(lats, lons, names):
     fig = go.Figure(go.Scattermapbox(
         lat=lats,
         lon=lons,
@@ -52,8 +46,7 @@ def create_defaultmap():
                     'color': 'green'
                 }
         },
-        text=all_probes_names,
-        hoverinfo='text'
+        text=names
     ))
 
     fig.update_layout(
@@ -76,12 +69,6 @@ def create_defaultmap():
     return fig
 
 
-defaultmap = create_defaultmap()
-# these global variables are only initialized
-# on page load, so only once. So no worry
-# for it re-computing them each time a user performs an action.
-default_graph = construct_default_graph()
-
 # needed when using multipage website
 app.config.suppress_callback_exceptions = True
 
@@ -90,76 +77,113 @@ app.layout = html.Div([
     html.Div(id='page-content')
 ])
 
-main_page = html.Div([
-    html.Div([
-        html.H2('Waterbois',
-                style={'float': 'left', 'width': '100%'})]),
-    html.Div([
-        html.Div([
-            dcc.Checklist(
-                id='checklist',
-                # options=[{'label': desc, 'value': name} for name, desc in zip(all_probes_names, DAL.get_descriptions(all_probes))],
-                options=[{'label': name, 'value': name} for name in all_probes_names],
-                labelStyle={'display': 'block'},
-            )
-        ], style={'float': 'left', 'width': '15%', 'height': '500px'}),
+# these variables are just so callbacks
+# have variables to use, since they
+# aren't easily given as parameters to them.
+all_probes_names = DAL.get_names_of_things()
+all_probes = DAL.get_things_objects()
+lats = DAL.get_latitudes(all_probes)
+lons = DAL.get_longitudes(all_probes)
 
-        html.Div([
-            dcc.Graph(
-                id='probeMap',
-                figure=defaultmap)
-        ], style={'float': 'left', 'width': '85%', 'height': '500px'}),
-    ]),
+defaultmap = create_defaultmap(lats, lons, all_probes_names)
+# these global variables are only initialized
+# on page load, so only once. So no worry
+# for it re-computing them each time a user performs an action.
+default_graph = construct_default_graph()
 
-    html.Div([
+
+# this function is called on pageloads.
+def create_main_page():
+    # so we make sure we have all the new information from the database.
+    global all_probes_names, all_probes, lats, lons, defaultmap, default_graph
+
+    all_probes_names = DAL.get_names_of_things()
+    all_probes = DAL.get_things_objects()
+    lats = DAL.get_latitudes(all_probes)
+    lons = DAL.get_longitudes(all_probes)
+
+    defaultmap = create_defaultmap(lats, lons, all_probes_names)
+    default_graph = construct_default_graph()
+    return html.Div([
         html.Div([
-            html.H3('Select data to diplay', style={'textAlign': 'center', 'horizontal-align': 'middle',
-                                                    'font-family': 'Helvetica'}),
-            html.Div([dcc.Dropdown(id='data-elements', placeholder="Select measurement", )]),
-            html.H4('Specify Interval', style={'textAlign': 'center', 'horinzontal-align': 'middle', 'marginTop': 20,
-                                               'font-family': 'Helvetica'}),
-            html.H5('Start', style={'textAlign': 'center', 'horizontal-align': 'middle', 'width': '100%',
-                                    'font-family': 'Helvetica'}),
-            html.Div(dcc.Input(
-                id="start_date",
-                type="text",
-                placeholder="yyyy-mm-dd-hh-mm-ss",
-                style={'padding': '10px', 'border-radius': '4px', 'border': '1px solid #bbb'}
-            ), style={'textAlign': 'center', 'horizontal-align': 'middle'}),
-            html.H5('End', style={'textAlign': 'center', 'horizontal-align': 'middle', 'marginTop': 15, 'width': '100%',
-                                  'font-family': 'Helvetica'}),
-            html.Div(dcc.Input(
-                id="end_date",
-                type="text",
-                placeholder="yyyy-mm-dd-hh-mm-ss",
-                style={'padding': '10px', 'border-radius': '4px', 'border': '1px solid #bbb'}
-            ), style={'textAlign': 'center', 'horizontal-align': 'middle'}),
-            html.Button('Apply', id='date_button', style={'width': '100%', 'marginTop': 15,
-                                                          'padding': '10px', 'background-color': '#FFF',
-                                                          'border-radius': '4px', 'border': '1px solid #bbb'}),
-            html.Div(id='updateresponse', style={'textAlign': 'center', 'marginTop': 20, 'font-family': 'Helvetica'})
+            html.H2('Waterbois',
+                    style={'float': 'left', 'width': '100%'})]),
+        html.Div([
+            html.Div([
+                dcc.Checklist(
+                    id='checklist',
+                    # options=[{'label': desc, 'value': name} for name, desc in zip(all_probes_names, DAL.get_descriptions(all_probes))],
+                    options=[{'label': name, 'value': name} for name in all_probes_names],
+                    labelStyle={'display': 'block'},
+                )
+            ], style={'float': 'left', 'width': '15%', 'height': '500px'}),
+
+            html.Div([
+                dcc.Graph(
+                    id='probeMap',
+                    figure=defaultmap)
+            ], style={'float': 'left', 'width': '85%', 'height': '500px'}),
         ]),
-    ], style={'width': '15%', 'display': 'inline-block', 'vertical-align': 'top'}),
 
-    html.Div([
-        dcc.Graph(id='graph', figure=default_graph)
-    ], style={'display': 'inline-block', 'width': '85%', 'marginBottom': 40}),
-], style={'marginLeft': 10})
+        html.Div([
+            html.Div([
+                html.H3('Select data to diplay', style={'textAlign': 'center', 'horizontal-align': 'middle',
+                                                        'font-family': 'Helvetica'}),
+                html.Div([dcc.Dropdown(id='data-elements', placeholder="Select measurement", )]),
+                html.H4('Specify Interval',
+                        style={'textAlign': 'center', 'horinzontal-align': 'middle', 'marginTop': 20,
+                               'font-family': 'Helvetica'}),
+                html.H5('Start', style={'textAlign': 'center', 'horizontal-align': 'middle', 'width': '100%',
+                                        'font-family': 'Helvetica'}),
+                html.Div(dcc.Input(
+                    id="start_date",
+                    type="text",
+                    placeholder="yyyy-mm-dd-hh-mm-ss",
+                    style={'padding': '10px', 'border-radius': '4px', 'border': '1px solid #bbb'}
+                ), style={'textAlign': 'center', 'horizontal-align': 'middle'}),
+                html.H5('End',
+                        style={'textAlign': 'center', 'horizontal-align': 'middle', 'marginTop': 15, 'width': '100%',
+                               'font-family': 'Helvetica'}),
+                html.Div(dcc.Input(
+                    id="end_date",
+                    type="text",
+                    placeholder="yyyy-mm-dd-hh-mm-ss",
+                    style={'padding': '10px', 'border-radius': '4px', 'border': '1px solid #bbb'}
+                ), style={'textAlign': 'center', 'horizontal-align': 'middle'}),
+                html.Button('Apply', id='date_button', style={'width': '100%', 'marginTop': 15,
+                                                              'padding': '10px', 'background-color': '#FFF',
+                                                              'border-radius': '4px', 'border': '1px solid #bbb'}),
+                html.Div(id='updateresponse',
+                         style={'textAlign': 'center', 'marginTop': 20, 'font-family': 'Helvetica'})
+            ]),
+        ], style={'width': '15%', 'display': 'inline-block', 'vertical-align': 'top'}),
 
-admin_page = html.Div([
+        html.Div([
+            dcc.Graph(id='graph', figure=default_graph)
+        ], style={'display': 'inline-block', 'width': '85%', 'marginBottom': 40}),
+    ], style={'marginLeft': 10})
+
+
+# this function is call on pageloads.
+def create_admin_page():
+    return html.Div([
     html.H3('Update location of probe', style={'horizontal-align': 'middle',
                                                'font-family': 'Helvetica'}),
     html.Div(dcc.Input(id="probeId", placeholder="Enter probe id", type="text",
-             style={'width': '20%', 'padding': '10px', 'border-radius': '4px', 'border': '1px solid #bbb'})),
+                       style={'width': '20%', 'padding': '10px', 'border-radius': '4px', 'border': '1px solid #bbb'})),
     html.Div(dcc.Input(id="lat", placeholder="Enter latitude", type="text",
-             style={'marginTop': 20,'width':'20%', 'padding': '10px', 'border-radius': '4px', 'border': '1px solid #bbb'})),
+                       style={'marginTop': 20, 'width': '20%', 'padding': '10px', 'border-radius': '4px',
+                              'border': '1px solid #bbb'})),
     html.Div(dcc.Input(id="lon", placeholder="Enter longitude", type="text",
-             style={'marginTop': 20, 'width':'20%', 'padding': '10px', 'border-radius': '4px', 'border': '1px solid #bbb'})),
+                       style={'marginTop': 20, 'width': '20%', 'padding': '10px', 'border-radius': '4px',
+                              'border': '1px solid #bbb'})),
     html.Div(dcc.Input(id="description", placeholder="Enter description of location", type="text",
-             style={'marginTop': 20, 'width':'20%', 'padding': '10px', 'border-radius': '4px', 'border': '1px solid #bbb'})),
-    html.Div(html.Button('Update location', id='upd_loc_btn', style={'marginTop': 15, 'marginLeft':10, 'width':'20%',
+                       style={'marginTop': 20, 'width': '20%', 'padding': '10px', 'border-radius': '4px',
+                              'border': '1px solid #bbb'})),
+    html.Div(html.Button('Update location', id='upd_loc_btn', style={'marginTop': 15, 'marginLeft': 10, 'width': '20%',
                                                                      'padding': '10px', 'background-color': '#FFF',
-                                                                     'border-radius': '4px', 'border': '1px solid #bbb'})),
+                                                                     'border-radius': '4px',
+                                                                     'border': '1px solid #bbb'})),
     html.Div(id='response', style={'marginTop': 20, 'font-family': 'Helvetica'})
 ], style={'marginLeft': 20})
 
@@ -186,10 +210,11 @@ def patch_probe_location(n_clicks, probe_id,
 @app.callback(Output('page-content', 'children'),
               [Input('url', 'pathname')])
 def display_page(pathname):
+    # called on page reloads.
     if pathname == '/admin':
-        return admin_page
+        return create_admin_page()
     else:
-        return main_page
+        return create_main_page()
 
 
 @app.callback(
