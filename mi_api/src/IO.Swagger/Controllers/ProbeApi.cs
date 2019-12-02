@@ -31,7 +31,7 @@ namespace IO.Swagger.Controllers
         public ProbeApiController(IMongoDBSettings dBSettings)
         {
             //MongoClient mongoClient = new MongoClient("mongodb://" + dBSettings.Host + ":" + dBSettings.Port);
-            MongoClient mongoClient = new MongoClient("mongodb://localhost:27017");
+            MongoClient mongoClient = new MongoClient("mongodb://" + settings.Host+':'+settings.Port);
             mongoDB = mongoClient.GetDatabase(dBSettings.Database);
         }
         private readonly IMongoDatabase mongoDB;
