@@ -4,11 +4,9 @@ RUN mkdir /app
 WORKDIR /app
 
 # Expose the port uWSGI will listen on
-
 EXPOSE 5000
 
 # Copy the requirements file in order to install dependencies
-
 COPY requirements.txt .
 
 RUN pip install -r requirements.txt
