@@ -1,6 +1,7 @@
-# Data access layer
 import openapi_client
 import json
+
+
 thingapi = openapi_client.ThingApi()
 datastreamapi = openapi_client.DatastreamApi()
 observationapi = openapi_client.ObservationApi()
@@ -8,10 +9,10 @@ observationapi = openapi_client.ObservationApi()
 ip_of_server_api = '130.225.57.56:51099'
 
 
-def patch_location_of_thing(probe_id, lat, lon, desc) :
+def patch_location_of_thing(probe_id, lat, lon, desc):
     location = {"lat": float(lat), "long": float(lon)}
     body = {"description": desc, "encodingType": "string", "_Location": location}
-    res = thingapi.api_client.request('PATCH', '130.225.57.56:51099/Thing',
+    res = thingapi.api_client.request('PATCH', ip_of_server_api+'/Thing',
                                       query_params=[('thingRef', probe_id)],
                                       body=body)
 
@@ -19,7 +20,7 @@ def patch_location_of_thing(probe_id, lat, lon, desc) :
 
 
 def get_names_of_things():
-    thingapi.api_client.configuration.host = '130.225.57.56:51099'
+    thingapi.api_client.configuration.host = ip_of_server_api
     result = thingapi.api_client.call_api('/Things', 'GET', response_type='list[Thing]')
     probes = result[0]
     names = []
@@ -41,7 +42,7 @@ def get_latitudes(probes):
 
 def get_things_objects():
     api_instance = openapi_client.ThingApi()
-    api_instance.api_client.configuration.host = '130.225.57.56:51099'
+    api_instance.api_client.configuration.host = ip_of_server_api
     result = api_instance.api_client.call_api('/Things', 'GET', response_type='list[Thing]')
     probes = result[0]
     return probes
@@ -68,10 +69,10 @@ def get_descriptions(probes):
 
 
 def get_observations_of_datastreams(datastreams):
-    # datastreams er en liste af datastream navne
+    # datastreams is a list of names
     observations = []
     for datastream in datastreams:
-        obs = observationapi.api_client.request('GET', '130.225.57.56:51099/Observations',
+        obs = observationapi.api_client.request('GET', ip_of_server_api+'/Observations',
                                                 query_params=[('dataStreamRef', datastream)])
         observations.append(json.loads(obs.data))
     return observations
@@ -80,7 +81,7 @@ def get_observations_of_datastreams(datastreams):
 def get_datastreams_of_things(thingnames):
     datastreams = []
     for thingname in thingnames:
-        datastreams.append(json.loads(datastreamapi.api_client.request('GET', '130.225.57.56:51099/dataStreams',
+        datastreams.append(json.loads(datastreamapi.api_client.request('GET', ip_of_server_api+'/dataStreams',
                                                                        query_params=[('thingRef', thingname)]).data))
 
     return datastreams

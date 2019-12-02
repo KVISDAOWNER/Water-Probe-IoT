@@ -1,5 +1,5 @@
 import dash
-import DAL
+import api_helper as api
 import dash_core_components as dcc
 import dash_html_components as html
 import plotly.graph_objs as go
@@ -111,10 +111,10 @@ app.layout = html.Div([
 # these variables are just so callbacks
 # have variables to use, since they
 # aren't easily given as parameters to them.
-all_probes_names = DAL.get_names_of_things()
-all_probes = DAL.get_things_objects()
-lats = DAL.get_latitudes(all_probes)
-lons = DAL.get_longitudes(all_probes)
+all_probes_names = api.get_names_of_things()
+all_probes = api.get_things_objects()
+lats = api.get_latitudes(all_probes)
+lons = api.get_longitudes(all_probes)
 
 defaultmap = create_defaultmap(lats, lons, all_probes_names)
 # these global variables are only initialized
@@ -130,10 +130,10 @@ def create_main_page():
     # so we make sure we have all the new information from the database.
     global all_probes_names, all_probes, lats, lons, defaultmap, default_graph
 
-    all_probes_names = DAL.get_names_of_things()
-    all_probes = DAL.get_things_objects()
-    lats = DAL.get_latitudes(all_probes)
-    lons = DAL.get_longitudes(all_probes)
+    all_probes_names = api.get_names_of_things()
+    all_probes = api.get_things_objects()
+    lats = api.get_latitudes(all_probes)
+    lons = api.get_longitudes(all_probes)
 
     defaultmap = create_defaultmap(lats, lons, all_probes_names)
     default_graph = construct_default_graph()
@@ -239,7 +239,7 @@ def patch_probe_location(n_clicks, probe_id,
                          lat, lon, desc):
     if n_clicks is None:
         return " "
-    success = DAL.patch_location_of_thing(probe_id, lat, lon, desc)
+    success = api.patch_location_of_thing(probe_id, lat, lon, desc)
     if success:
         return "Probe: {} was updated".format(probe_id)
     else:
@@ -266,7 +266,7 @@ def update_data_elements(selected_probes):
                 for s in []]
     else:
         # a list of datastreams which is also a list
-        list_of_datastreams = DAL.get_datastreams_of_things(selected_probes)
+        list_of_datastreams = api.get_datastreams_of_things(selected_probes)
         # the names of the probes associated to each datastream.
         probe_names = []
         datastream_names = []
@@ -345,14 +345,9 @@ def update_graph_data(datastream_name, n_clicks, start_date, end_date):
 
     # default graph, when nothing is selected.
     if not datastream_name:
-        # med det andet output så bliver denne function ikke kaldt initially.
-        # så var nødt til at gøre sådan, at default grafen var hardcoded til at starte
-        # med, da ellers ville det ikke være nogen graf i starten. Men det er også
-        # bedre, da den kun bliver kaldt ved page-load og ikke hvergang brugeren
-        # gør noget, hvilket denne funktion gør.
         return default_graph, response
     else:
-        observations = DAL.get_observations_of_datastreams([datastream_name])
+        observations = api.get_observations_of_datastreams([datastream_name])
         data_dict = construct_data_dict(observations, datastream_name)
         if start_date is not None and \
                 end_date is not None:

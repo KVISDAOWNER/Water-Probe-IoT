@@ -1,8 +1,8 @@
 version: '3.7'
 services: 
- dash: #navn på service
-    image: webapp-dash #name of the image build
-    build: #describes where the dockerfile to build the image is and its name
+ dash:
+    image: webapp-dash
+    build: 
       context: .
       dockerfile: Dockerfile-dash
  nginx:
@@ -11,6 +11,6 @@ services:
       context: .
       dockerfile: Dockerfile-nginx
     ports:
-      - 5000:80 #host --> container.
+      - 80:80
     depends_on:
-      - dash # navn på service denne afhænger af.
+      - dash
