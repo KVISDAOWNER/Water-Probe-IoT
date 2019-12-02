@@ -170,7 +170,7 @@ def create_main_page():
                 html.Div(dcc.Input(
                     id="start_date",
                     type="text",
-                    placeholder="yyyy-mm-dd-hh-mm-ss",
+                    placeholder="yyyy-mm-dd-hh:mm:ss",
                     style={'padding': '10px', 'border-radius': '4px', 'border': '1px solid #bbb'}
                 ), style={'textAlign': 'center', 'horizontal-align': 'middle'}),
                 html.H5('End',
@@ -179,7 +179,7 @@ def create_main_page():
                 html.Div(dcc.Input(
                     id="end_date",
                     type="text",
-                    placeholder="yyyy-mm-dd-hh-mm-ss",
+                    placeholder="yyyy-mm-dd-hh:mm:ss",
                     style={'padding': '10px', 'border-radius': '4px', 'border': '1px solid #bbb'}
                 ), style={'textAlign': 'center', 'horizontal-align': 'middle'}),
                 html.Button('Apply', id='date_button', style={'width': '100%', 'marginTop': 15,
@@ -355,11 +355,21 @@ def update_map(value):
 
 
 def correct_format(date):
-    if date.count('-') != 5:
+    if date.count('-') != 3 or date.count(':') != 2:
         return False
     else:
         parts = date.split('-')
-        for part in parts:
+        if len(parts) != 4:
+            return False
+        date = parts[:2]
+        for part in date:
+            if not part.isdigit():
+                return False
+
+        time = parts[-1].split(':')
+        if len(time) != 3:
+            return False
+        for part in time:
             if not part.isdigit():
                 return False
     return True
@@ -385,7 +395,7 @@ def update_graph_data(datastream_name, n_clicks, start_date, end_date):
         if start_date is not None and \
                 end_date is not None:
             if not correct_format(start_date) or not correct_format(end_date):
-                    response = "Either start date or end date is on wrong format."
+                response = "Either start date or end date is on wrong format."
             elif start_date > end_date:
                 response = "Start date must be before end date."
             elif start_date < data_dict["time"][0] or \
