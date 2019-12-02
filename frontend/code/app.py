@@ -117,11 +117,7 @@ lats = api.get_latitudes(all_probes)
 lons = api.get_longitudes(all_probes)
 
 defaultmap = create_defaultmap(lats, lons, all_probes_names)
-# these global variables are only initialized
-# on page load, so only once. So no worry
-# for it re-computing them each time a user performs an action.
 default_graph = construct_default_graph()
-
 emptymap = create_emptymap()
 
 
@@ -196,7 +192,7 @@ def create_main_page():
     ], style={'marginLeft': 10})
 
 
-# this function is call on pageloads.
+# this function is called on pageloads.
 def create_admin_page():
     return html.Div([
         html.Div([
@@ -249,7 +245,7 @@ def patch_probe_location(n_clicks, probe_id,
 @app.callback(Output('page-content', 'children'),
               [Input('url', 'pathname')])
 def display_page(pathname):
-    # called on page reloads. Thus always
+    # called on page loads. Thus always
     # reading the potentially new data from database.
     if pathname == '/admin':
         return create_admin_page()
