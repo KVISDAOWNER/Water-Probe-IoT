@@ -117,7 +117,11 @@ lats = api.get_latitudes(all_probes)
 lons = api.get_longitudes(all_probes)
 
 defaultmap = create_defaultmap(lats, lons, all_probes_names)
+# these global variables are only initialized
+# on page load, so only once. So no worry
+# for it re-computing them each time a user performs an action.
 default_graph = construct_default_graph()
+
 emptymap = create_emptymap()
 
 
@@ -192,7 +196,7 @@ def create_main_page():
     ], style={'marginLeft': 10})
 
 
-# this function is called on pageloads.
+# this function is call on pageloads.
 def create_admin_page():
     return html.Div([
         html.Div([
@@ -202,24 +206,24 @@ def create_admin_page():
                                style={'width': '100%', 'padding': '10px', 'border-radius': '4px',
                                       'border': '1px solid #bbb'})),
             html.Div(dcc.Input(id="lat", placeholder="Enter latitude", type="text",
-                               style={'width': '100%','marginTop': 20, 'padding': '10px', 'border-radius': '4px',
+                               style={'width': '100%', 'marginTop': 20, 'padding': '10px', 'border-radius': '4px',
                                       'border': '1px solid #bbb'})),
             html.Div(dcc.Input(id="lon", placeholder="Enter longitude", type="text",
-                               style={'width': '100%','marginTop': 20, 'padding': '10px', 'border-radius': '4px',
+                               style={'width': '100%', 'marginTop': 20, 'padding': '10px', 'border-radius': '4px',
                                       'border': '1px solid #bbb'})),
             html.Div(dcc.Input(id="description", placeholder="Enter description of location", type="text",
-                               style={'width': '100%','marginTop': 20, 'padding': '10px', 'border-radius': '4px',
+                               style={'width': '100%', 'marginTop': 20, 'padding': '10px', 'border-radius': '4px',
                                       'border': '1px solid #bbb'})),
             html.Div(
                 html.Button('Update location', id='upd_loc_btn',
-                            style={'width': '100%','marginTop': 15, 'marginLeft': 10,
+                            style={'width': '100%', 'marginTop': 15, 'marginLeft': 10,
                                    'padding': '10px', 'background-color': '#FFF',
                                    'border-radius': '4px',
                                    'border': '1px solid #bbb'})),
             html.Div(id='response', style={'marginTop': 20, 'font-family': 'Helvetica'})
         ], style={'width': '20%', 'float': 'left', 'marginRight': 30}),
 
-        html.Div(dcc.Graph(id='empty_graph', figure=emptymap), style={'marginTop': 15,'width':'75%', 'float': 'left'})
+        html.Div(dcc.Graph(id='empty_graph', figure=emptymap), style={'marginTop': 15, 'width': '75%', 'float': 'left'})
     ], style={'marginLeft': 20})
 
 
@@ -235,17 +239,38 @@ def patch_probe_location(n_clicks, probe_id,
                          lat, lon, desc):
     if n_clicks is None:
         return " "
+
+    pos_names = api.get_names_of_things()
+    if probe_id not in pos_names:
+        return "Invalid probe id."
+
+    if not is_number(lat) or not is_number(lon):
+        return "Latitude and Longitude must be numbers."
+
+    if is_number(lat) and is_number(lon):
+        if not (-90 <= float(lat) <= 90) or not (-180 <= float(lon) <= 180):
+            return "Latitude or Longitude is out of range."
+
     success = api.patch_location_of_thing(probe_id, lat, lon, desc)
     if success:
-        return "Probe: {} was updated".format(probe_id)
+        return "Probe: {} was updated.".format(probe_id)
     else:
         return "Something went wrong."
+
+
+def is_number(s):
+    try:
+        float(s)
+        success = True
+    except ValueError:
+        success = False
+    return success
 
 
 @app.callback(Output('page-content', 'children'),
               [Input('url', 'pathname')])
 def display_page(pathname):
-    # called on page loads. Thus always
+    # called on page reloads. Thus always
     # reading the potentially new data from database.
     if pathname == '/admin':
         return create_admin_page()
@@ -329,6 +354,17 @@ def update_map(value):
         return defaultmap
 
 
+def correct_format(date):
+    if date.count('-') != 5:
+        return False
+    else:
+        parts = date.split('-')
+        for part in parts:
+            if not part.isdigit():
+                return False
+    return True
+
+
 @app.callback(
     [Output('graph', 'figure'),
      Output('updateresponse', 'children')],
@@ -345,9 +381,12 @@ def update_graph_data(datastream_name, n_clicks, start_date, end_date):
     else:
         observations = api.get_observations_of_datastreams([datastream_name])
         data_dict = construct_data_dict(observations, datastream_name)
+
         if start_date is not None and \
                 end_date is not None:
-            if start_date > end_date:
+            if not correct_format(start_date) or not correct_format(end_date):
+                    response = "Either start date or end date is on wrong format."
+            elif start_date > end_date:
                 response = "Start date must be before end date."
             elif start_date < data_dict["time"][0] or \
                     end_date > data_dict["time"][-1]:
