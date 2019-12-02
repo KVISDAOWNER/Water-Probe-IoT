@@ -31,6 +31,37 @@ def construct_default_graph():
     return graph
 
 
+def create_emptymap():
+    fig = go.Figure(go.Scattermapbox(
+        lat=['57.2'],
+        lon=['10.2'],
+        mode='markers',
+        marker=go.scattermapbox.Marker(
+            size=9,
+            color='red'
+        )
+    ))
+
+    fig.update_layout(
+        autosize=True,
+        hovermode='closest',
+        clickmode='event+select',
+        margin=dict(l=10, r=10, t=10, b=10),
+        mapbox=go.layout.Mapbox(
+            accesstoken=mapbox_access_token,
+            bearing=0,
+            style='open-street-map',
+            center=go.layout.mapbox.Center(
+                lat=57.04,
+                lon=9.935
+            ),
+            pitch=0,
+            zoom=11
+        ),
+    )
+    return fig
+
+
 def create_defaultmap(lats, lons, names):
     fig = go.Figure(go.Scattermapbox(
         lat=lats,
@@ -91,6 +122,8 @@ defaultmap = create_defaultmap(lats, lons, all_probes_names)
 # for it re-computing them each time a user performs an action.
 default_graph = construct_default_graph()
 
+emptymap = create_emptymap()
+
 
 # this function is called on pageloads.
 def create_main_page():
@@ -112,7 +145,6 @@ def create_main_page():
             html.Div([
                 dcc.Checklist(
                     id='checklist',
-                    # options=[{'label': desc, 'value': name} for name, desc in zip(all_probes_names, DAL.get_descriptions(all_probes))],
                     options=[{'label': name, 'value': name} for name in all_probes_names],
                     labelStyle={'display': 'block'},
                 )
@@ -167,25 +199,32 @@ def create_main_page():
 # this function is call on pageloads.
 def create_admin_page():
     return html.Div([
-    html.H3('Update location of probe', style={'horizontal-align': 'middle',
-                                               'font-family': 'Helvetica'}),
-    html.Div(dcc.Input(id="probeId", placeholder="Enter probe id", type="text",
-                       style={'width': '20%', 'padding': '10px', 'border-radius': '4px', 'border': '1px solid #bbb'})),
-    html.Div(dcc.Input(id="lat", placeholder="Enter latitude", type="text",
-                       style={'marginTop': 20, 'width': '20%', 'padding': '10px', 'border-radius': '4px',
-                              'border': '1px solid #bbb'})),
-    html.Div(dcc.Input(id="lon", placeholder="Enter longitude", type="text",
-                       style={'marginTop': 20, 'width': '20%', 'padding': '10px', 'border-radius': '4px',
-                              'border': '1px solid #bbb'})),
-    html.Div(dcc.Input(id="description", placeholder="Enter description of location", type="text",
-                       style={'marginTop': 20, 'width': '20%', 'padding': '10px', 'border-radius': '4px',
-                              'border': '1px solid #bbb'})),
-    html.Div(html.Button('Update location', id='upd_loc_btn', style={'marginTop': 15, 'marginLeft': 10, 'width': '20%',
-                                                                     'padding': '10px', 'background-color': '#FFF',
-                                                                     'border-radius': '4px',
-                                                                     'border': '1px solid #bbb'})),
-    html.Div(id='response', style={'marginTop': 20, 'font-family': 'Helvetica'})
-], style={'marginLeft': 20})
+        html.Div([
+            html.H3('Update location of probe', style={'width': '100%', 'horizontal-align': 'middle',
+                                                       'font-family': 'Helvetica'}),
+            html.Div(dcc.Input(id="probeId", placeholder="Enter probe id", type="text",
+                               style={'width': '100%', 'padding': '10px', 'border-radius': '4px',
+                                      'border': '1px solid #bbb'})),
+            html.Div(dcc.Input(id="lat", placeholder="Enter latitude", type="text",
+                               style={'width': '100%','marginTop': 20, 'padding': '10px', 'border-radius': '4px',
+                                      'border': '1px solid #bbb'})),
+            html.Div(dcc.Input(id="lon", placeholder="Enter longitude", type="text",
+                               style={'width': '100%','marginTop': 20, 'padding': '10px', 'border-radius': '4px',
+                                      'border': '1px solid #bbb'})),
+            html.Div(dcc.Input(id="description", placeholder="Enter description of location", type="text",
+                               style={'width': '100%','marginTop': 20, 'padding': '10px', 'border-radius': '4px',
+                                      'border': '1px solid #bbb'})),
+            html.Div(
+                html.Button('Update location', id='upd_loc_btn',
+                            style={'width': '100%','marginTop': 15, 'marginLeft': 10,
+                                   'padding': '10px', 'background-color': '#FFF',
+                                   'border-radius': '4px',
+                                   'border': '1px solid #bbb'})),
+            html.Div(id='response', style={'marginTop': 20, 'font-family': 'Helvetica'})
+        ], style={'width': '20%', 'float': 'left', 'marginRight': 30}),
+
+        html.Div(dcc.Graph(id='empty_graph', figure=emptymap), style={'marginTop': 15,'width':'75%', 'float': 'left'})
+    ], style={'marginLeft': 20})
 
 
 @app.callback(
@@ -204,13 +243,14 @@ def patch_probe_location(n_clicks, probe_id,
     if success:
         return "Probe: {} was updated".format(probe_id)
     else:
-        return "Something went wrong =/"
+        return "Something went wrong."
 
 
 @app.callback(Output('page-content', 'children'),
               [Input('url', 'pathname')])
 def display_page(pathname):
-    # called on page reloads.
+    # called on page reloads. Thus always
+    # reading the potentially new data from database.
     if pathname == '/admin':
         return create_admin_page()
     else:
@@ -227,16 +267,19 @@ def update_data_elements(selected_probes):
     else:
         # a list of datastreams which is also a list
         list_of_datastreams = DAL.get_datastreams_of_things(selected_probes)
-        names = []
+        # the names of the probes associated to each datastream.
+        probe_names = []
+        datastream_names = []
         descriptions = []
         for datastreams in list_of_datastreams:
             for datastream in datastreams:
-                names.append(datastream['name'])
+                probe_names.append(datastream['name'].split('_')[-1])
+                datastream_names.append(datastream['name'])
                 descriptions.append(datastream['description'])
 
-        zipped = zip(names, descriptions)
-        return [{'label': name, 'value': desc}
-                for desc, name in zipped]
+        zipped = zip(datastream_names, descriptions, probe_names)
+        return [{'label': pname + ' - ' + desc, 'value': dname}
+                for dname, desc, pname in zipped]
 
 
 def construct_data_dict(observations, data_name):
