@@ -28,8 +28,8 @@ db.Sensor.insert({_id : 'MI_DS18B20', description: 'MI Turbidity Sensor', encodi
 
 db.Probe.insert({_id : '1D95A5', description : 'Lorem ipsum dol', properties : {}, locations: [{locationReference: "123bc", locationTime: "2014-12-31T11:59:59.00+08:00"}], attachedSensors: [{refToSensor: "MJKDZ", description: "Water Turbidity"},{refToSensor: "DS18B20", description: "Water Temperatur"}, {refToSensor: "PH4502C", description: "Water ph"}, {refToSensor: "Nitrogen", description: "Water Nitrogen level"}, {refToSensor: "Phosphorous", description: "Water Phosphorous level"}]});
 db.Probe.insert({_id : '1D95A6', description : 'Lorem ipsum dol', properties : {}, locations: [{locationReference: "123bD", locationTime: "2014-12-31T11:59:59.00+08:00"}], attachedSensors: [{refToSensor: "MJKDZ", description: "Water Turbidity"},{refToSensor: "DS18B20", description: "Water Temperatur"}]});
-db.Location.insert({_id: "123bc", description : 'Lorem ipsum dolo', encodingType: "Some encodingType", location: {alt: 57.045249, long: 9.862715}});
-db.Location.insert({_id: "123bD", description : 'Lorem ipsum dolo', encodingType: "Some encodingType", location: {alt:  57.049249, long: 9.863515}});
+db.Location.insert({_id: "123bc", description : 'Lorem ipsum dolo', encodingType: "Some encodingType", location: {lat: 57.045249, long: 9.862715}});
+db.Location.insert({_id: "123bD", description : 'Lorem ipsum dolo', encodingType: "Some encodingType", location: {lat:  57.049249, long: 9.863515}});
 db.ObservedProperty.insert({_id: "WaterTemperature", definition: "some URI", description: "The temperature of water"});
 db.ObservedProperty.insert({_id: "WaterTurbidity", definition: "some URI", description: "The turbidity of water"});
 
