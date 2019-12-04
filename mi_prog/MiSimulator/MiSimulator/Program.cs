@@ -64,7 +64,7 @@ namespace MIapp
         private const string GET = "probe?=";
         private const string POST = "probes";
         private string iD;
-        private const string PREDICTIONCATEGORY = "MI_PhosphorusSER_";
+        private const string PREDICTIONCATEGORY = "MI_Phosphorus_";
 
         //The Run method both gets the measurements for a specific probe and it does also post values which have been altered
         public void run()
