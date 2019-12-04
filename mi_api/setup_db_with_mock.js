@@ -11,7 +11,7 @@ db.createCollection('Nitrogen_1D95A5');
 db.createCollection('Phosphorus_1D95A5');
 
     
-db.Probe.insert({_id : '1D95A5', description : 'Lorem ipsum dol', properties : {}, locations: [{locationReference: "locRef", locationTime: "2014-12-31T11:59:59.00+08:00"}], attachedSensors: [{refToSensor: "MJKDZ", description: "Water Turbidity"},{refToSensor: "DS18B20", description: "Water Temperatur"},{refToSensor: "PH4502C", description: "Water pH"},{refToSensor: "Nitrogen", description: "Water Nitrogen"}, {refToSensor: "Phosphorus", description: "Water Phosphorus"}, {refToSensor: "MI_MJKDZ", description: "Water Turbidity"},{refToSensor: "MI_DS18B20", description: "Water Temperatur"}, {refToSensor: "MI_PH4502C", description: "Water pH"},{refToSensor: "MI_Nitrogen", description: "Water Nitrogen"}, {refToSensor: "MI_Phosphorus", description: "Water Phosphorus"}]});
+db.Probe.insert({_id : '1D95A5', description : 'Lorem ipsum dol', properties : {}, locations: [{locationReference: "locRef", locationTime: "2014-12-31T11:59:59.00+08:00"}], attachedSensors: [{refToSensor: "MJKDZ", description: "Water Turbidity"},{refToSensor: "DS18B20", description: "Water Temperatur"},{refToSensor: "PH4502C", description: "Water pH"},{refToSensor: "Nitrogen", description: "Water Nitrogen"}, {refToSensor: "Phosphorus", description: "Water Phosphorus"}]});
 
 
 db.Sensor.insert({_id : 'MJKDZ', description : 'Turbidity Sensor', encodingType: "Some encodingType", metadata: {}, unitOfMeasurement: "NTU", observedPropertyRef:"WaterTurbidity"});

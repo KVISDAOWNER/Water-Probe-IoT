@@ -134,7 +134,19 @@ namespace IO.Swagger.Controllers
         {
             try
             {
-                string collectionForInserting = body.Sensor + body.Probe;
+                string predictionSensorName = "MI_" + body.Sensor;
+                string collectionForInserting = predictionSensorName + "_" + body.Probe;
+
+
+                var probesCol = mongoDB.GetCollection<Probe>("Probe");
+                Probe probe = probesCol.Find(x => x.Id == body.Probe).FirstOrDefault();
+
+                AttachedSensor miSensor = new AttachedSensor();
+                miSensor.RefToSensor = predictionSensorName;
+                miSensor.Description = "predictions for sensor: " + body.Sensor;
+
+                probe.AttachedSensors.Add(miSensor);
+
                 var miValues = mongoDB.GetCollection<Observation>(collectionForInserting);
 
                 List<Observation> obs = new List<Observation>();
@@ -145,6 +157,7 @@ namespace IO.Swagger.Controllers
                 }
 
                 miValues.InsertMany(obs);
+                probesCol.ReplaceOne(x => x.Id == body.Probe, probe);
 
                 return StatusCode(201, default(Sample));
             } 
