@@ -363,6 +363,9 @@ def update_graph_data(datastream_name, n_clicks, start_date, end_date):
         observations = api.get_observations_of_datastreams([datastream_name])
         data_dict = construct_data_dict(observations, datastream_name)
 
+        if not observations[0]:  # no observations for datastream
+            return default_graph, "No data for that datastream"
+
         if start_date is not None and \
                 end_date is not None:
             if not correct_format(start_date) or not correct_format(end_date):
