@@ -33,20 +33,10 @@ def construct_default_graph():
 
 
 def create_emptymap():
-    fig = go.Figure(go.Scattermapbox(
-        lat=['57.2'],
-        lon=['10.2'],
-        mode='markers',
-        marker=go.scattermapbox.Marker(
-            size=9,
-            color='red'
-        )
-    ))
+    fig = go.Figure(go.Scattermapbox())
 
     fig.update_layout(
         autosize=True,
-        hovermode='closest',
-        clickmode='event+select',
         margin=dict(l=10, r=10, t=10, b=10),
         mapbox=go.layout.Mapbox(
             accesstoken=mapbox_access_token,
