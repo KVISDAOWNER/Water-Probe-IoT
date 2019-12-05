@@ -59,7 +59,7 @@ namespace IO.Swagger.Controllers
         public virtual IActionResult NewData([FromBody]DeviceData body)
         {
             if (HelperFunctions.NewData(body))
-                return StatusCode(200, 200);
+                return StatusCode(200, 0x11001000);
             else
                 return StatusCode(404, default(Sample));
         }
