@@ -48,18 +48,18 @@ namespace IO.Swagger.Controllers
         /// </summary>
         /// <remarks>Creates new data in db</remarks>
         /// <param name="body"></param>
-        /// <response code="201">Successful response</response>
+        /// <response code="200">Successful response</response>
         /// <response code="404">Not created response</response>
         [HttpPost]
         [Route("/DeviceData")]
         [ValidateModelState]
         [SwaggerOperation("NewData")]
-        [SwaggerResponse(statusCode: 201, type: typeof(Sample), description: "Successful response")]
+        [SwaggerResponse(statusCode: 200, type: typeof(Sample), description: "Successful response")]
         [SwaggerResponse(statusCode: 404, type: typeof(string), description: "Not created response")]
         public virtual IActionResult NewData([FromBody]DeviceData body)
         {
             if (HelperFunctions.NewData(body))
-                return StatusCode(201, default(Sample));
+                return StatusCode(200, "succes");
             else
                 return StatusCode(404, default(Sample));
         }
