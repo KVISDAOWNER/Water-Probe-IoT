@@ -59,7 +59,7 @@ namespace IO.Swagger.Controllers
         public virtual IActionResult NewData([FromBody]DeviceData body)
         {
             if (HelperFunctions.NewData(body))
-                return StatusCode(200, "{\"1D95A5\":{\"downlinkData\": \"0x1100100011001000\"}}");
+                return StatusCode(200, "{\"1D95A5\":{\"downlinkData\": \"1100100011001000\"}}");
             else
                 return StatusCode(404, default(Sample));
         }
