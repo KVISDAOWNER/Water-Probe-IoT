@@ -25,6 +25,14 @@ using System.Text;
 
 namespace IO.Swagger.Controllers
 {
+    public enum measurementType{
+        pH,
+        temperature,
+        turbidity,
+        nitrogen,
+        phosphorus
+    }
+
     /// <summary>
     ///
     /// </summary>
@@ -39,7 +47,6 @@ namespace IO.Swagger.Controllers
         }
         
         public static IMongoDatabase mongoDB;
-
         
         private const string databaseName = "waterProbeData";
 
@@ -59,7 +66,7 @@ namespace IO.Swagger.Controllers
         public virtual IActionResult NewData([FromBody]DeviceData body)
         {
             if (HelperFunctions.NewData(body))
-                return StatusCode(200, "{\"1D95A5\":{\"downlinkData\": \"1100100011001000\"}}");
+                return StatusCode(200, "{\"1D95A5\":{\"downlinkData\": \"" + HelperFunctions.response + "\"}}");
             else
                 return StatusCode(404, default(Sample));
         }
@@ -77,6 +84,9 @@ namespace IO.Swagger.Controllers
         
         private const double measurementsPerCycle = 16;
         private const double minutesPerCycle = 15;
+
+        public static string response;
+
         public static bool NewData(DeviceData body)
         {
             try
@@ -147,6 +157,16 @@ namespace IO.Swagger.Controllers
                 pHCollection.InsertOne(pHObservation);
                 nitrogenCollection.InsertOne(nitrogenObservation);
                 phosphorusCollection.InsertOne(phosphorusObservation);
+
+                response += Average(turbidityCollection, measurementType.turbidity);
+                response += Average(temperatureCollection, measurementType.temperature);
+                response += Average(pHCollection, measurementType.pH);
+                response += Average(nitrogenCollection, measurementType.nitrogen);
+                response += Average(phosphorusCollection, measurementType.phosphorus);
+                while (response.Length < 16)
+                {
+                    response = "0" + response;
+                }
                 return true;
             }
             catch (Exception e)
@@ -154,6 +174,50 @@ namespace IO.Swagger.Controllers
                 return false;
             }
         }
+
+        public static string Average(IMongoCollection<Observation> collection, measurementType measurementType)
+        {
+            double average = 0.0;
+            double count = 0.0;
+            List<Observation> list = collection.Find(x => true).ToList();
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (double.TryParse(list[i].Result, out double result))
+                {
+                    average += result;
+                    count++;
+                }
+            }
+            double value = average / count;
+            if (count == 0)
+                return "0";
+            else
+            {
+                switch (measurementType)
+                {
+                    case measurementType.pH:
+                        return PhClamp(value);
+                    case measurementType.temperature:
+                        return TemperatureClamp(value);
+                    case measurementType.turbidity:
+                        return TurbidityClamp(value);
+                    case measurementType.nitrogen:
+                        return NitrogenClamp(value);
+                    case measurementType.phosphorus:
+                        return PhosphorusClamp(value);
+                    default:
+                        return "0";
+                }
+            }
+        }
+
+        public static string TurbidityClamp(double value) => ((int)(value * 255.0 / 3.0)).ToString("X");
+        public static string PhClamp(double value) => ((int)((value - 5) * 255.0 / 4.0)).ToString("X");
+        public static string TemperatureClamp(double value) => ((int)((value + 10) * 255.0 / 40.0)).ToString("X");
+        public static string NitrogenClamp(double value) => ((int)value).ToString("X");
+        public static string PhosphorusClamp(double value) => ((int)value).ToString("X");
+
+
 
         /// <summary>
         /// Unconvert from the conversion made by the Arduino.
