@@ -211,11 +211,11 @@ namespace IO.Swagger.Controllers
             }
         }
 
-        public static string TurbidityClamp(double value) => ((int)(value * 255.0 / 3.0)).ToString("X");
-        public static string PhClamp(double value) => ((int)((value - 5) * 255.0 / 4.0)).ToString("X");
-        public static string TemperatureClamp(double value) => ((int)((value + 10) * 255.0 / 40.0)).ToString("X");
-        public static string NitrogenClamp(double value) => ((int)value).ToString("X");
-        public static string PhosphorusClamp(double value) => ((int)value).ToString("X");
+        public static string TurbidityClamp(double value) => ((int)(value * 255.0 / 3.0)).ToString("X2");
+        public static string PhClamp(double value) => ((int)((value - 5) * 255.0 / 4.0)).ToString("X2");
+        public static string TemperatureClamp(double value) => ((int)((value + 10) * 255.0 / 40.0)).ToString("X2");
+        public static string NitrogenClamp(double value) => (0).ToString("X2");
+        public static string PhosphorusClamp(double value) => ((int)value).ToString("X2");
 
 
 
