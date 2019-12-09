@@ -160,6 +160,7 @@ namespace IO.Swagger.Controllers
                 nitrogenCollection.InsertOne(nitrogenObservation);
                 phosphorusCollection.InsertOne(phosphorusObservation);
 
+                response = "";
                 response += Average(turbidityCollection, measurementType.turbidity);
                 response += Average(temperatureCollection, measurementType.temperature);
                 response += Average(pHCollection, measurementType.pH);
