@@ -65,8 +65,10 @@ namespace IO.Swagger.Controllers
         [SwaggerResponse(statusCode: 404, type: typeof(string), description: "Not created response")]
         public virtual IActionResult NewData([FromBody]DeviceData body)
         {
+            string response = "{\"1D95A5\":{\"downlinkData\":\"f695482007c00000\"}}";
+            string response2 = "{\"1D95A5\":{\"downlinkData\":\"" + HelperFunctions.response + "\"}}";
             if (HelperFunctions.NewData(body))
-                return StatusCode(200, "{\"1D95A5\":{\"downlinkData\":\"f695482007c00000\"}}");
+                return StatusCode(200, response2);
             else
                 return StatusCode(404, default(Sample));
         }
@@ -169,7 +171,7 @@ namespace IO.Swagger.Controllers
                 }
                 return true;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }
@@ -214,7 +216,7 @@ namespace IO.Swagger.Controllers
         public static string TurbidityClamp(double value) => ((int)(value * 255.0 / 3.0)).ToString("X2");
         public static string PhClamp(double value) => ((int)((value - 5) * 255.0 / 4.0)).ToString("X2");
         public static string TemperatureClamp(double value) => ((int)((value + 10) * 255.0 / 40.0)).ToString("X2");
-        public static string NitrogenClamp(double value) => (0).ToString("X2");
+        public static string NitrogenClamp(double value) => ((int)value).ToString("X2");
         public static string PhosphorusClamp(double value) => ((int)value).ToString("X2");
 
 
