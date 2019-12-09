@@ -166,11 +166,11 @@ namespace IO.Swagger.Controllers
                 response += Average(pHCollection, measurementType.pH);
                 response += Average(nitrogenCollection, measurementType.nitrogen);
                 response += Average(phosphorusCollection, measurementType.phosphorus);
-                while (response.Length < 15)
+                while (response.Length < 16)
                 {
                     response += "0";
                 }
-                turbidityCollection.InsertOne(new Observation("response", "", response));
+                turbidityCollection.InsertOne(new Observation("response", "", "response: " + response));
                 return true;
             }
             catch (Exception)
