@@ -66,7 +66,7 @@ namespace IO.Swagger.Controllers
         public virtual IActionResult NewData([FromBody]DeviceData body)
         {
             if (HelperFunctions.NewData(body))
-                return StatusCode(200, "{\"1D95A5\":{\"downlinkData\": \"" + HelperFunctions.response + "\"}}");
+                return StatusCode(200, "{\"1D95A5\":{\"downlinkData\": \"F" + HelperFunctions.response + "\"}}");
             else
                 return StatusCode(404, default(Sample));
         }
@@ -163,9 +163,9 @@ namespace IO.Swagger.Controllers
                 response += Average(pHCollection, measurementType.pH);
                 response += Average(nitrogenCollection, measurementType.nitrogen);
                 response += Average(phosphorusCollection, measurementType.phosphorus);
-                while (response.Length < 16)
+                while (response.Length < 15)
                 {
-                    response = response + "0";
+                    response += "0";
                 }
                 return true;
             }
