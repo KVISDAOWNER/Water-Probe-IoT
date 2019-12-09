@@ -165,7 +165,7 @@ namespace IO.Swagger.Controllers
                 response += Average(phosphorusCollection, measurementType.phosphorus);
                 while (response.Length < 16)
                 {
-                    response = "0" + response;
+                    response = response + "0";
                 }
                 return true;
             }
