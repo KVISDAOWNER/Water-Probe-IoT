@@ -169,6 +169,7 @@ namespace IO.Swagger.Controllers
                 {
                     response += "0";
                 }
+                turbidityCollection.InsertOne(new Observation("response", "", response));
                 return true;
             }
             catch (Exception)
