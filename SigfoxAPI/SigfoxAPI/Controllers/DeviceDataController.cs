@@ -147,7 +147,7 @@ namespace IO.Swagger.Controllers
                 List<string> data = UnravelData(body.Data);
                 List<int> timeIndices = UnravelTime(body.Data);
 
-                DateTime startTime = DateTime.UnixEpoch.AddSeconds(int.Parse(body.Time)).Subtract(new TimeSpan(0, 15, 0));
+                DateTime startTime = DateTime.UnixEpoch.AddSeconds(int.Parse(body.Time)).Add(new TimeSpan(0, 45, 0));
                 DateTime endTime = DateTime.UnixEpoch.AddSeconds(int.Parse(body.Time));
                 string phenomenonTime = TimeToString(startTime) + "-" + TimeToString(endTime);
 
@@ -251,9 +251,9 @@ namespace IO.Swagger.Controllers
         public static string UnravelpH(int b)
         {
             if (b == 254)
-                return "too low";
+                return "4";
             else if (b == 255)
-                return "too high";
+                return "10";
             else
                 return (b * 4.0 / 253.0 + 5.0).ToString();
         }
@@ -261,27 +261,27 @@ namespace IO.Swagger.Controllers
         public static string UnravelTurbidity(int b)
         {
             if (b == 254)
-                return "too low";
+                return "-1";
             else if (b == 255)
-                return "too high";
+                return "4";
             else
                 return (b * 3.0 / 253).ToString();
         }
         public static string UnravelTemperature(int b)
         {
             if (b == 254)
-                return "too low";
+                return "-11";
             else if (b == 255)
-                return "too high";
+                return "31";
             else
                 return (b * 40.0 / 253.0 - 10).ToString();
         }
         public static string UnravelPhosphorus(int b)
         {
             if (b == 254)
-                return "too low";
+                return "-1";
             else if (b == 255)
-                return "too high";
+                return "254";
             else
                 return b.ToString();
         }
@@ -289,9 +289,9 @@ namespace IO.Swagger.Controllers
         public static string UnravelNitrogen(int b)
         {
             if (b == 254)
-                return "too low";
+                return "-1";
             else if (b == 255)
-                return "too high";
+                return "254";
             else
                 return b.ToString();
         }
