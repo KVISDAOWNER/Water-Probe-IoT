@@ -3,24 +3,24 @@ FROM python:3.6
 RUN mkdir /app
 WORKDIR /app
 
-# Expose the port uWSGI will listen on
+# Expose the port uWSGI will listen on.
 EXPOSE 5000
 
-# Copy the requirements file in order to install dependencies
+# Copy the requirements file in order to install them.
 COPY requirements.txt .
 
 RUN pip install -r requirements.txt
 
-# Copy sensorthings client api into image
+# Copy sensorthings client api into image.
 COPY ./client .
 
-# Copy the code into the client folder
+# Copy the code into the client folder.
 COPY ./code ./client
 
-# install the client
+# install the client.
 RUN python3 setup.py install --user
 
 WORKDIR ./client
 
-# run uWSGI
+# run uWSGI.
 CMD [ "uwsgi", "--ini", "app.ini" ]
