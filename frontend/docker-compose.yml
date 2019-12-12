@@ -1,0 +1,16 @@
+version: '3.7'
+services: 
+ dash:
+    image: webapp-dash
+    build: 
+      context: .
+      dockerfile: Dockerfile-dash
+ nginx:
+    image: webapp-nginx
+    build:
+      context: .
+      dockerfile: Dockerfile-nginx
+    ports:
+      - 80:80
+    depends_on:
+      - dash

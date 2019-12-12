@@ -1,0 +1,5 @@
+Flask==1.1.1
+uWSGI==2.0.18
+dash==1.4.1
+dash-daq==0.2.2
+
