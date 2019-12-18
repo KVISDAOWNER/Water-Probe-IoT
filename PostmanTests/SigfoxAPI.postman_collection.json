@@ -1,0 +1,297 @@
+{
+	"info": {
+		"_postman_id": "49ee6dd8-71b0-40b9-bf1d-7df27d53417a",
+		"name": "NewData",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "NewData_Success",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5eaadc12-bb11-49d3-8f44-04d586637d2a",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Data inserted correctly.\");",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"temperature: 17,5098814229249\");",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"turbidity: 1,96837944664032\");",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"ph: 6,6600790513834\");",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"nitrogen: 18\");",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"phosphorus: 52\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"device\": \"1D95A5\",\n    \"data\": \"a669ae123400ba6590\",\n    \"time\": \"153200655\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:50352/DeviceData",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "50352",
+					"path": [
+						"DeviceData"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "NewData1",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"device\": \"1D95A5\",\n    \"data\": \"a669ae123400ba6590\",\n    \"time\": \"153200655\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:50352/DeviceData",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "50352",
+							"path": [
+								"DeviceData"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Server",
+							"value": "Kestrel"
+						},
+						{
+							"key": "X-SourceFiles",
+							"value": "=?UTF-8?B?QzpcVXNlcnNcTWFnbnVzXERlc2t0b3BcUDdcSU8uU3dhZ2dlclxEZXZpY2VEYXRh?="
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "ASP.NET"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 22 Nov 2019 09:42:53 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "0"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				}
+			]
+		},
+		{
+			"name": "NewData_InvalidData_Error",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5eaadc12-bb11-49d3-8f44-04d586637d2a",
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Could not find any recognizable digits.\");",
+							"});",
+							"",
+							"pm.test(\"Body is correct\", function () {",
+							"    pm.response.to.have.body(\"Could not find any recognizable digits.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"device\": \"1D95A5\",\n    \"data\": \"this is a string\",\n    \"time\": \"153200655\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:50352/DeviceData",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "50352",
+					"path": [
+						"DeviceData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NewData_InvalidTime_Error",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5eaadc12-bb11-49d3-8f44-04d586637d2a",
+						"exec": [
+							"pm.test(\"Status code is 404\", function() {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function() {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Input string was not in a correct format.\");",
+							"});",
+							"",
+							"pm.test(\"Body is correct\", function () {",
+							"    pm.response.to.have.body(\"Input string was not in a correct format.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"device\": \"1D95A5\",\n    \"data\": \"a669ae123400ba6590\",\n    \"time\": \"this is a string\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:50352/DeviceData",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "50352",
+					"path": [
+						"DeviceData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NewData_InvalidDataAndTime_Error",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5eaadc12-bb11-49d3-8f44-04d586637d2a",
+						"exec": [
+							"pm.test(\"Status code is 404\", function() {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function() {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Could not find any recognizable digits.\");",
+							"});",
+							"",
+							"pm.test(\"Body is correct\", function () {",
+							"    pm.response.to.have.body(\"Could not find any recognizable digits.\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"device\": \"1D95A5\",\n    \"data\": \"this is also a string\",\n    \"time\": \"this is a string\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:50352/DeviceData",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "50352",
+					"path": [
+						"DeviceData"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

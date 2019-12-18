@@ -1,0 +1,10 @@
+version: '3.7'
+services:
+        dash:
+                image: sw708e19/dash:latest
+        nginx:
+                image: sw708e19/nginx:latest
+                ports:
+                        - 80:80
+                depends_on:
+                        - dash

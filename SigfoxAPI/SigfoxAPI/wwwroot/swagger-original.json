@@ -1,0 +1,109 @@
+{
+  "openapi" : "3.0.2",
+  "info" : {
+    "title" : "Backend API",
+    "description" : "API for inserting data into db through sigfox custom callback",
+    "version" : "1"
+  },
+  "servers" : [ {
+    "url" : "/"
+  } ],
+  "paths" : {
+    "/DeviceData" : {
+      "post" : {
+        "summary" : "Posts new data",
+        "description" : "Creates new data in db",
+        "operationId" : "NewData",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/deviceData"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Successful response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Sample"
+                }
+              }
+            }
+          },
+          "404" : {
+            "description" : "Not created response",
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "title" : "Thing not cretead",
+                  "type" : "string",
+                  "x-content-type" : "text/plain"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "deviceData" : {
+        "required" : [ "data", "device", "time" ],
+        "type" : "object",
+        "properties" : {
+          "device" : {
+            "type" : "string"
+          },
+          "data" : {
+            "type" : "string"
+          },
+          "time" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Sample" : {
+        "type" : "object",
+        "properties" : {
+          "placeholder" : {
+            "type" : "string",
+            "description" : "Placeholder description"
+          }
+        },
+        "example" : {
+          "placeholder" : "placeholder"
+        }
+      }
+    },
+    "responses" : {
+      "201" : {
+        "description" : "Successful response",
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/Sample"
+            }
+          }
+        }
+      },
+      "404" : {
+        "description" : "Not created response",
+        "content" : {
+          "text/plain" : {
+            "schema" : {
+              "title" : "Thing not cretead",
+              "type" : "string",
+              "x-content-type" : "text/plain"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,1471 @@
+{
+  "openapi" : "3.0.2",
+  "info" : {
+    "description" : "API for waterprobing",
+    "title" : "WaterProbe API",
+    "version" : "1"
+  },
+  "servers" : [ {
+    "url" : "/"
+  } ],
+  "paths" : {
+    "/Things" : {
+      "get" : {
+        "operationId" : "getThings",
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Sample"
+                }
+              }
+            },
+            "description" : "Successful response"
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "title" : "Thing not cretead",
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : "Not created response"
+          }
+        },
+        "summary" : "Gets all things (probes)",
+        "tags" : [ "Thing" ]
+      }
+    },
+    "/Thing" : {
+      "delete" : {
+        "operationId" : "deleteThing",
+        "parameters" : [ {
+          "description" : "Unique thingName",
+          "explode" : true,
+          "in" : "query",
+          "name" : "thingname",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "form"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Sample"
+                }
+              }
+            },
+            "description" : "Successful response"
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "title" : "Thing not cretead",
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : "Not created response"
+          }
+        },
+        "summary" : "Delete an existing probe",
+        "tags" : [ "Thing" ]
+      },
+      "get" : {
+        "operationId" : "getThing",
+        "parameters" : [ {
+          "description" : "Unique thingName",
+          "explode" : true,
+          "in" : "query",
+          "name" : "thingname",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "form"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Sample"
+                }
+              }
+            },
+            "description" : "Successful response"
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "title" : "Thing not cretead",
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : "Not created response"
+          }
+        },
+        "summary" : "Get an existing probe",
+        "tags" : [ "Thing" ]
+      },
+      "post" : {
+        "description" : "Creates new thing",
+        "operationId" : "NewThing",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/thing"
+              }
+            }
+          },
+          "description" : "Optional properties represented as json for the Thing",
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Sample"
+                }
+              }
+            },
+            "description" : "Successful response"
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "title" : "Thing not cretead",
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : "Not created response"
+          }
+        },
+        "summary" : "Creates a new probe",
+        "tags" : [ "Thing" ]
+      }
+    },
+    "/Observations" : {
+      "get" : {
+        "operationId" : "getObservations",
+        "parameters" : [ {
+          "description" : "Ref to unique datastream",
+          "explode" : true,
+          "in" : "query",
+          "name" : "datastreamRef",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "form"
+        } ],
+        "responses" : {
+          "201" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Sample"
+                }
+              }
+            },
+            "description" : "Successful response"
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "title" : "Thing not cretead",
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : "Not created response"
+          }
+        },
+        "summary" : "Get all observations associated to datastream",
+        "tags" : [ "Observation" ]
+      }
+    },
+    "/Observation" : {
+      "get" : {
+        "operationId" : "getObservation",
+        "parameters" : [ {
+          "description" : "Unique observationName",
+          "explode" : true,
+          "in" : "query",
+          "name" : "observationName",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "form"
+        } ],
+        "responses" : {
+          "201" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Sample"
+                }
+              }
+            },
+            "description" : "Successful response"
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "title" : "Thing not cretead",
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : "Not created response"
+          }
+        },
+        "summary" : "Call to get observation from database",
+        "tags" : [ "Observation" ]
+      },
+      "post" : {
+        "operationId" : "postObservation",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/observation"
+              }
+            }
+          },
+          "description" : "Optional properties represented as json for the Thing",
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Sample"
+                }
+              }
+            },
+            "description" : "Successful response"
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "title" : "Thing not cretead",
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : "Not created response"
+          }
+        },
+        "summary" : "Call to write observation to database",
+        "tags" : [ "Observation" ]
+      }
+    },
+    "/dataStreams" : {
+      "get" : {
+        "operationId" : "getDatastreams",
+        "parameters" : [ {
+          "description" : "Ref to unique thing",
+          "explode" : true,
+          "in" : "query",
+          "name" : "thingRef",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "form"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Sample"
+                }
+              }
+            },
+            "description" : "Successful response"
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "title" : "Thing not cretead",
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : "Not created response"
+          }
+        },
+        "summary" : "Get all datastreams from thing",
+        "tags" : [ "Datastream" ]
+      }
+    },
+    "/dataStream" : {
+      "delete" : {
+        "operationId" : "deleteDatastream",
+        "parameters" : [ {
+          "description" : "Unique dataStreamName",
+          "explode" : true,
+          "in" : "query",
+          "name" : "dataStreamName",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "form"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Sample"
+                }
+              }
+            },
+            "description" : "Successful response"
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "title" : "Thing not cretead",
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : "Not created response"
+          }
+        },
+        "summary" : "deletes a datastream",
+        "tags" : [ "Datastream" ]
+      },
+      "get" : {
+        "operationId" : "getDatastream",
+        "parameters" : [ {
+          "description" : "Unique dataStreamName",
+          "explode" : true,
+          "in" : "query",
+          "name" : "dataStreamName",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "form"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Sample"
+                }
+              }
+            },
+            "description" : "Successful response"
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "title" : "Thing not cretead",
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : "Not created response"
+          }
+        },
+        "summary" : "Gets a datastream",
+        "tags" : [ "Datastream" ]
+      },
+      "post" : {
+        "operationId" : "postDatastream",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/dataStream"
+              }
+            }
+          },
+          "description" : "Optional properties represented as json for the dataStream",
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Sample"
+                }
+              }
+            },
+            "description" : "Successful response"
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "title" : "Thing not cretead",
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : "Not created response"
+          }
+        },
+        "summary" : "posts a datastream",
+        "tags" : [ "Datastream" ]
+      },
+      "put" : {
+        "operationId" : "putDatastream",
+        "parameters" : [ {
+          "description" : "Unique dataStreamName",
+          "explode" : true,
+          "in" : "query",
+          "name" : "dataStreamName",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "form"
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/dataStream"
+              }
+            }
+          },
+          "description" : "Optional properties represented as json for the dataStream",
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Sample"
+                }
+              }
+            },
+            "description" : "Successful response"
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "title" : "Thing not cretead",
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : "Not created response"
+          }
+        },
+        "summary" : "put to a datastream",
+        "tags" : [ "Datastream" ]
+      }
+    },
+    "/sensor" : {
+      "delete" : {
+        "operationId" : "deleteSensor",
+        "parameters" : [ {
+          "description" : "Unique sensorName",
+          "explode" : true,
+          "in" : "query",
+          "name" : "sensorName",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "form"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Sample"
+                }
+              }
+            },
+            "description" : "Successful response"
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "title" : "Thing not cretead",
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : "Not created response"
+          }
+        },
+        "summary" : "deletes a sensor",
+        "tags" : [ "Sensor" ]
+      },
+      "get" : {
+        "operationId" : "getSensor",
+        "parameters" : [ {
+          "description" : "Unique sensorName",
+          "explode" : true,
+          "in" : "query",
+          "name" : "sensorName",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "form"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Sample"
+                }
+              }
+            },
+            "description" : "Successful response"
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "title" : "Thing not cretead",
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : "Not created response"
+          }
+        },
+        "summary" : "gets a sensor",
+        "tags" : [ "Sensor" ]
+      },
+      "post" : {
+        "operationId" : "postSensor",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/sensor"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Sample"
+                }
+              }
+            },
+            "description" : "Successful response"
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "title" : "Thing not cretead",
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : "Not created response"
+          }
+        },
+        "summary" : "post a sensor",
+        "tags" : [ "Sensor" ]
+      },
+      "put" : {
+        "operationId" : "putSensor",
+        "parameters" : [ {
+          "description" : "Unique sensorName",
+          "explode" : true,
+          "in" : "query",
+          "name" : "sensorName",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "form"
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/sensor"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Sample"
+                }
+              }
+            },
+            "description" : "Successful response"
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "title" : "Thing not cretead",
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : "Not created response"
+          }
+        },
+        "summary" : "puts a sensor",
+        "tags" : [ "Sensor" ]
+      }
+    },
+    "/Location" : {
+      "delete" : {
+        "operationId" : "deleteLocation",
+        "parameters" : [ {
+          "description" : "Unique locationName",
+          "explode" : true,
+          "in" : "query",
+          "name" : "locationName",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "form"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Sample"
+                }
+              }
+            },
+            "description" : "Successful response"
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "title" : "Thing not cretead",
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : "Not created response"
+          }
+        },
+        "summary" : "deletes a sensor",
+        "tags" : [ "Location" ]
+      },
+      "get" : {
+        "operationId" : "getLocation",
+        "parameters" : [ {
+          "description" : "Unique locationName",
+          "explode" : true,
+          "in" : "query",
+          "name" : "locationName",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "form"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Sample"
+                }
+              }
+            },
+            "description" : "Successful response"
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "title" : "Thing not cretead",
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : "Not created response"
+          }
+        },
+        "summary" : "gets a location",
+        "tags" : [ "Location" ]
+      },
+      "post" : {
+        "operationId" : "postlocation",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/location"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Sample"
+                }
+              }
+            },
+            "description" : "Successful response"
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "title" : "Thing not cretead",
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : "Not created response"
+          }
+        },
+        "summary" : "posting a new location",
+        "tags" : [ "Location" ]
+      },
+      "put" : {
+        "operationId" : "putLocation",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/location"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Sample"
+                }
+              }
+            },
+            "description" : "Successful response"
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "title" : "Thing not cretead",
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : "Not created response"
+          }
+        },
+        "summary" : "updates a location",
+        "tags" : [ "Location" ]
+      }
+    },
+    "/FeatureOfInterest" : {
+      "delete" : {
+        "operationId" : "deleteFeatureOfInterest",
+        "parameters" : [ {
+          "description" : "Unique FeatureOfInterest name",
+          "explode" : true,
+          "in" : "query",
+          "name" : "featureOfInterestName",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "form"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Sample"
+                }
+              }
+            },
+            "description" : "Successful response"
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "title" : "Thing not cretead",
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : "Not created response"
+          }
+        },
+        "summary" : "deletes a FeatureOfInterest",
+        "tags" : [ "FeatureOfInterest" ]
+      },
+      "get" : {
+        "operationId" : "getFeatureOfInterest",
+        "parameters" : [ {
+          "description" : "Unique FeatureOfInterest name",
+          "explode" : true,
+          "in" : "query",
+          "name" : "featureOfInterestName",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "form"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Sample"
+                }
+              }
+            },
+            "description" : "Successful response"
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "title" : "Thing not cretead",
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : "Not created response"
+          }
+        },
+        "summary" : "gets a FeatureOfInterest",
+        "tags" : [ "FeatureOfInterest" ]
+      },
+      "post" : {
+        "operationId" : "postFeatureOfInterest",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/featureOfInterest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Sample"
+                }
+              }
+            },
+            "description" : "Successful response"
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "title" : "Thing not cretead",
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : "Not created response"
+          }
+        },
+        "summary" : "posting a new FeatureOfInterest",
+        "tags" : [ "FeatureOfInterest" ]
+      },
+      "put" : {
+        "operationId" : "putFeatureOfInterest",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/featureOfInterest"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Sample"
+                }
+              }
+            },
+            "description" : "Successful response"
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "title" : "Thing not cretead",
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : "Not created response"
+          }
+        },
+        "summary" : "updates a FeatureOfInterest",
+        "tags" : [ "FeatureOfInterest" ]
+      }
+    },
+    "/ObservedProperty" : {
+      "delete" : {
+        "operationId" : "deleteObservedProperty",
+        "parameters" : [ {
+          "description" : "Unique ObservedProperty name",
+          "explode" : true,
+          "in" : "query",
+          "name" : "observedPropertyName",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "form"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Sample"
+                }
+              }
+            },
+            "description" : "Successful response"
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "title" : "Thing not cretead",
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : "Not created response"
+          }
+        },
+        "summary" : "Deletes an ObservedProperty",
+        "tags" : [ "ObservedProperty" ]
+      },
+      "get" : {
+        "operationId" : "getObservedProperty",
+        "parameters" : [ {
+          "description" : "Unique ObservedProperty name",
+          "explode" : true,
+          "in" : "query",
+          "name" : "observedPropertyName",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "form"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Sample"
+                }
+              }
+            },
+            "description" : "Successful response"
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "title" : "Thing not cretead",
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : "Not created response"
+          }
+        },
+        "summary" : "gets an ObservedProperty",
+        "tags" : [ "ObservedProperty" ]
+      },
+      "post" : {
+        "operationId" : "postObservedProperty",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/observedProperty"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Sample"
+                }
+              }
+            },
+            "description" : "Successful response"
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "title" : "Thing not cretead",
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : "Not created response"
+          }
+        },
+        "summary" : "Creates a new ObservedProperty",
+        "tags" : [ "ObservedProperty" ]
+      },
+      "put" : {
+        "operationId" : "putObservedProperty",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/observedProperty"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Sample"
+                }
+              }
+            },
+            "description" : "Successful response"
+          },
+          "404" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "title" : "Thing not cretead",
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : "Not created response"
+          }
+        },
+        "summary" : "updates an ObservedProperty",
+        "tags" : [ "ObservedProperty" ]
+      }
+    }
+  },
+  "components" : {
+    "parameters" : {
+      "observation" : {
+        "description" : "Unique observationName",
+        "explode" : true,
+        "in" : "query",
+        "name" : "observationName",
+        "required" : false,
+        "schema" : {
+          "type" : "string"
+        },
+        "style" : "form"
+      },
+      "dataStream" : {
+        "description" : "Unique dataStreamName",
+        "explode" : true,
+        "in" : "query",
+        "name" : "dataStreamName",
+        "required" : false,
+        "schema" : {
+          "type" : "string"
+        },
+        "style" : "form"
+      },
+      "sensor" : {
+        "description" : "Unique sensorName",
+        "explode" : true,
+        "in" : "query",
+        "name" : "sensorName",
+        "required" : false,
+        "schema" : {
+          "type" : "string"
+        },
+        "style" : "form"
+      },
+      "thingname" : {
+        "description" : "Unique thingName",
+        "explode" : true,
+        "in" : "query",
+        "name" : "thingname",
+        "required" : false,
+        "schema" : {
+          "type" : "string"
+        },
+        "style" : "form"
+      },
+      "location" : {
+        "description" : "Unique locationName",
+        "explode" : true,
+        "in" : "query",
+        "name" : "locationName",
+        "required" : false,
+        "schema" : {
+          "type" : "string"
+        },
+        "style" : "form"
+      },
+      "featureOfInterest" : {
+        "description" : "Unique FeatureOfInterest name",
+        "explode" : true,
+        "in" : "query",
+        "name" : "featureOfInterestName",
+        "required" : false,
+        "schema" : {
+          "type" : "string"
+        },
+        "style" : "form"
+      },
+      "observedProperty" : {
+        "description" : "Unique ObservedProperty name",
+        "explode" : true,
+        "in" : "query",
+        "name" : "observedPropertyName",
+        "required" : false,
+        "schema" : {
+          "type" : "string"
+        },
+        "style" : "form"
+      },
+      "thingRef" : {
+        "description" : "Ref to unique thing",
+        "explode" : true,
+        "in" : "query",
+        "name" : "thingRef",
+        "required" : false,
+        "schema" : {
+          "type" : "string"
+        },
+        "style" : "form"
+      },
+      "datastreamRef" : {
+        "description" : "Ref to unique datastream",
+        "explode" : true,
+        "in" : "query",
+        "name" : "datastreamRef",
+        "required" : false,
+        "schema" : {
+          "type" : "string"
+        },
+        "style" : "form"
+      }
+    },
+    "responses" : {
+      "200" : {
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/Sample"
+            }
+          }
+        },
+        "description" : "Successful response"
+      },
+      "201" : {
+        "content" : {
+          "application/json" : {
+            "schema" : {
+              "$ref" : "#/components/schemas/Sample"
+            }
+          }
+        },
+        "description" : "Successful response"
+      },
+      "404" : {
+        "content" : {
+          "text/plain" : {
+            "schema" : {
+              "title" : "Thing not cretead",
+              "type" : "string"
+            }
+          }
+        },
+        "description" : "Not created response"
+      }
+    },
+    "schemas" : {
+      "location" : {
+        "properties" : {
+          "description" : {
+            "type" : "string"
+          },
+          "encodingType" : {
+            "type" : "object"
+          },
+          "location" : {
+            "type" : "object"
+          }
+        },
+        "required" : [ "description", "encodingType", "location" ],
+        "type" : "object"
+      },
+      "tmObject" : {
+        "properties" : {
+          "time" : {
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "dqElement" : {
+        "type" : "object"
+      },
+      "tmInstant" : {
+        "properties" : {
+          "time" : {
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "tmPeriod" : {
+        "type" : "object"
+      },
+      "namedValue" : {
+        "type" : "object"
+      },
+      "valueCode" : {
+        "type" : "object"
+      },
+      "gm_envelope" : {
+        "type" : "object"
+      },
+      "thing" : {
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "properties" : {
+            "items" : {
+              "type" : "object"
+            },
+            "type" : "array"
+          }
+        },
+        "required" : [ "description", "name" ],
+        "type" : "object"
+      },
+      "observation" : {
+        "properties" : {
+          "phenomenonTime" : {
+            "$ref" : "#/components/schemas/tmObject"
+          },
+          "resultTime" : {
+            "$ref" : "#/components/schemas/tmInstant"
+          },
+          "result" : {
+            "type" : "number"
+          },
+          "resultQuality" : {
+            "items" : {
+              "$ref" : "#/components/schemas/dqElement"
+            },
+            "type" : "array"
+          },
+          "validTime" : {
+            "items" : {
+              "$ref" : "#/components/schemas/tmPeriod"
+            },
+            "type" : "array"
+          },
+          "parameters" : {
+            "items" : {
+              "$ref" : "#/components/schemas/namedValue"
+            },
+            "type" : "array"
+          },
+          "datastreamRef" : {
+            "type" : "string"
+          },
+          "featureOfInterestRef" : {
+            "type" : "string"
+          }
+        },
+        "required" : [ "datastreamRef", "phenomenonTime", "result", "resultTime" ],
+        "type" : "object"
+      },
+      "dataStream" : {
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "observationType" : {
+            "type" : "object"
+          },
+          "unitOfMeasurement" : {
+            "items" : {
+              "type" : "object"
+            },
+            "type" : "array"
+          },
+          "observedArea" : {
+            "type" : "object"
+          },
+          "phenomenonTime" : {
+            "type" : "object"
+          },
+          "resultTime" : {
+            "type" : "object"
+          },
+          "thingRef" : {
+            "type" : "string"
+          },
+          "sensorRef" : {
+            "type" : "string"
+          },
+          "observedPropertyRef" : {
+            "type" : "string"
+          }
+        },
+        "required" : [ "description", "name", "observationType", "observedPropertyRef", "sensorRef", "thingRef", "unitOfMeasurement" ],
+        "type" : "object"
+      },
+      "sensor" : {
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "encodingType" : {
+            "type" : "object"
+          },
+          "metaData" : {
+            "type" : "object"
+          }
+        },
+        "required" : [ "description", "encodingType", "metaData", "name" ],
+        "type" : "object"
+      },
+      "featureOfInterest" : {
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "encoding" : {
+            "type" : "object"
+          },
+          "feature" : {
+            "type" : "object"
+          }
+        },
+        "required" : [ "description", "encoding", "feature", "name" ],
+        "type" : "object"
+      },
+      "observedProperty" : {
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "definition" : {
+            "type" : "string"
+          },
+          "description" : {
+            "type" : "string"
+          }
+        },
+        "required" : [ "definition", "description", "name" ],
+        "type" : "object"
+      },
+      "Sample" : {
+        "example" : {
+          "placeholder" : "placeholder"
+        },
+        "properties" : {
+          "placeholder" : {
+            "description" : "Placeholder description",
+            "type" : "string"
+          }
+        }
+      }
+    }
+  }
+}
