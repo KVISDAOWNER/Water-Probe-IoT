@@ -1,0 +1,44 @@
+version: '3.7'
+
+services:
+    mongo:
+        image: sw708e19/mongo:latest
+        restart: always
+        networks:
+            - backendnet
+            - minet
+    sensor_things_api:
+        image: sw708e19/sensor_things_api:latest
+        restart: always
+        ports:
+            - 51099:80
+        environment:
+            MongoDB__Host: mongo
+        depends_on:
+            - mongo
+        networks:
+            - backendnet
+    sigfox_api:
+        image: sw708e19/sigfox_api:latest
+        restart: always
+        ports:
+            - 51100:80
+        environment:
+            MongoDB__Host: mongo
+        depends_on:
+            - mongo
+        networks:
+            - backendnet
+    ml_api:
+        image: sw708e19/mi_api:latest
+        ports:
+            - 1099:80
+        environment:
+        MongoDB__Host: mongo
+        depends_on:
+            - mongo
+        networks:
+            - minet
+networks:
+    backendnet:
+    minet:
