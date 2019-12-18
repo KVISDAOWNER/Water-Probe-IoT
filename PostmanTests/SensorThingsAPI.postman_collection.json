@@ -1,0 +1,3476 @@
+{
+	"info": {
+		"_postman_id": "587d230e-38b8-41a0-b565-6e110ab476e5",
+		"name": "SensorThingsAPI",
+		"description": "API for waterprobing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Thing",
+			"item": [
+				{
+					"name": "Things_Success",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "588a8e8c-65d7-4e71-b646-ae9d2d373cbb",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () { ",
+									"    pm.response.to.have.status(200); ",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function() {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"",
+									"pm.test(\"Body matches expected name for probe1\", function () {",
+									"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"name1\"));",
+									"});",
+									"",
+									"pm.test(\"Body matches expected name for probe2\", function () {",
+									"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"name2\"));",
+									"});",
+									"pm.test(\"Body matches expected description for probe1\", function () {",
+									"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"description1\"));",
+									"});",
+									"pm.test(\"Body matches expected description for probe2\", function () {",
+									"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"description2\"));",
+									"});",
+									"pm.test(\"Body matches expected properties for probe1\", function () {",
+									"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"properties1\"));",
+									"});",
+									"pm.test(\"Body matches expected properties for probe2\", function () {",
+									"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"properties2\"));",
+									"});",
+									"pm.test(\"Body matches expected location property for probe1\", function () {",
+									"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"location1\"));",
+									"});",
+									"pm.test(\"Body matches expected location property for probe2\", function () {",
+									"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"location2\"));",
+									"});",
+									"pm.test(\"Body matches expected locationid for probe1\", function () {",
+									"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"locationid1\"));",
+									"});",
+									"pm.test(\"Body matches expected locationid for probe2\", function () {",
+									"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"locationid2\"));",
+									"});",
+									"pm.test(\"Body matches expected lat for probe1\", function () {",
+									"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"lat1\"));",
+									"});",
+									"pm.test(\"Body matches expected long for probe1\", function () {",
+									"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"long1\"));",
+									"});",
+									"pm.test(\"Body matches expected lat for probe2\", function () {",
+									"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"lat2\"));",
+									"});",
+									"pm.test(\"Body matches expected long for probe2\", function () {",
+									"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"long2\"));",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "84d1f862-69f8-4def-aaa4-8bd3d6b109df",
+								"exec": [
+									"pm.environment.set(\"name1\", \r",
+									"`\"name\": \"1D95A7\"`\r",
+									");\r",
+									"pm.environment.set(\"name2\", \r",
+									"`\"name\": \"1D95A6\"`\r",
+									");\r",
+									"pm.environment.set(\"description1\", \r",
+									"`\"description\": \"Mock probe\"`\r",
+									");\r",
+									"pm.environment.set(\"description2\", \r",
+									"`\"description\": \"Mock probe\"`\r",
+									");\r",
+									"pm.environment.set(\"properties1\", \r",
+									"`\"properties\": {}`\r",
+									");\r",
+									"pm.environment.set(\"properties2\", \r",
+									"`\"properties\": {}`\r",
+									");\r",
+									"\r",
+									"pm.environment.set(\"location1\", \r",
+									"`\"location\": {`\r",
+									");\r",
+									"pm.environment.set(\"location2\", \r",
+									"`\"location\": {`\r",
+									");\r",
+									"pm.environment.set(\"locationid1\", \r",
+									"`\"_id\": \"124bD\"`\r",
+									");\r",
+									"pm.environment.set(\"locationid2\", \r",
+									"`\"_id\": \"123bD\"`\r",
+									");\r",
+									"pm.environment.set(\"lat1\", \r",
+									"`\"lat\": 37.349`\r",
+									");\r",
+									"pm.environment.set(\"long1\", \r",
+									"`\"long\": 4.515`\r",
+									");\r",
+									"pm.environment.set(\"lat2\", \r",
+									"`\"lat\": 57.049249`\r",
+									");\r",
+									"pm.environment.set(\"long2\", \r",
+									"`\"long\": 9.863515`\r",
+									");\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/Things",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Things"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Not created response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/Things",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Things"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": "<string>"
+						},
+						{
+							"name": "Successful response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/Things",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Things"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"placeholder\": \"<string>\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get an existing probe",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d317167c-101b-4d23-a175-fd7a10c7d1dd",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () { pm.response.to.have.status(200); });",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function() {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"",
+									"pm.test(\"Body matches string Id\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Id\");",
+									"});",
+									"",
+									"pm.test(\"Body matches string AttachedSensors\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"AttachedSensors\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/Thing?thingname=1D95A5",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Thing"
+							],
+							"query": [
+								{
+									"key": "thingname",
+									"value": "1D95A5",
+									"description": "Unique thingName"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Not created response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/Thing?thingname=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Thing"
+									],
+									"query": [
+										{
+											"key": "thingname",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": "<string>"
+						},
+						{
+							"name": "Successful response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/Thing?thingname=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Thing"
+									],
+									"query": [
+										{
+											"key": "thingname",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"placeholder\": \"<string>\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Patch a thing",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "954b01c8-3614-4a45-9a7d-1679d23c1e13",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () { ",
+									"    pm.response.to.have.status(200); ",
+									"    pm.response.to.be.ok;",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function() {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"",
+									"pm.test(\"Body matches string Id\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Succesfull patch\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"description\": \"Østerå\",\r\n  \"encodingType\": \"string\",\r\n  \"_Location\": {\r\n    \"lat\": 57.045249,\r\n    \"long\": 9.862715\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Thing?thingRef=1D95A8",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Thing"
+							],
+							"query": [
+								{
+									"key": "thingRef",
+									"value": "1D95A8"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Creates a new probe",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"properties\": [\n        \"<object>\",\n        \"<object>\"\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Thing",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Thing"
+							]
+						},
+						"description": "Creates new thing"
+					},
+					"response": [
+						{
+							"name": "Successful response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"properties\": [\n        \"<object>\",\n        \"<object>\"\n    ]\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/Thing",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Thing"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"placeholder\": \"<string>\"\n}"
+						},
+						{
+							"name": "Not created response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"properties\": [\n        \"<object>\",\n        \"<object>\"\n    ]\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/Thing",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Thing"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": "<string>"
+						}
+					]
+				},
+				{
+					"name": "Delete an existing probe",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/Thing?thingname=<string>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Thing"
+							],
+							"query": [
+								{
+									"key": "thingname",
+									"value": "<string>",
+									"description": "Unique thingName"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Successful response",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/Thing?thingname=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Thing"
+									],
+									"query": [
+										{
+											"key": "thingname",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"placeholder\": \"<string>\"\n}"
+						},
+						{
+							"name": "Not created response",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/Thing?thingname=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Thing"
+									],
+									"query": [
+										{
+											"key": "thingname",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": "<string>"
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Observation",
+			"item": [
+				{
+					"name": "AllObservations_ValidDatastream_ReturnObservationsSuccess",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2ec82490-4785-45ec-a808-356bf2ddc3b8",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () { ",
+									"    pm.response.to.have.status(200); ",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.json; ",
+									"    ",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 2000ms\", function() {",
+									"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+									"});",
+									"",
+									"pm.test(\"Body matches expected phenomenontime for observation1\", function () {",
+									"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"phenomenontime1\"));",
+									"});",
+									"pm.test(\"Body matches expected phenomenontime for observation2\", function () {",
+									"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"phenomenontime2\"));",
+									"});",
+									"pm.test(\"Body matches expected resulttime for observation1\", function () {",
+									"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"resulttime1\"));",
+									"});",
+									"pm.test(\"Body matches expected resulttime for observation2\", function () {",
+									"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"resulttime2\"));",
+									"});",
+									"pm.test(\"Body matches expected result for observation1\", function () {",
+									"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"result1\"));",
+									"});",
+									"pm.test(\"Body matches expected result for observation2\", function () {",
+									"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"result2\"));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "3a4b2989-06f2-4097-8f89-d38e3e8a436c",
+								"exec": [
+									"pm.environment.set(\"phenomenontime1\", \r",
+									"`\"phenomenonTime\": \"2014-01-11T11:59:59.00+08:00\"`\r",
+									");\r",
+									"pm.environment.set(\"phenomenontime2\", \r",
+									"`\"phenomenonTime\": \"2014-01-12T11:59:59.00+08:00\"`\r",
+									");\r",
+									"pm.environment.set(\"resulttime1\", \r",
+									"`\"resultTime\": \"2014-01-11T11:59:59.00+08:00\"`\r",
+									");\r",
+									"pm.environment.set(\"resulttime2\", \r",
+									"`\"resultTime\": \"2014-01-12T11:59:59.00+08:00\"`\r",
+									");\r",
+									"pm.environment.set(\"result1\", \r",
+									"`\"result\": 1.0`\r",
+									");\r",
+									"pm.environment.set(\"result2\", \r",
+									"`\"result\": 10.0`\r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/Observations?datastreamRef=Turbidity_1D95A6",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Observations"
+							],
+							"query": [
+								{
+									"key": "datastreamRef",
+									"value": "Turbidity_1D95A6",
+									"description": "Ref to unique datastream"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Not created response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/Observations?datastreamRef=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Observations"
+									],
+									"query": [
+										{
+											"key": "datastreamRef",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": "<string>"
+						},
+						{
+							"name": "Successful response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/Observations?datastreamRef=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Observations"
+									],
+									"query": [
+										{
+											"key": "datastreamRef",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"placeholder\": \"<string>\"\n}"
+						}
+					]
+				},
+				{
+					"name": "AllObservations_InvalidDatastream_ReturnNoObservationsSuccess",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2ec82490-4785-45ec-a808-356bf2ddc3b8",
+								"exec": [
+									"pm.test(\"Status code is 404\", function () { ",
+									"    pm.response.to.have.status(404);",
+									"    ",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 2000ms\", function() {",
+									"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "3a4b2989-06f2-4097-8f89-d38e3e8a436c",
+								"exec": [
+									"pm.environment.set(\"phenomenontime1\", \r",
+									"`\"phenomenonTime\": \"2014-01-11T11:59:59.00+08:00\"`\r",
+									");\r",
+									"pm.environment.set(\"phenomenontime2\", \r",
+									"`\"phenomenonTime\": \"2014-01-12T11:59:59.00+08:00\"`\r",
+									");\r",
+									"pm.environment.set(\"resulttime1\", \r",
+									"`\"resultTime\": \"2014-01-11T11:59:59.00+08:00\"`\r",
+									");\r",
+									"pm.environment.set(\"resulttime2\", \r",
+									"`\"resultTime\": \"2014-01-12T11:59:59.00+08:00\"`\r",
+									");\r",
+									"pm.environment.set(\"result1\", \r",
+									"`\"result\": 1.0`\r",
+									");\r",
+									"pm.environment.set(\"result2\", \r",
+									"`\"result\": 10.0`\r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/Observations?datastreamRef=Invalid",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Observations"
+							],
+							"query": [
+								{
+									"key": "datastreamRef",
+									"value": "Invalid",
+									"description": "Ref to unique datastream"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Successful response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/Observations?datastreamRef=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Observations"
+									],
+									"query": [
+										{
+											"key": "datastreamRef",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"placeholder\": \"<string>\"\n}"
+						},
+						{
+							"name": "Not created response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/Observations?datastreamRef=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Observations"
+									],
+									"query": [
+										{
+											"key": "datastreamRef",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": "<string>"
+						}
+					]
+				},
+				{
+					"name": "Call to get observation from database",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/Observation?observationName=<string>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Observation"
+							],
+							"query": [
+								{
+									"key": "observationName",
+									"value": "<string>",
+									"description": "Unique observationName"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Successful response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/Observation?observationName=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Observation"
+									],
+									"query": [
+										{
+											"key": "observationName",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"placeholder\": \"<string>\"\n}"
+						},
+						{
+							"name": "Not created response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/Observation?observationName=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Observation"
+									],
+									"query": [
+										{
+											"key": "observationName",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": "<string>"
+						}
+					]
+				},
+				{
+					"name": "Call to write observation to database",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"phenomenonTime\": {\n        \"time\": \"<string>\"\n    },\n    \"resultTime\": {\n        \"time\": \"<string>\"\n    },\n    \"result\": \"<number>\",\n    \"datastreamRef\": \"<string>\",\n    \"resultQuality\": [\n        \"<object>\",\n        \"<object>\"\n    ],\n    \"validTime\": [\n        \"<object>\",\n        \"<object>\"\n    ],\n    \"parameters\": [\n        \"<object>\",\n        \"<object>\"\n    ],\n    \"featureOfInterestRef\": \"<string>\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Observation",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Observation"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Not created response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"phenomenonTime\": {\n        \"time\": \"<string>\"\n    },\n    \"resultTime\": {\n        \"time\": \"<string>\"\n    },\n    \"result\": \"<number>\",\n    \"datastreamRef\": \"<string>\",\n    \"resultQuality\": [\n        \"<object>\",\n        \"<object>\"\n    ],\n    \"validTime\": [\n        \"<object>\",\n        \"<object>\"\n    ],\n    \"parameters\": [\n        \"<object>\",\n        \"<object>\"\n    ],\n    \"featureOfInterestRef\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/Observation",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Observation"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": "<string>"
+						},
+						{
+							"name": "Successful response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"phenomenonTime\": {\n        \"time\": \"<string>\"\n    },\n    \"resultTime\": {\n        \"time\": \"<string>\"\n    },\n    \"result\": \"<number>\",\n    \"datastreamRef\": \"<string>\",\n    \"resultQuality\": [\n        \"<object>\",\n        \"<object>\"\n    ],\n    \"validTime\": [\n        \"<object>\",\n        \"<object>\"\n    ],\n    \"parameters\": [\n        \"<object>\",\n        \"<object>\"\n    ],\n    \"featureOfInterestRef\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/Observation",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Observation"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"placeholder\": \"<string>\"\n}"
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Datastream",
+			"item": [
+				{
+					"name": "Datastreams_ValidThing_ReturnsDatastreamsSuccesfull",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "44f90a31-ac71-46af-9c05-d7f675c6ad27",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () { ",
+									"    pm.response.to.have.status(200); ",
+									"    pm.response.to.be.ok;",
+									"    pm.response.to.be.json;",
+									"});",
+									"pm.test(\"Response time is less than 2000ms\", function() {",
+									"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Body matches expected name for datastream1\", function () {",
+									"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"name1\"));",
+									"});",
+									"pm.test(\"Body matches expected name for datastream2\", function () {",
+									"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"name2\"));",
+									"});",
+									"",
+									"pm.test(\"Body matches expected description for datastream1\", function () {",
+									"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"description1\"));",
+									"});",
+									"pm.test(\"Body matches expected name for datastream2\", function () {",
+									"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"description2\"));",
+									"});",
+									"pm.test(\"Body matches expected observationtype for datastream1\", function () {",
+									"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"observationtype1\"));",
+									"});",
+									"pm.test(\"Body matches expected observationtype for datastream2\", function () {",
+									"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"observationtype2\"));",
+									"});",
+									"pm.test(\"Body matches expected unitofmeasurement for datastream1\", function () {",
+									"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"unitofmeasurement1\"));",
+									"});",
+									"pm.test(\"Body matches expected observationtype for datastream2\", function () {",
+									"    pm.expect(pm.response.text()).to.include(pm.environment.get(\"unitofmeasurement2\"));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "e15d9e59-570e-4f27-84fc-1e9b654c5380",
+								"exec": [
+									"pm.environment.set(\"name1\", \r",
+									"`\"name\": \"Turbidity_1D95A6\"`\r",
+									");\r",
+									"pm.environment.set(\"name2\", \r",
+									"`\"name\": \"Temperature_1D95A6\"`\r",
+									");\r",
+									"pm.environment.set(\"description1\", \r",
+									"`\"description\": \"Water Turbidity\"`\r",
+									");\r",
+									"pm.environment.set(\"description2\", \r",
+									"`\"description\": \"Water Temperatur\"`\r",
+									");\r",
+									"pm.environment.set(\"observationtype1\", \r",
+									"`\"observationtype\": \"http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_Observation\"`\r",
+									");\r",
+									"pm.environment.set(\"observationtype2\", \r",
+									"`\"observationtype\": \"http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_Observation\"`\r",
+									");\r",
+									"pm.environment.set(\"unitofmeasurement1\", \r",
+									"`\"unitofMeasurement\": \"NTU\"`\r",
+									");\r",
+									"pm.environment.set(\"unitofmeasurement2\", \r",
+									"`\"unitofMeasurement\": \"°C\"`\r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/dataStreams?thingRef=1D95A6",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"dataStreams"
+							],
+							"query": [
+								{
+									"key": "thingRef",
+									"value": "1D95A6",
+									"description": "Ref to unique thing"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Not created response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/dataStreams?thingRef=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"dataStreams"
+									],
+									"query": [
+										{
+											"key": "thingRef",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": "<string>"
+						},
+						{
+							"name": "Successful response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/dataStreams?thingRef=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"dataStreams"
+									],
+									"query": [
+										{
+											"key": "thingRef",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"placeholder\": \"<string>\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Datastreams_InvalidThing_ReturnsNoDatastreamsUnsuccesfull",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "44f90a31-ac71-46af-9c05-d7f675c6ad27",
+								"exec": [
+									"pm.test(\"Status code is 404\", function () { ",
+									"    pm.response.to.have.status(404); ",
+									"});",
+									"pm.test(\"Response time is less than 2000ms\", function() {",
+									"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Expects \\\"Object reference not set to an instance of an object.\\\"\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Object reference not set to an instance of an object.\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "e15d9e59-570e-4f27-84fc-1e9b654c5380",
+								"exec": [
+									"pm.environment.set(\"name1\", \r",
+									"`\"name\": \"Turbidity_1D95A6\"`\r",
+									");\r",
+									"pm.environment.set(\"name2\", \r",
+									"`\"name\": \"Temperature_1D95A6\"`\r",
+									");\r",
+									"pm.environment.set(\"description1\", \r",
+									"`\"description\": \"Water Turbidity\"`\r",
+									");\r",
+									"pm.environment.set(\"description2\", \r",
+									"`\"description\": \"Water Temperatur\"`\r",
+									");\r",
+									"pm.environment.set(\"observationtype1\", \r",
+									"`\"observationtype\": \"http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_Observation\"`\r",
+									");\r",
+									"pm.environment.set(\"observationtype2\", \r",
+									"`\"observationtype\": \"http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_Observation\"`\r",
+									");\r",
+									"pm.environment.set(\"unitofmeasurement1\", \r",
+									"`\"unitofMeasurement\": \"NTU\"`\r",
+									");\r",
+									"pm.environment.set(\"unitofmeasurement2\", \r",
+									"`\"unitofMeasurement\": \"°C\"`\r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/dataStreams?thingRef=Invalid",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"dataStreams"
+							],
+							"query": [
+								{
+									"key": "thingRef",
+									"value": "Invalid",
+									"description": "Ref to unique thing"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Not created response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/dataStreams?thingRef=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"dataStreams"
+									],
+									"query": [
+										{
+											"key": "thingRef",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": "<string>"
+						},
+						{
+							"name": "Successful response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/dataStreams?thingRef=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"dataStreams"
+									],
+									"query": [
+										{
+											"key": "thingRef",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"placeholder\": \"<string>\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Gets a datastream",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/dataStream?dataStreamName=<string>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"dataStream"
+							],
+							"query": [
+								{
+									"key": "dataStreamName",
+									"value": "<string>",
+									"description": "Unique dataStreamName"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Not created response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/dataStream?dataStreamName=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"dataStream"
+									],
+									"query": [
+										{
+											"key": "dataStreamName",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": "<string>"
+						},
+						{
+							"name": "Successful response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/dataStream?dataStreamName=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"dataStream"
+									],
+									"query": [
+										{
+											"key": "dataStreamName",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"placeholder\": \"<string>\"\n}"
+						}
+					]
+				},
+				{
+					"name": "put to a datastream",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"observationType\": \"<object>\",\n    \"unitOfMeasurement\": [\n        \"<object>\",\n        \"<object>\"\n    ],\n    \"thingRef\": \"<string>\",\n    \"sensorRef\": \"<string>\",\n    \"observedPropertyRef\": \"<string>\",\n    \"observedArea\": \"<object>\",\n    \"phenomenonTime\": \"<object>\",\n    \"resultTime\": \"<object>\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/dataStream?dataStreamName=<string>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"dataStream"
+							],
+							"query": [
+								{
+									"key": "dataStreamName",
+									"value": "<string>",
+									"description": "Unique dataStreamName"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Not created response",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"observationType\": \"<object>\",\n    \"unitOfMeasurement\": [\n        \"<object>\",\n        \"<object>\"\n    ],\n    \"thingRef\": \"<string>\",\n    \"sensorRef\": \"<string>\",\n    \"observedPropertyRef\": \"<string>\",\n    \"observedArea\": \"<object>\",\n    \"phenomenonTime\": \"<object>\",\n    \"resultTime\": \"<object>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/dataStream?dataStreamName=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"dataStream"
+									],
+									"query": [
+										{
+											"key": "dataStreamName",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": "<string>"
+						},
+						{
+							"name": "Successful response",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"observationType\": \"<object>\",\n    \"unitOfMeasurement\": [\n        \"<object>\",\n        \"<object>\"\n    ],\n    \"thingRef\": \"<string>\",\n    \"sensorRef\": \"<string>\",\n    \"observedPropertyRef\": \"<string>\",\n    \"observedArea\": \"<object>\",\n    \"phenomenonTime\": \"<object>\",\n    \"resultTime\": \"<object>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/dataStream?dataStreamName=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"dataStream"
+									],
+									"query": [
+										{
+											"key": "dataStreamName",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"placeholder\": \"<string>\"\n}"
+						}
+					]
+				},
+				{
+					"name": "posts a datastream",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"observationType\": \"<object>\",\n    \"unitOfMeasurement\": [\n        \"<object>\",\n        \"<object>\"\n    ],\n    \"thingRef\": \"<string>\",\n    \"sensorRef\": \"<string>\",\n    \"observedPropertyRef\": \"<string>\",\n    \"observedArea\": \"<object>\",\n    \"phenomenonTime\": \"<object>\",\n    \"resultTime\": \"<object>\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/dataStream",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"dataStream"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Not created response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"observationType\": \"<object>\",\n    \"unitOfMeasurement\": [\n        \"<object>\",\n        \"<object>\"\n    ],\n    \"thingRef\": \"<string>\",\n    \"sensorRef\": \"<string>\",\n    \"observedPropertyRef\": \"<string>\",\n    \"observedArea\": \"<object>\",\n    \"phenomenonTime\": \"<object>\",\n    \"resultTime\": \"<object>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/dataStream",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"dataStream"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": "<string>"
+						},
+						{
+							"name": "Successful response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"observationType\": \"<object>\",\n    \"unitOfMeasurement\": [\n        \"<object>\",\n        \"<object>\"\n    ],\n    \"thingRef\": \"<string>\",\n    \"sensorRef\": \"<string>\",\n    \"observedPropertyRef\": \"<string>\",\n    \"observedArea\": \"<object>\",\n    \"phenomenonTime\": \"<object>\",\n    \"resultTime\": \"<object>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/dataStream",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"dataStream"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"placeholder\": \"<string>\"\n}"
+						}
+					]
+				},
+				{
+					"name": "deletes a datastream",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/dataStream?dataStreamName=<string>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"dataStream"
+							],
+							"query": [
+								{
+									"key": "dataStreamName",
+									"value": "<string>",
+									"description": "Unique dataStreamName"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Not created response",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/dataStream?dataStreamName=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"dataStream"
+									],
+									"query": [
+										{
+											"key": "dataStreamName",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": "<string>"
+						},
+						{
+							"name": "Successful response",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/dataStream?dataStreamName=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"dataStream"
+									],
+									"query": [
+										{
+											"key": "dataStreamName",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"placeholder\": \"<string>\"\n}"
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Sensor",
+			"item": [
+				{
+					"name": "gets a sensor",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/sensor?sensorName=<string>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"sensor"
+							],
+							"query": [
+								{
+									"key": "sensorName",
+									"value": "<string>",
+									"description": "Unique sensorName"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Not created response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/sensor?sensorName=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"sensor"
+									],
+									"query": [
+										{
+											"key": "sensorName",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": "<string>"
+						},
+						{
+							"name": "Successful response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/sensor?sensorName=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"sensor"
+									],
+									"query": [
+										{
+											"key": "sensorName",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"placeholder\": \"<string>\"\n}"
+						}
+					]
+				},
+				{
+					"name": "puts a sensor",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"encodingType\": \"<object>\",\n    \"metaData\": \"<object>\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/sensor?sensorName=<string>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"sensor"
+							],
+							"query": [
+								{
+									"key": "sensorName",
+									"value": "<string>",
+									"description": "Unique sensorName"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Successful response",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"encodingType\": \"<object>\",\n    \"metaData\": \"<object>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/sensor?sensorName=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"sensor"
+									],
+									"query": [
+										{
+											"key": "sensorName",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"placeholder\": \"<string>\"\n}"
+						},
+						{
+							"name": "Not created response",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"encodingType\": \"<object>\",\n    \"metaData\": \"<object>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/sensor?sensorName=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"sensor"
+									],
+									"query": [
+										{
+											"key": "sensorName",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": "<string>"
+						}
+					]
+				},
+				{
+					"name": "post a sensor",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"encodingType\": \"<object>\",\n    \"metaData\": \"<object>\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/sensor",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"sensor"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Not created response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"encodingType\": \"<object>\",\n    \"metaData\": \"<object>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/sensor",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"sensor"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": "<string>"
+						},
+						{
+							"name": "Successful response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"encodingType\": \"<object>\",\n    \"metaData\": \"<object>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/sensor",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"sensor"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"placeholder\": \"<string>\"\n}"
+						}
+					]
+				},
+				{
+					"name": "deletes a sensor",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/sensor?sensorName=<string>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"sensor"
+							],
+							"query": [
+								{
+									"key": "sensorName",
+									"value": "<string>",
+									"description": "Unique sensorName"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Successful response",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/sensor?sensorName=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"sensor"
+									],
+									"query": [
+										{
+											"key": "sensorName",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"placeholder\": \"<string>\"\n}"
+						},
+						{
+							"name": "Not created response",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/sensor?sensorName=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"sensor"
+									],
+									"query": [
+										{
+											"key": "sensorName",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": "<string>"
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Location",
+			"item": [
+				{
+					"name": "gets a location",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/Location?locationName=<string>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Location"
+							],
+							"query": [
+								{
+									"key": "locationName",
+									"value": "<string>",
+									"description": "Unique locationName"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Not created response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/Location?locationName=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Location"
+									],
+									"query": [
+										{
+											"key": "locationName",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": "<string>"
+						},
+						{
+							"name": "Successful response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/Location?locationName=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Location"
+									],
+									"query": [
+										{
+											"key": "locationName",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"placeholder\": \"<string>\"\n}"
+						}
+					]
+				},
+				{
+					"name": "updates a location",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"description\": \"<string>\",\n    \"encodingType\": \"<object>\",\n    \"location\": \"<object>\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Location",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Location"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Successful response",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"description\": \"<string>\",\n    \"encodingType\": \"<object>\",\n    \"location\": \"<object>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/Location",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Location"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"placeholder\": \"<string>\"\n}"
+						},
+						{
+							"name": "Not created response",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"description\": \"<string>\",\n    \"encodingType\": \"<object>\",\n    \"location\": \"<object>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/Location",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Location"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": "<string>"
+						}
+					]
+				},
+				{
+					"name": "posting a new location",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"description\": \"<string>\",\n    \"encodingType\": \"<object>\",\n    \"location\": \"<object>\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/Location",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Location"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Successful response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"description\": \"<string>\",\n    \"encodingType\": \"<object>\",\n    \"location\": \"<object>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/Location",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Location"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"placeholder\": \"<string>\"\n}"
+						},
+						{
+							"name": "Not created response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"description\": \"<string>\",\n    \"encodingType\": \"<object>\",\n    \"location\": \"<object>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/Location",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Location"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": "<string>"
+						}
+					]
+				},
+				{
+					"name": "deletes a sensor",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/Location?locationName=<string>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Location"
+							],
+							"query": [
+								{
+									"key": "locationName",
+									"value": "<string>",
+									"description": "Unique locationName"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Successful response",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/Location?locationName=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Location"
+									],
+									"query": [
+										{
+											"key": "locationName",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"placeholder\": \"<string>\"\n}"
+						},
+						{
+							"name": "Not created response",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/Location?locationName=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Location"
+									],
+									"query": [
+										{
+											"key": "locationName",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": "<string>"
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Feature Of Interest",
+			"item": [
+				{
+					"name": "gets a FeatureOfInterest",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/FeatureOfInterest?featureOfInterestName=<string>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"FeatureOfInterest"
+							],
+							"query": [
+								{
+									"key": "featureOfInterestName",
+									"value": "<string>",
+									"description": "Unique FeatureOfInterest name"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Successful response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/FeatureOfInterest?featureOfInterestName=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"FeatureOfInterest"
+									],
+									"query": [
+										{
+											"key": "featureOfInterestName",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"placeholder\": \"<string>\"\n}"
+						},
+						{
+							"name": "Not created response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/FeatureOfInterest?featureOfInterestName=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"FeatureOfInterest"
+									],
+									"query": [
+										{
+											"key": "featureOfInterestName",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": "<string>"
+						}
+					]
+				},
+				{
+					"name": "updates a FeatureOfInterest",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"encoding\": \"<object>\",\n    \"feature\": \"<object>\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/FeatureOfInterest",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"FeatureOfInterest"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Not created response",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"encoding\": \"<object>\",\n    \"feature\": \"<object>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/FeatureOfInterest",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"FeatureOfInterest"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": "<string>"
+						},
+						{
+							"name": "Successful response",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"encoding\": \"<object>\",\n    \"feature\": \"<object>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/FeatureOfInterest",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"FeatureOfInterest"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"placeholder\": \"<string>\"\n}"
+						}
+					]
+				},
+				{
+					"name": "posting a new FeatureOfInterest",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"encoding\": \"<object>\",\n    \"feature\": \"<object>\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/FeatureOfInterest",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"FeatureOfInterest"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Successful response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"encoding\": \"<object>\",\n    \"feature\": \"<object>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/FeatureOfInterest",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"FeatureOfInterest"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"placeholder\": \"<string>\"\n}"
+						},
+						{
+							"name": "Not created response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"encoding\": \"<object>\",\n    \"feature\": \"<object>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/FeatureOfInterest",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"FeatureOfInterest"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": "<string>"
+						}
+					]
+				},
+				{
+					"name": "deletes a FeatureOfInterest",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/FeatureOfInterest?featureOfInterestName=<string>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"FeatureOfInterest"
+							],
+							"query": [
+								{
+									"key": "featureOfInterestName",
+									"value": "<string>",
+									"description": "Unique FeatureOfInterest name"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Successful response",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/FeatureOfInterest?featureOfInterestName=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"FeatureOfInterest"
+									],
+									"query": [
+										{
+											"key": "featureOfInterestName",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"placeholder\": \"<string>\"\n}"
+						},
+						{
+							"name": "Not created response",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/FeatureOfInterest?featureOfInterestName=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"FeatureOfInterest"
+									],
+									"query": [
+										{
+											"key": "featureOfInterestName",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": "<string>"
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Observed Property",
+			"item": [
+				{
+					"name": "gets an ObservedProperty",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/ObservedProperty?observedPropertyName=<string>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"ObservedProperty"
+							],
+							"query": [
+								{
+									"key": "observedPropertyName",
+									"value": "<string>",
+									"description": "Unique ObservedProperty name"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Successful response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ObservedProperty?observedPropertyName=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ObservedProperty"
+									],
+									"query": [
+										{
+											"key": "observedPropertyName",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"placeholder\": \"<string>\"\n}"
+						},
+						{
+							"name": "Not created response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ObservedProperty?observedPropertyName=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ObservedProperty"
+									],
+									"query": [
+										{
+											"key": "observedPropertyName",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": "<string>"
+						}
+					]
+				},
+				{
+					"name": "updates an ObservedProperty",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"<string>\",\n    \"definition\": \"<string>\",\n    \"description\": \"<string>\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/ObservedProperty",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"ObservedProperty"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Not created response",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"<string>\",\n    \"definition\": \"<string>\",\n    \"description\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/ObservedProperty",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ObservedProperty"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": "<string>"
+						},
+						{
+							"name": "Successful response",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"<string>\",\n    \"definition\": \"<string>\",\n    \"description\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/ObservedProperty",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ObservedProperty"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"placeholder\": \"<string>\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Creates a new ObservedProperty",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"<string>\",\n    \"definition\": \"<string>\",\n    \"description\": \"<string>\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/ObservedProperty",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"ObservedProperty"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Successful response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"<string>\",\n    \"definition\": \"<string>\",\n    \"description\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/ObservedProperty",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ObservedProperty"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"placeholder\": \"<string>\"\n}"
+						},
+						{
+							"name": "Not created response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"<string>\",\n    \"definition\": \"<string>\",\n    \"description\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/ObservedProperty",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ObservedProperty"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": "<string>"
+						}
+					]
+				},
+				{
+					"name": "Deletes an ObservedProperty",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/ObservedProperty?observedPropertyName=<string>",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"ObservedProperty"
+							],
+							"query": [
+								{
+									"key": "observedPropertyName",
+									"value": "<string>",
+									"description": "Unique ObservedProperty name"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Not created response",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ObservedProperty?observedPropertyName=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ObservedProperty"
+									],
+									"query": [
+										{
+											"key": "observedPropertyName",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": "<string>"
+						},
+						{
+							"name": "Successful response",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ObservedProperty?observedPropertyName=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ObservedProperty"
+									],
+									"query": [
+										{
+											"key": "observedPropertyName",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"placeholder\": \"<string>\"\n}"
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "ac658c4d-1e30-45e6-b1f2-75767bc0fffd",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "4424305e-af46-4469-a461-5d293238dbd5",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "9221a959-ed04-4467-a68c-0b9e6ed5f53f",
+			"key": "baseUrl",
+			"value": "https://localhost:44301",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
