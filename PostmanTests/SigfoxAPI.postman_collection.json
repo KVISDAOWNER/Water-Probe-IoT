@@ -1,12 +1,12 @@
 {
 	"info": {
-		"_postman_id": "66654dbc-1db4-47da-83ae-a5c38088d342",
+		"_postman_id": "49ee6dd8-71b0-40b9-bf1d-7df27d53417a",
 		"name": "NewData",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "NewData1",
+			"name": "NewData_Success",
 			"event": [
 				{
 					"listen": "test",
@@ -126,12 +126,12 @@
 						}
 					],
 					"cookie": [],
-					"body": null
+					"body": ""
 				}
 			]
 		},
 		{
-			"name": "NewData2",
+			"name": "NewData_InvalidData_Error",
 			"event": [
 				{
 					"listen": "test",
@@ -185,7 +185,7 @@
 			"response": []
 		},
 		{
-			"name": "NewData3",
+			"name": "NewData_InvalidTime_Error",
 			"event": [
 				{
 					"listen": "test",
@@ -239,7 +239,7 @@
 			"response": []
 		},
 		{
-			"name": "NewData4",
+			"name": "NewData_InvalidDataAndTime_Error",
 			"event": [
 				{
 					"listen": "test",
@@ -288,17 +288,6 @@
 					"path": [
 						"DeviceData"
 					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "NewData1 Copy",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": ""
 				}
 			},
 			"response": []

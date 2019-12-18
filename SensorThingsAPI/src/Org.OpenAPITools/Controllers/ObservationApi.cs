@@ -95,12 +95,6 @@ namespace SensorThingsAPI.Controllers
             {
                 return StatusCode(404, e.Message);
             }
-
-
-            //TODO: Uncomment the next line to return response 201 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(201, default(Sample));
-            //TODO: Uncomment the next line to return response 404 or use other options such as return this.NotFound(), return this.BadRequest(..), ...
-            // return StatusCode(404, default(string));
         }
 
         /// <summary>

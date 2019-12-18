@@ -1,0 +1,7 @@
+.vs/
+RequestBomber/RequestBomber/obj/Release/
+SensorThingsAPI/.vs/
+SigfoxAPI/SigfoxAPITests/obj/Debug/netcoreapp2.2/SigfoxAPITests.assets.cache
+SigfoxAPI/SigfoxAPITests/obj/Release/
+mi_api/.vs/
+mi_prog/MiSimulator/MiSimulator/obj/Release/

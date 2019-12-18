@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "3da98228-6312-484e-9e4d-3499a1e94afd",
+		"_postman_id": "587d230e-38b8-41a0-b565-6e110ab476e5",
 		"name": "SensorThingsAPI",
 		"description": "API for waterprobing",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -10,7 +10,7 @@
 			"name": "Thing",
 			"item": [
 				{
-					"name": "Gets all things (probes)",
+					"name": "Things_Success",
 					"event": [
 						{
 							"listen": "test",
@@ -237,7 +237,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/Thing?thingname=1D95A6",
+							"raw": "{{baseUrl}}/Thing?thingname=1D95A5",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -247,7 +247,7 @@
 							"query": [
 								{
 									"key": "thingname",
-									"value": "1D95A6",
+									"value": "1D95A5",
 									"description": "Unique thingName"
 								}
 							]
@@ -415,42 +415,6 @@
 					},
 					"response": [
 						{
-							"name": "Not created response",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"properties\": [\n        \"<object>\",\n        \"<object>\"\n    ]\n}"
-								},
-								"url": {
-									"raw": "{{baseUrl}}/Thing",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"Thing"
-									]
-								}
-							},
-							"status": "Not Found",
-							"code": 404,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/plain"
-								}
-							],
-							"cookie": [],
-							"body": "<string>"
-						},
-						{
 							"name": "Successful response",
 							"originalRequest": {
 								"method": "POST",
@@ -485,6 +449,42 @@
 							],
 							"cookie": [],
 							"body": "{\n \"placeholder\": \"<string>\"\n}"
+						},
+						{
+							"name": "Not created response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"properties\": [\n        \"<object>\",\n        \"<object>\"\n    ]\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/Thing",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Thing"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": "<string>"
 						}
 					]
 				},
@@ -514,39 +514,6 @@
 						}
 					},
 					"response": [
-						{
-							"name": "Not created response",
-							"originalRequest": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/Thing?thingname=<string>",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"Thing"
-									],
-									"query": [
-										{
-											"key": "thingname",
-											"value": "<string>"
-										}
-									]
-								}
-							},
-							"status": "Not Found",
-							"code": 404,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/plain"
-								}
-							],
-							"cookie": [],
-							"body": "<string>"
-						},
 						{
 							"name": "Successful response",
 							"originalRequest": {
@@ -579,6 +546,39 @@
 							],
 							"cookie": [],
 							"body": "{\n \"placeholder\": \"<string>\"\n}"
+						},
+						{
+							"name": "Not created response",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/Thing?thingname=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Thing"
+									],
+									"query": [
+										{
+											"key": "thingname",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": "<string>"
 						}
 					]
 				}
@@ -589,7 +589,7 @@
 			"name": "Observation",
 			"item": [
 				{
-					"name": "Get all observations associated to datastream",
+					"name": "AllObservations_ValidDatastream_ReturnObservationsSuccess",
 					"event": [
 						{
 							"listen": "test",
@@ -750,6 +750,148 @@
 					]
 				},
 				{
+					"name": "AllObservations_InvalidDatastream_ReturnNoObservationsSuccess",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2ec82490-4785-45ec-a808-356bf2ddc3b8",
+								"exec": [
+									"pm.test(\"Status code is 404\", function () { ",
+									"    pm.response.to.have.status(404);",
+									"    ",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 2000ms\", function() {",
+									"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "3a4b2989-06f2-4097-8f89-d38e3e8a436c",
+								"exec": [
+									"pm.environment.set(\"phenomenontime1\", \r",
+									"`\"phenomenonTime\": \"2014-01-11T11:59:59.00+08:00\"`\r",
+									");\r",
+									"pm.environment.set(\"phenomenontime2\", \r",
+									"`\"phenomenonTime\": \"2014-01-12T11:59:59.00+08:00\"`\r",
+									");\r",
+									"pm.environment.set(\"resulttime1\", \r",
+									"`\"resultTime\": \"2014-01-11T11:59:59.00+08:00\"`\r",
+									");\r",
+									"pm.environment.set(\"resulttime2\", \r",
+									"`\"resultTime\": \"2014-01-12T11:59:59.00+08:00\"`\r",
+									");\r",
+									"pm.environment.set(\"result1\", \r",
+									"`\"result\": 1.0`\r",
+									");\r",
+									"pm.environment.set(\"result2\", \r",
+									"`\"result\": 10.0`\r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/Observations?datastreamRef=Invalid",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"Observations"
+							],
+							"query": [
+								{
+									"key": "datastreamRef",
+									"value": "Invalid",
+									"description": "Ref to unique datastream"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Successful response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/Observations?datastreamRef=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Observations"
+									],
+									"query": [
+										{
+											"key": "datastreamRef",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"placeholder\": \"<string>\"\n}"
+						},
+						{
+							"name": "Not created response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/Observations?datastreamRef=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Observations"
+									],
+									"query": [
+										{
+											"key": "datastreamRef",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": "<string>"
+						}
+					]
+				},
+				{
 					"name": "Call to get observation from database",
 					"request": {
 						"auth": {
@@ -775,39 +917,6 @@
 						}
 					},
 					"response": [
-						{
-							"name": "Not created response",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/Observation?observationName=<string>",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"Observation"
-									],
-									"query": [
-										{
-											"key": "observationName",
-											"value": "<string>"
-										}
-									]
-								}
-							},
-							"status": "Not Found",
-							"code": 404,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/plain"
-								}
-							],
-							"cookie": [],
-							"body": "<string>"
-						},
 						{
 							"name": "Successful response",
 							"originalRequest": {
@@ -840,6 +949,39 @@
 							],
 							"cookie": [],
 							"body": "{\n \"placeholder\": \"<string>\"\n}"
+						},
+						{
+							"name": "Not created response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/Observation?observationName=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Observation"
+									],
+									"query": [
+										{
+											"key": "observationName",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": "<string>"
 						}
 					]
 				},
@@ -872,42 +1014,6 @@
 					},
 					"response": [
 						{
-							"name": "Successful response",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"phenomenonTime\": {\n        \"time\": \"<string>\"\n    },\n    \"resultTime\": {\n        \"time\": \"<string>\"\n    },\n    \"result\": \"<number>\",\n    \"datastreamRef\": \"<string>\",\n    \"resultQuality\": [\n        \"<object>\",\n        \"<object>\"\n    ],\n    \"validTime\": [\n        \"<object>\",\n        \"<object>\"\n    ],\n    \"parameters\": [\n        \"<object>\",\n        \"<object>\"\n    ],\n    \"featureOfInterestRef\": \"<string>\"\n}"
-								},
-								"url": {
-									"raw": "{{baseUrl}}/Observation",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"Observation"
-									]
-								}
-							},
-							"status": "Created",
-							"code": 201,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"body": "{\n \"placeholder\": \"<string>\"\n}"
-						},
-						{
 							"name": "Not created response",
 							"originalRequest": {
 								"method": "POST",
@@ -942,6 +1048,42 @@
 							],
 							"cookie": [],
 							"body": "<string>"
+						},
+						{
+							"name": "Successful response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"phenomenonTime\": {\n        \"time\": \"<string>\"\n    },\n    \"resultTime\": {\n        \"time\": \"<string>\"\n    },\n    \"result\": \"<number>\",\n    \"datastreamRef\": \"<string>\",\n    \"resultQuality\": [\n        \"<object>\",\n        \"<object>\"\n    ],\n    \"validTime\": [\n        \"<object>\",\n        \"<object>\"\n    ],\n    \"parameters\": [\n        \"<object>\",\n        \"<object>\"\n    ],\n    \"featureOfInterestRef\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/Observation",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Observation"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"placeholder\": \"<string>\"\n}"
 						}
 					]
 				}
@@ -952,7 +1094,7 @@
 			"name": "Datastream",
 			"item": [
 				{
-					"name": "Get all datastreams from thing",
+					"name": "Datastreams_ValidThing_ReturnsDatastreamsSuccesfull",
 					"event": [
 						{
 							"listen": "test",
@@ -1057,6 +1199,39 @@
 					},
 					"response": [
 						{
+							"name": "Not created response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/dataStreams?thingRef=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"dataStreams"
+									],
+									"query": [
+										{
+											"key": "thingRef",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": "<string>"
+						},
+						{
 							"name": "Successful response",
 							"originalRequest": {
 								"method": "GET",
@@ -1088,7 +1263,91 @@
 							],
 							"cookie": [],
 							"body": "{\n \"placeholder\": \"<string>\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Datastreams_InvalidThing_ReturnsNoDatastreamsUnsuccesfull",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "44f90a31-ac71-46af-9c05-d7f675c6ad27",
+								"exec": [
+									"pm.test(\"Status code is 404\", function () { ",
+									"    pm.response.to.have.status(404); ",
+									"});",
+									"pm.test(\"Response time is less than 2000ms\", function() {",
+									"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Expects \\\"Object reference not set to an instance of an object.\\\"\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"Object reference not set to an instance of an object.\");",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
 						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "e15d9e59-570e-4f27-84fc-1e9b654c5380",
+								"exec": [
+									"pm.environment.set(\"name1\", \r",
+									"`\"name\": \"Turbidity_1D95A6\"`\r",
+									");\r",
+									"pm.environment.set(\"name2\", \r",
+									"`\"name\": \"Temperature_1D95A6\"`\r",
+									");\r",
+									"pm.environment.set(\"description1\", \r",
+									"`\"description\": \"Water Turbidity\"`\r",
+									");\r",
+									"pm.environment.set(\"description2\", \r",
+									"`\"description\": \"Water Temperatur\"`\r",
+									");\r",
+									"pm.environment.set(\"observationtype1\", \r",
+									"`\"observationtype\": \"http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_Observation\"`\r",
+									");\r",
+									"pm.environment.set(\"observationtype2\", \r",
+									"`\"observationtype\": \"http://www.opengis.net/def/observationType/OGC-OM/2.0/OM_Observation\"`\r",
+									");\r",
+									"pm.environment.set(\"unitofmeasurement1\", \r",
+									"`\"unitofMeasurement\": \"NTU\"`\r",
+									");\r",
+									"pm.environment.set(\"unitofmeasurement2\", \r",
+									"`\"unitofMeasurement\": \"°C\"`\r",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/dataStreams?thingRef=Invalid",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"dataStreams"
+							],
+							"query": [
+								{
+									"key": "thingRef",
+									"value": "Invalid",
+									"description": "Ref to unique thing"
+								}
+							]
+						}
+					},
+					"response": [
 						{
 							"name": "Not created response",
 							"originalRequest": {
@@ -1121,6 +1380,39 @@
 							],
 							"cookie": [],
 							"body": "<string>"
+						},
+						{
+							"name": "Successful response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/dataStreams?thingRef=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"dataStreams"
+									],
+									"query": [
+										{
+											"key": "thingRef",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"placeholder\": \"<string>\"\n}"
 						}
 					]
 				},
@@ -1151,39 +1443,6 @@
 					},
 					"response": [
 						{
-							"name": "Successful response",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/dataStream?dataStreamName=<string>",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"dataStream"
-									],
-									"query": [
-										{
-											"key": "dataStreamName",
-											"value": "<string>"
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"body": "{\n \"placeholder\": \"<string>\"\n}"
-						},
-						{
 							"name": "Not created response",
 							"originalRequest": {
 								"method": "GET",
@@ -1215,6 +1474,39 @@
 							],
 							"cookie": [],
 							"body": "<string>"
+						},
+						{
+							"name": "Successful response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/dataStream?dataStreamName=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"dataStream"
+									],
+									"query": [
+										{
+											"key": "dataStreamName",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"placeholder\": \"<string>\"\n}"
 						}
 					]
 				},
@@ -1368,6 +1660,42 @@
 					},
 					"response": [
 						{
+							"name": "Not created response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"observationType\": \"<object>\",\n    \"unitOfMeasurement\": [\n        \"<object>\",\n        \"<object>\"\n    ],\n    \"thingRef\": \"<string>\",\n    \"sensorRef\": \"<string>\",\n    \"observedPropertyRef\": \"<string>\",\n    \"observedArea\": \"<object>\",\n    \"phenomenonTime\": \"<object>\",\n    \"resultTime\": \"<object>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/dataStream",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"dataStream"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": "<string>"
+						},
+						{
 							"name": "Successful response",
 							"originalRequest": {
 								"method": "POST",
@@ -1402,42 +1730,6 @@
 							],
 							"cookie": [],
 							"body": "{\n \"placeholder\": \"<string>\"\n}"
-						},
-						{
-							"name": "Not created response",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"observationType\": \"<object>\",\n    \"unitOfMeasurement\": [\n        \"<object>\",\n        \"<object>\"\n    ],\n    \"thingRef\": \"<string>\",\n    \"sensorRef\": \"<string>\",\n    \"observedPropertyRef\": \"<string>\",\n    \"observedArea\": \"<object>\",\n    \"phenomenonTime\": \"<object>\",\n    \"resultTime\": \"<object>\"\n}"
-								},
-								"url": {
-									"raw": "{{baseUrl}}/dataStream",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"dataStream"
-									]
-								}
-							},
-							"status": "Not Found",
-							"code": 404,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/plain"
-								}
-							],
-							"cookie": [],
-							"body": "<string>"
 						}
 					]
 				},
@@ -1467,6 +1759,39 @@
 						}
 					},
 					"response": [
+						{
+							"name": "Not created response",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/dataStream?dataStreamName=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"dataStream"
+									],
+									"query": [
+										{
+											"key": "dataStreamName",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": "<string>"
+						},
 						{
 							"name": "Successful response",
 							"originalRequest": {
@@ -1499,39 +1824,6 @@
 							],
 							"cookie": [],
 							"body": "{\n \"placeholder\": \"<string>\"\n}"
-						},
-						{
-							"name": "Not created response",
-							"originalRequest": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/dataStream?dataStreamName=<string>",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"dataStream"
-									],
-									"query": [
-										{
-											"key": "dataStreamName",
-											"value": "<string>"
-										}
-									]
-								}
-							},
-							"status": "Not Found",
-							"code": 404,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/plain"
-								}
-							],
-							"cookie": [],
-							"body": "<string>"
 						}
 					]
 				}
@@ -2081,42 +2373,6 @@
 					},
 					"response": [
 						{
-							"name": "Not created response",
-							"originalRequest": {
-								"method": "PUT",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"description\": \"<string>\",\n    \"encodingType\": \"<object>\",\n    \"location\": \"<object>\"\n}"
-								},
-								"url": {
-									"raw": "{{baseUrl}}/Location",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"Location"
-									]
-								}
-							},
-							"status": "Not Found",
-							"code": 404,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/plain"
-								}
-							],
-							"cookie": [],
-							"body": "<string>"
-						},
-						{
 							"name": "Successful response",
 							"originalRequest": {
 								"method": "PUT",
@@ -2151,6 +2407,42 @@
 							],
 							"cookie": [],
 							"body": "{\n \"placeholder\": \"<string>\"\n}"
+						},
+						{
+							"name": "Not created response",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"description\": \"<string>\",\n    \"encodingType\": \"<object>\",\n    \"location\": \"<object>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/Location",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Location"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": "<string>"
 						}
 					]
 				},
@@ -2283,39 +2575,6 @@
 					},
 					"response": [
 						{
-							"name": "Not created response",
-							"originalRequest": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/Location?locationName=<string>",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"Location"
-									],
-									"query": [
-										{
-											"key": "locationName",
-											"value": "<string>"
-										}
-									]
-								}
-							},
-							"status": "Not Found",
-							"code": 404,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/plain"
-								}
-							],
-							"cookie": [],
-							"body": "<string>"
-						},
-						{
 							"name": "Successful response",
 							"originalRequest": {
 								"method": "DELETE",
@@ -2347,6 +2606,39 @@
 							],
 							"cookie": [],
 							"body": "{\n \"placeholder\": \"<string>\"\n}"
+						},
+						{
+							"name": "Not created response",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/Location?locationName=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"Location"
+									],
+									"query": [
+										{
+											"key": "locationName",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": "<string>"
 						}
 					]
 				}
@@ -2383,39 +2675,6 @@
 					},
 					"response": [
 						{
-							"name": "Not created response",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/FeatureOfInterest?featureOfInterestName=<string>",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"FeatureOfInterest"
-									],
-									"query": [
-										{
-											"key": "featureOfInterestName",
-											"value": "<string>"
-										}
-									]
-								}
-							},
-							"status": "Not Found",
-							"code": 404,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/plain"
-								}
-							],
-							"cookie": [],
-							"body": "<string>"
-						},
-						{
 							"name": "Successful response",
 							"originalRequest": {
 								"method": "GET",
@@ -2447,6 +2706,39 @@
 							],
 							"cookie": [],
 							"body": "{\n \"placeholder\": \"<string>\"\n}"
+						},
+						{
+							"name": "Not created response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/FeatureOfInterest?featureOfInterestName=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"FeatureOfInterest"
+									],
+									"query": [
+										{
+											"key": "featureOfInterestName",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": "<string>"
 						}
 					]
 				},
@@ -2479,42 +2771,6 @@
 					},
 					"response": [
 						{
-							"name": "Successful response",
-							"originalRequest": {
-								"method": "PUT",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"encoding\": \"<object>\",\n    \"feature\": \"<object>\"\n}"
-								},
-								"url": {
-									"raw": "{{baseUrl}}/FeatureOfInterest",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"FeatureOfInterest"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"body": "{\n \"placeholder\": \"<string>\"\n}"
-						},
-						{
 							"name": "Not created response",
 							"originalRequest": {
 								"method": "PUT",
@@ -2549,6 +2805,42 @@
 							],
 							"cookie": [],
 							"body": "<string>"
+						},
+						{
+							"name": "Successful response",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"encoding\": \"<object>\",\n    \"feature\": \"<object>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/FeatureOfInterest",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"FeatureOfInterest"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"placeholder\": \"<string>\"\n}"
 						}
 					]
 				},
@@ -2681,39 +2973,6 @@
 					},
 					"response": [
 						{
-							"name": "Not created response",
-							"originalRequest": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/FeatureOfInterest?featureOfInterestName=<string>",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"FeatureOfInterest"
-									],
-									"query": [
-										{
-											"key": "featureOfInterestName",
-											"value": "<string>"
-										}
-									]
-								}
-							},
-							"status": "Not Found",
-							"code": 404,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/plain"
-								}
-							],
-							"cookie": [],
-							"body": "<string>"
-						},
-						{
 							"name": "Successful response",
 							"originalRequest": {
 								"method": "DELETE",
@@ -2745,6 +3004,39 @@
 							],
 							"cookie": [],
 							"body": "{\n \"placeholder\": \"<string>\"\n}"
+						},
+						{
+							"name": "Not created response",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/FeatureOfInterest?featureOfInterestName=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"FeatureOfInterest"
+									],
+									"query": [
+										{
+											"key": "featureOfInterestName",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": "<string>"
 						}
 					]
 				}
@@ -2781,39 +3073,6 @@
 					},
 					"response": [
 						{
-							"name": "Not created response",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/ObservedProperty?observedPropertyName=<string>",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"ObservedProperty"
-									],
-									"query": [
-										{
-											"key": "observedPropertyName",
-											"value": "<string>"
-										}
-									]
-								}
-							},
-							"status": "Not Found",
-							"code": 404,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/plain"
-								}
-							],
-							"cookie": [],
-							"body": "<string>"
-						},
-						{
 							"name": "Successful response",
 							"originalRequest": {
 								"method": "GET",
@@ -2845,6 +3104,39 @@
 							],
 							"cookie": [],
 							"body": "{\n \"placeholder\": \"<string>\"\n}"
+						},
+						{
+							"name": "Not created response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/ObservedProperty?observedPropertyName=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ObservedProperty"
+									],
+									"query": [
+										{
+											"key": "observedPropertyName",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": "<string>"
 						}
 					]
 				},
@@ -2877,42 +3169,6 @@
 					},
 					"response": [
 						{
-							"name": "Successful response",
-							"originalRequest": {
-								"method": "PUT",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"name\": \"<string>\",\n    \"definition\": \"<string>\",\n    \"description\": \"<string>\"\n}"
-								},
-								"url": {
-									"raw": "{{baseUrl}}/ObservedProperty",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"ObservedProperty"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"body": "{\n \"placeholder\": \"<string>\"\n}"
-						},
-						{
 							"name": "Not created response",
 							"originalRequest": {
 								"method": "PUT",
@@ -2947,6 +3203,42 @@
 							],
 							"cookie": [],
 							"body": "<string>"
+						},
+						{
+							"name": "Successful response",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"<string>\",\n    \"definition\": \"<string>\",\n    \"description\": \"<string>\"\n}"
+								},
+								"url": {
+									"raw": "{{baseUrl}}/ObservedProperty",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"ObservedProperty"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"placeholder\": \"<string>\"\n}"
 						}
 					]
 				},
