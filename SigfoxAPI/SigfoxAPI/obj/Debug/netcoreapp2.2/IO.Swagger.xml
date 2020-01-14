@@ -1,0 +1,426 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>IO.Swagger</name>
+    </assembly>
+    <members>
+        <member name="T:IO.Swagger.Attributes.ValidateModelStateAttribute">
+            <summary>
+            Model state validation attribute
+            </summary>
+        </member>
+        <member name="M:IO.Swagger.Attributes.ValidateModelStateAttribute.OnActionExecuting(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)">
+            <summary>
+            Called before the action method is invoked
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="T:IO.Swagger.Controllers.DeviceDataController">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:IO.Swagger.Controllers.DeviceDataController.NewData(IO.Swagger.Models.DeviceData)">
+            <summary>
+            Posts new data
+            </summary>
+            <remarks>Creates new data in db</remarks>
+            <param name="body"></param>
+            <response code="200">Successful response</response>
+            <response code="404">Not created response</response>
+        </member>
+        <member name="T:IO.Swagger.Controllers.HelperFunctions">
+            <summary>
+            Container for helping functions
+            </summary>
+        </member>
+        <member name="M:IO.Swagger.Controllers.HelperFunctions.UnravelData(System.String)">
+            <summary>
+            Unconvert from the conversion made by the Arduino.
+            </summary>
+            <param name="data"> byte values of data.</param>
+            <returns> the data in readable numbers.</returns>
+        </member>
+        <member name="T:IO.Swagger.Filters.BasePathFilter">
+            <summary>
+            BasePath Document Filter sets BasePath property of Swagger and removes it from the individual URL paths
+            </summary>
+        </member>
+        <member name="M:IO.Swagger.Filters.BasePathFilter.#ctor(System.String)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="basePath">BasePath to remove from Operations</param>
+        </member>
+        <member name="P:IO.Swagger.Filters.BasePathFilter.BasePath">
+            <summary>
+            Gets the BasePath of the Swagger Doc
+            </summary>
+            <returns>The BasePath of the Swagger Doc</returns>
+        </member>
+        <member name="M:IO.Swagger.Filters.BasePathFilter.Apply(Swashbuckle.AspNetCore.Swagger.SwaggerDocument,Swashbuckle.AspNetCore.SwaggerGen.DocumentFilterContext)">
+            <summary>
+            Apply the filter
+            </summary>
+            <param name="swaggerDoc">SwaggerDocument</param>
+            <param name="context">FilterContext</param>
+        </member>
+        <member name="T:IO.Swagger.Filters.GeneratePathParamsValidationFilter">
+            <summary>
+            Path Parameter Validation Rules Filter
+            </summary>
+        </member>
+        <member name="M:IO.Swagger.Filters.GeneratePathParamsValidationFilter.Apply(Swashbuckle.AspNetCore.Swagger.Operation,Swashbuckle.AspNetCore.SwaggerGen.OperationFilterContext)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="operation">Operation</param>
+            <param name="context">OperationFilterContext</param>
+        </member>
+        <member name="T:IO.Swagger.Models.DeviceData">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:IO.Swagger.Models.DeviceData.Device">
+            <summary>
+            Gets or Sets Device
+            </summary>
+        </member>
+        <member name="P:IO.Swagger.Models.DeviceData.Data">
+            <summary>
+            Gets or Sets Data
+            </summary>
+        </member>
+        <member name="P:IO.Swagger.Models.DeviceData.Time">
+            <summary>
+            Gets or Sets Time
+            </summary>
+        </member>
+        <member name="M:IO.Swagger.Models.DeviceData.ToString">
+            <summary>
+            Returns the string presentation of the object
+            </summary>
+            <returns>String presentation of the object</returns>
+        </member>
+        <member name="M:IO.Swagger.Models.DeviceData.ToJson">
+            <summary>
+            Returns the JSON string presentation of the object
+            </summary>
+            <returns>JSON string presentation of the object</returns>
+        </member>
+        <member name="M:IO.Swagger.Models.DeviceData.Equals(System.Object)">
+            <summary>
+            Returns true if objects are equal
+            </summary>
+            <param name="obj">Object to be compared</param>
+            <returns>Boolean</returns>
+        </member>
+        <member name="M:IO.Swagger.Models.DeviceData.Equals(IO.Swagger.Models.DeviceData)">
+            <summary>
+            Returns true if DeviceData instances are equal
+            </summary>
+            <param name="other">Instance of DeviceData to be compared</param>
+            <returns>Boolean</returns>
+        </member>
+        <member name="M:IO.Swagger.Models.DeviceData.GetHashCode">
+            <summary>
+            Gets the hash code
+            </summary>
+            <returns>Hash code</returns>
+        </member>
+        <member name="P:IO.Swagger.Models.LocationRef.LocationReference">
+            <summary>
+            Gets or Sets location reference
+            </summary> 
+        </member>
+        <member name="P:IO.Swagger.Models.LocationRef.LocationTime">
+            <summary>
+            Gets or Sets timestamp for location
+            </summary> 
+        </member>
+        <member name="T:IO.Swagger.Models.Observation">
+            <summary>
+            This is the class we use for setting into the database.
+            </summary>
+        </member>
+        <member name="P:IO.Swagger.Models.Probe.Description">
+            <summary>
+            Gets or Sets Descripton
+            </summary>
+        </member>
+        <member name="P:IO.Swagger.Models.Probe.Properties">
+            <summary>
+            Gets or Sets Properties
+            </summary>
+        </member>
+        <member name="P:IO.Swagger.Models.Probe.Locations">
+            <summary>
+            Gets or Sets Locations
+            </summary> 
+        </member>
+        <member name="P:IO.Swagger.Models.Probe.AttachedSensors">
+            <summary>
+            Gets or Sets Attached Sensors
+            </summary>
+        </member>
+        <member name="T:IO.Swagger.Models.Sample">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:IO.Swagger.Models.Sample.Placeholder">
+            <summary>
+            Placeholder description
+            </summary>
+            <value>Placeholder description</value>
+        </member>
+        <member name="M:IO.Swagger.Models.Sample.ToString">
+            <summary>
+            Returns the string presentation of the object
+            </summary>
+            <returns>String presentation of the object</returns>
+        </member>
+        <member name="M:IO.Swagger.Models.Sample.ToJson">
+            <summary>
+            Returns the JSON string presentation of the object
+            </summary>
+            <returns>JSON string presentation of the object</returns>
+        </member>
+        <member name="M:IO.Swagger.Models.Sample.Equals(System.Object)">
+            <summary>
+            Returns true if objects are equal
+            </summary>
+            <param name="obj">Object to be compared</param>
+            <returns>Boolean</returns>
+        </member>
+        <member name="M:IO.Swagger.Models.Sample.Equals(IO.Swagger.Models.Sample)">
+            <summary>
+            Returns true if Sample instances are equal
+            </summary>
+            <param name="other">Instance of Sample to be compared</param>
+            <returns>Boolean</returns>
+        </member>
+        <member name="M:IO.Swagger.Models.Sample.GetHashCode">
+            <summary>
+            Gets the hash code
+            </summary>
+            <returns>Hash code</returns>
+        </member>
+        <member name="T:IO.Swagger.Program">
+            <summary>
+            Program
+            </summary>
+        </member>
+        <member name="M:IO.Swagger.Program.Main(System.String[])">
+            <summary>
+            Main
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:IO.Swagger.Program.CreateWebHostBuilder(System.String[])">
+            <summary>
+            Create the web host builder.
+            </summary>
+            <param name="args"></param>
+            <returns>IWebHostBuilder</returns>
+        </member>
+        <member name="T:IO.Swagger.Startup">
+            <summary>
+            Startup
+            </summary>
+        </member>
+        <member name="M:IO.Swagger.Startup.#ctor(Microsoft.AspNetCore.Hosting.IHostingEnvironment,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="env"></param>
+            <param name="configuration"></param>
+        </member>
+        <member name="M:IO.Swagger.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            This method gets called by the runtime. Use this method to add services to the container.
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:IO.Swagger.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IHostingEnvironment,Microsoft.Extensions.Logging.ILoggerFactory)">
+            <summary>
+            This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+            </summary>
+            <param name="app"></param>
+            <param name="env"></param>
+            <param name="loggerFactory"></param>
+        </member>
+        <member name="T:Org.OpenAPITools.Models.DataStream">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Org.OpenAPITools.Models.DataStream.Name">
+            <summary>
+            Gets or Sets Name
+            </summary>
+        </member>
+        <member name="P:Org.OpenAPITools.Models.DataStream.Description">
+            <summary>
+            Gets or Sets Description
+            </summary>
+        </member>
+        <member name="P:Org.OpenAPITools.Models.DataStream.ObservationType">
+            <summary>
+            Gets or Sets ObservationType
+            </summary>
+        </member>
+        <member name="P:Org.OpenAPITools.Models.DataStream.UnitOfMeasurement">
+            <summary>
+            Gets or Sets UnitOfMeasurement
+            </summary>
+        </member>
+        <member name="P:Org.OpenAPITools.Models.DataStream.ObservedArea">
+            <summary>
+            Gets or Sets ObservedArea
+            </summary>
+        </member>
+        <member name="P:Org.OpenAPITools.Models.DataStream.PhenomenonTime">
+            <summary>
+            Gets or Sets PhenomenonTime
+            </summary>
+        </member>
+        <member name="P:Org.OpenAPITools.Models.DataStream.ResultTime">
+            <summary>
+            Gets or Sets ResultTime
+            </summary>
+        </member>
+        <member name="P:Org.OpenAPITools.Models.DataStream.ThingRef">
+            <summary>
+            Gets or Sets ThingRef
+            </summary>
+        </member>
+        <member name="P:Org.OpenAPITools.Models.DataStream.SensorRef">
+            <summary>
+            Gets or Sets SensorRef
+            </summary>
+        </member>
+        <member name="P:Org.OpenAPITools.Models.DataStream.ObservedPropertyRef">
+            <summary>
+            Gets or Sets ObservedPropertyRef
+            </summary>
+        </member>
+        <member name="M:Org.OpenAPITools.Models.DataStream.ToString">
+            <summary>
+            Returns the string presentation of the object
+            </summary>
+            <returns>String presentation of the object</returns>
+        </member>
+        <member name="M:Org.OpenAPITools.Models.DataStream.ToJson">
+            <summary>
+            Returns the JSON string presentation of the object
+            </summary>
+            <returns>JSON string presentation of the object</returns>
+        </member>
+        <member name="M:Org.OpenAPITools.Models.DataStream.Equals(System.Object)">
+            <summary>
+            Returns true if objects are equal
+            </summary>
+            <param name="obj">Object to be compared</param>
+            <returns>Boolean</returns>
+        </member>
+        <member name="M:Org.OpenAPITools.Models.DataStream.Equals(Org.OpenAPITools.Models.DataStream)">
+            <summary>
+            Returns true if DataStream instances are equal
+            </summary>
+            <param name="other">Instance of DataStream to be compared</param>
+            <returns>Boolean</returns>
+        </member>
+        <member name="M:Org.OpenAPITools.Models.DataStream.GetHashCode">
+            <summary>
+            Gets the hash code
+            </summary>
+            <returns>Hash code</returns>
+        </member>
+        <member name="T:Org.OpenAPITools.Models.TmInstant">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Org.OpenAPITools.Models.TmInstant.Time">
+            <summary>
+            Gets or Sets Time
+            </summary>
+        </member>
+        <member name="M:Org.OpenAPITools.Models.TmInstant.ToString">
+            <summary>
+            Returns the string presentation of the object
+            </summary>
+            <returns>String presentation of the object</returns>
+        </member>
+        <member name="M:Org.OpenAPITools.Models.TmInstant.ToJson">
+            <summary>
+            Returns the JSON string presentation of the object
+            </summary>
+            <returns>JSON string presentation of the object</returns>
+        </member>
+        <member name="M:Org.OpenAPITools.Models.TmInstant.Equals(System.Object)">
+            <summary>
+            Returns true if objects are equal
+            </summary>
+            <param name="obj">Object to be compared</param>
+            <returns>Boolean</returns>
+        </member>
+        <member name="M:Org.OpenAPITools.Models.TmInstant.Equals(Org.OpenAPITools.Models.TmInstant)">
+            <summary>
+            Returns true if TmInstant instances are equal
+            </summary>
+            <param name="other">Instance of TmInstant to be compared</param>
+            <returns>Boolean</returns>
+        </member>
+        <member name="M:Org.OpenAPITools.Models.TmInstant.GetHashCode">
+            <summary>
+            Gets the hash code
+            </summary>
+            <returns>Hash code</returns>
+        </member>
+        <member name="T:Org.OpenAPITools.Models.TmObject">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Org.OpenAPITools.Models.TmObject.Time">
+            <summary>
+            Gets or Sets Time
+            </summary>
+        </member>
+        <member name="M:Org.OpenAPITools.Models.TmObject.ToString">
+            <summary>
+            Returns the string presentation of the object
+            </summary>
+            <returns>String presentation of the object</returns>
+        </member>
+        <member name="M:Org.OpenAPITools.Models.TmObject.ToJson">
+            <summary>
+            Returns the JSON string presentation of the object
+            </summary>
+            <returns>JSON string presentation of the object</returns>
+        </member>
+        <member name="M:Org.OpenAPITools.Models.TmObject.Equals(System.Object)">
+            <summary>
+            Returns true if objects are equal
+            </summary>
+            <param name="obj">Object to be compared</param>
+            <returns>Boolean</returns>
+        </member>
+        <member name="M:Org.OpenAPITools.Models.TmObject.Equals(Org.OpenAPITools.Models.TmObject)">
+            <summary>
+            Returns true if TmObject instances are equal
+            </summary>
+            <param name="other">Instance of TmObject to be compared</param>
+            <returns>Boolean</returns>
+        </member>
+        <member name="M:Org.OpenAPITools.Models.TmObject.GetHashCode">
+            <summary>
+            Gets the hash code
+            </summary>
+            <returns>Hash code</returns>
+        </member>
+    </members>
+</doc>
