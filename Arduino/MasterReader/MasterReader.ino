@@ -11,23 +11,26 @@ const int turbidityPin = A1;
 const int ph_pin = A0;
 
 // Normal values that are used to find how extreme measurements are
-const int ph_normal = 7;
-const int turbidity_normal = 2;
-const int temperature_normal = 18;
-const int nitrogen_normal = 128;
-const int phosphorus_normal = 128;
+float ph_normal = 7.0;
+float turbidity_normal = 1.65;
+float temperature_normal = 18.0;
+float nitrogen_normal = 128.0;
+float phosphorus_normal = 128.0;
 
 // This is how many measurements we make
 const int measurements = 16;
+int cycles = 0;
 
 void setup() {
   sensors.begin(); 
 
   if (!SigFox.begin()){ 
+    SigFox.debug();
     Serial.begin(9600); // Initiate the terminal
     Serial.print("Sigfox module did not start properly!"); // If the Sigfox-module cannot start properly, print an error message
     Serial.end();
   }
+  
   SigFox.end();
 }
 
@@ -47,7 +50,7 @@ void loop() {
   int nitrogenIndex = 0;
   int phosphorusIndex = 0;
 
-  for (int i = 0; i < measurements; ++i) {
+  for (int i = 0; i < measurements; ++i) { // Measurements is a const int value of 16
     //Make measurements
     float turbidity = readTurbidity();
     float pH = readpH();
@@ -56,32 +59,78 @@ void loop() {
     float phosphorus = readPhosphorus();
 
     //Check if any of the new measurements are more extreme than the previous measurements made this message cycle.
-    tryReplaceExtremeValue(turbidity, turbidity_normal, &extremeTurbidity, &turbidityIndex, i);
-    tryReplaceExtremeValue(pH, ph_normal, &extremePh, &pHIndex, i);
-    tryReplaceExtremeValue(temperature, temperature_normal, &extremeTemperature, &temperatureIndex, i);
-    tryReplaceExtremeValue(nitrogen, nitrogen_normal, &extremeNitrogen, &nitrogenIndex, i);
-    tryReplaceExtremeValue(phosphorus, phosphorus_normal, &extremePhosphorus, &phosphorusIndex, i);
+    replaceExtremeValue(turbidity, turbidity_normal, &extremeTurbidity, &turbidityIndex, i);
+    Serial.println(extremeTurbidity);
+    replaceExtremeValue(pH, ph_normal, &extremePh, &pHIndex, i);
+    replaceExtremeValue(temperature, temperature_normal, &extremeTemperature, &temperatureIndex, i);
+    replaceExtremeValue(nitrogen, nitrogen_normal, &extremeNitrogen, &nitrogenIndex, i);
+    replaceExtremeValue(phosphorus, phosphorus_normal, &extremePhosphorus, &phosphorusIndex, i);
+    
     // Delay such that a whole cycle takes about 15 minutes (or 900,000 milliseconds)
-    LowPower.sleep(900000 / measurements);
-    byte values[9];
-    // Put everything into an array
-    values[0] = byteClamp(5, 9, extremePh);
-    values[1] = byteClamp(0, 3, extremeTurbidity);
-    values[2] = byteClamp(-10, 30, extremeTemperature);
-    values[3] = byteClamp(0, 255, extremeNitrogen);
-    values[4] = byteClamp(0, 255, extremePhosphorus);
-    values[5] = (byte)0;  //Battery
-    values[6] = (byte)(pHIndex * 16 + turbidityIndex); //This trick allows us to store two indices in one byte.
-    values[7] = (byte)(temperatureIndex * 16 + nitrogenIndex);
-    values[8] = (byte)phosphorusIndex * 16;
-  
-    SigFox.begin();
-    SigFox.beginPacket();
-    SigFox.write(values, 9);
-    SigFox.endPacket();
-    SigFox.end();
+    Serial.println(i);
+    delay(900000 / measurements);
     
   }
+  Serial.println("done measuring");
+  byte values[9];
+  // Put everything into an array
+  values[0] = byteClamp(0, 3, extremeTurbidity);
+  values[1] = byteClamp(5, 9, extremePh);
+  values[2] = byteClamp(-10, 30, extremeTemperature);
+  values[3] = byteClamp(0, 255, extremeNitrogen);
+  values[4] = byteClamp(0, 255, extremePhosphorus);
+  values[5] = (byte)0;  //Battery
+  values[6] = (byte)(pHIndex * 16 + turbidityIndex); //This trick allows us to store two indices in one byte.
+  values[7] = (byte)(temperatureIndex * 16 + nitrogenIndex);
+  values[8] = (byte)phosphorusIndex * 16; // The last half byte will always be 0x0.
+
+  bool downlink = cycles == 0;
+  SigFox.begin();
+  SigFox.debug();
+  SigFox.beginPacket();
+  SigFox.write(values, 9);
+  SigFox.endPacket(downlink);
+  
+  // Read downlink message
+  byte downlinkValues[8];
+  if(downlink){
+    Serial.println("downlink");
+    for(int i = 0; SigFox.available();i++){
+      downlinkValues[i] = SigFox.read();
+      Serial.print("downlink Byte ");
+      Serial.print(i);
+      Serial.print(":");
+      Serial.println(downlinkValues[i]); 
+    }
+  }
+  float downlinkFloats[5];
+  // Find the float values of the different measurements
+  downlinkFloats[0] = unravelByte(0,3,downlinkValues[0]); // turbidity
+  downlinkFloats[1] = unravelByte(-10,30,downlinkValues[1]); // temperature
+  downlinkFloats[2] = unravelByte(5,9,downlinkValues[2]); // pH
+  downlinkFloats[3] = unravelByte(0,255,downlinkValues[3]); // nitrogen
+  downlinkFloats[4] = unravelByte(0,255,downlinkValues[4]); //phosphorus
+
+  //Set common values.
+  if (downlinkFloats[0] != 0)
+    turbidity_normal = downlinkFloats[0];
+  if (downlinkFloats[1] != 0)
+    temperature_normal = downlinkFloats[1];
+  if (downlinkFloats[2] != 0)
+    ph_normal = downlinkFloats[2];
+  if (downlinkFloats[3] != 0)
+    nitrogen_normal = downlinkFloats[3];
+  if (downlinkFloats[4] != 0)
+    phosphorus_normal = downlinkFloats[4];
+  
+  for(int i = 0; i < 5; i++){
+    Serial.print("downlink Value ");
+    Serial.print(i);
+    Serial.print(":");
+    Serial.println(downlinkFloats[i]);
+  }
+  SigFox.end();
+  cycles = (cycles + 1) % 100;
 }
 
 float readTurbidity() {
@@ -174,7 +223,12 @@ byte byteClamp(float minValue, float maxValue, float value) {
     return (byte)((value - minValue) * 253 / (maxValue - minValue));
 }
 
-void tryReplaceExtremeValue(float value, float normalValue, float *extremeMeasurement,int *measurementIndex, int index){
+float unravelByte(float minValue, float maxValue, byte value){
+  float Fvalue = (float)value;
+  return Fvalue* (maxValue - minValue) / 255.0 + minValue;
+}
+
+void replaceExtremeValue(float value, float normalValue, float *extremeMeasurement,int *measurementIndex, int index){
   if (abs(value - normalValue) > abs(*extremeMeasurement - normalValue)) {
       *extremeMeasurement = value;
       *measurementIndex = index;
